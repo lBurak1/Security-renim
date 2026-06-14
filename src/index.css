@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-bg text-slate-200;
+    font-family: ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif;
+  }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { @apply bg-line rounded; }
+}
+
+@layer components {
+  .card { @apply bg-panel border border-line rounded-xl; }
+  .btn { @apply px-3 py-1.5 rounded-lg border border-line bg-panel2 hover:border-brand transition text-sm; }
+  .btn-primary { @apply px-3 py-1.5 rounded-lg bg-brand hover:bg-blue-500 text-white transition text-sm; }
+  .input-field { @apply w-full px-3 py-2 rounded-lg bg-panel2 border border-line text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-brand transition; }
+  .prose-doc h2 { @apply text-xl font-bold text-white mt-6 mb-2; }
+  .prose-doc h3 { @apply text-lg font-semibold text-accent mt-4 mb-1; }
+  .prose-doc p { @apply my-2 leading-relaxed; }
+  .prose-doc ul { @apply list-disc pl-6 my-2 space-y-1; }
+  .prose-doc table { @apply w-full my-3 text-sm border-collapse; }
+  .prose-doc th, .prose-doc td { @apply border border-line px-2 py-1 text-left; }
+  .prose-doc code { @apply bg-panel2 px-1 py-0.5 rounded text-accent text-sm; }
+}

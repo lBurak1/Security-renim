@@ -1,0 +1,364 @@
+{
+  "moduleId": "1.2",
+  "title": "Temel Güvenlik Kavramları",
+  "domainId": 1,
+  "documentation": [
+    {
+      "heading": "CIA Üçgeni (CIA Triad)",
+      "body": "Bilgi güvenliğinin temel taşı. Her güvenlik kontrolü bu üç ilkeden en az birine hizmet eder. Sınavda 'bu senaryo hangi ilkeyi koruyor?' sıkça sorulur.",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "C — Confidentiality (Gizlilik)",
+          "items": [
+            "Tanım: Bilginin yalnızca yetkili kişilerce GÖRÜLEBİLMESİ.",
+            "Tehdit: Yetkisiz ifşa (data breach, shoulder surfing, eavesdropping).",
+            "Sağlayan kontroller: Şifreleme (AES-256), erişim kontrolü, MFA, steganografi, veri sınıflandırma, masking."
+          ]
+        },
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "I — Integrity (Bütünlük)",
+          "items": [
+            "Tanım: Bilginin DEĞİŞTİRİLMEMİŞ/bozulmamış olması.",
+            "Tehdit: Yetkisiz değişiklik, tampering, bozulma.",
+            "Sağlayan kontroller: Hashing (SHA-256), dijital imza, HMAC, checksum, FIM (dosya bütünlüğü izleme)."
+          ]
+        },
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "A — Availability (Erişilebilirlik)",
+          "items": [
+            "Tanım: Bilgi/sistemin GEREKTİĞİNDE erişilebilir olması.",
+            "Tehdit: DoS/DDoS, donanım arızası, doğal afet, fidye yazılımı.",
+            "Sağlayan kontroller: Yedeklilik (redundancy), RAID, load balancing, clustering, UPS, yedekleme, failover."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "CIA İpuçları",
+          "items": [
+            "'altered / modified / changed / tampered' → Integrity.",
+            "'unauthorized read / disclosure / confidential / encrypt' → Confidentiality.",
+            "'uptime / accessible / redundancy / DoS' → Availability.",
+            "Non-repudiation CIA'nın PARÇASI DEĞİLDİR (sık tuzak)."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Non-repudiation (İnkâr Edilemezlik)",
+      "body": "Bir işlemi yapan tarafın sonradan 'ben yapmadım' diyememesi. CIA'dan AYRI bir kavramdır.",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Detay",
+          "items": [
+            "Sağlayan: DİJİTAL İMZA (gönderenin özel anahtarıyla imzalanır).",
+            "Aynı zamanda bütünlük + kaynak doğrulaması sağlar.",
+            "Loglar ve audit trail de inkâr edilemezliği destekler."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "AAA Çerçevesi (Authentication, Authorization, Accounting)",
+      "body": "Kimlik ve erişim yönetiminin omurgası. Hem KİŞİLER hem SİSTEMLER için geçerlidir.",
+      "specTable": {
+        "title": "AAA Bileşenleri",
+        "columns": ["Kavram", "Türkçe", "Cevapladığı Soru", "Örnek"],
+        "rows": [
+          ["Authentication", "Kimlik doğrulama", "Sen KİMSİN?", "Parola, biyometri, sertifika"],
+          ["Authorization", "Yetkilendirme", "NEYE erişebilirsin?", "İzinler, ACL, roller"],
+          ["Accounting", "Kayıt/İzleme", "NE YAPTIN?", "Loglar, audit trail"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Kişi vs Sistem Doğrulama",
+          "items": [
+            "Authenticating people: Parola, biyometri, MFA.",
+            "Authenticating systems: Dijital sertifikalar, makine kimlikleri (machine/device certificates).",
+            "AAA sunucuları: RADIUS, TACACS+."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "Authentication vs Authorization",
+          "items": [
+            "Authentication = KİM olduğunu KANITLAMA (login aşaması).",
+            "Authorization = NEYE izinli olduğun (giriş yaptıktan SONRA).",
+            "Önce authentication, sonra authorization gelir. En sık karıştırılan ikili."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Gap Analysis (Boşluk Analizi)",
+      "body": "Kurumun MEVCUT güvenlik durumu ile HEDEFLENEN/gerekli durum arasındaki farkı (gap) belirleme süreci.",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Detay",
+          "items": [
+            "'Neredeyiz?' vs 'Nerede olmalıyız?' karşılaştırması.",
+            "Genelde bir standart/çerçeveye (NIST, ISO 27001) göre yapılır.",
+            "Sonuç: Kapatılması gereken eksiklerin listesi ve yol haritası."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Zero Trust (Sıfır Güven) — DETAYLI",
+      "body": "Temel ilke: 'Asla güvenme, daima doğrula' (never trust, always verify). Ağın içinde olmak güven sağlamaz; HER erişim talebi tek tek doğrulanır. SY0-701 Zero Trust'ı iki DÜZLEME (plane) ayırır — bu ayrım ve bileşenleri ezberlenmelidir.",
+      "specTable": {
+        "title": "Control Plane (Kontrol Düzlemi) Bileşenleri",
+        "columns": ["Bileşen", "İşlevi"],
+        "rows": [
+          ["Policy Engine (PE)", "Erişim KARARINI verir (allow/deny). Beyin."],
+          ["Policy Administrator (PA)", "Kararı uygular; oturum/erişim kimlik bilgisi üretir, PEP'e iletir."],
+          ["Adaptive Identity", "Kimliği bağlama göre (konum, cihaz, davranış) uyarlamalı doğrular."],
+          ["Threat Scope Reduction", "Saldırı yüzeyini/erişim kapsamını daraltır (least privilege)."],
+          ["Policy-Driven Access Control", "Erişimi politikalara göre yönetir."]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Data Plane (Veri Düzlemi) Bileşenleri",
+          "items": [
+            "Policy Enforcement Point (PEP): Kararı UYGULAYAN/zorlayan nokta. Öznenin kaynağa eriştiği yerdir.",
+            "Subject/System: Erişim talep eden kullanıcı/sistem.",
+            "Implicit Trust Zone: PEP'ten geçtikten sonra güvenilen bölge."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "PE/PA vs PEP (En Kritik Ayrım)",
+          "items": [
+            "Policy Engine = kararı VERİR (decide).",
+            "Policy Administrator = kararı iletir/oturum kurar.",
+            "Policy Enforcement Point (PEP) = kararı UYGULAR/zorlar (enforce).",
+            "Soru 'who ENFORCES?' diyorsa → PEP. 'who DECIDES?' diyorsa → Policy Engine.",
+            "Control Plane = karar/politika tarafı. Data Plane = uygulama/trafik tarafı."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Fiziksel Güvenlik (Physical Security) — DETAYLI",
+      "specTable": {
+        "title": "Fiziksel Kontroller",
+        "columns": ["Kontrol", "Açıklama / Amaç"],
+        "rows": [
+          ["Bollard", "Araç girişini/çarpmasını engelleyen sağlam dikme (preventive)"],
+          ["Access Control Vestibule (Mantrap)", "İki kapılı geçiş; tailgating'i engeller"],
+          ["Fencing (Çit)", "Çevre güvenliği; yüksekliğe göre caydırıcı/önleyici"],
+          ["Video Surveillance (CCTV)", "Görünür = caydırıcı, kayıt = tespit edici"],
+          ["Security Guard (Bekçi)", "Esnek; caydırıcı + tespit + önleyici"],
+          ["Access Badge", "Yetkili geçiş kartı (RFID/proximity)"],
+          ["Lighting (Aydınlatma)", "Karanlık alanları aydınlatır; caydırıcı"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Sensör Türleri (Detection Sensors)",
+          "items": [
+            "Infrared: Isı/hareket algılar (PIR — passive infrared).",
+            "Pressure: Basınç/ağırlık algılar (zemin sensörleri).",
+            "Microwave: Mikrodalga yansımasıyla hareket algılar.",
+            "Ultrasonic: Ses dalgası yansımasıyla hareket algılar."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "Tailgating vs Piggybacking",
+          "items": [
+            "Tailgating: Yetkisiz kişi, yetkili birinin HABERİ OLMADAN arkasından geçer.",
+            "Piggybacking: Yetkili kişi BİLEREK/izin vererek geçirir.",
+            "İkisini de engelleyen: Access Control Vestibule (mantrap)."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Aldatma ve Bozma Teknolojileri (Deception & Disruption)",
+      "specTable": {
+        "title": "Honey* Ailesi",
+        "columns": ["Terim", "Açıklama"],
+        "rows": [
+          ["Honeypot", "Saldırganı çeken TEK sahte sistem/servis"],
+          ["Honeynet", "Birden fazla honeypot'tan oluşan sahte AĞ"],
+          ["Honeyfile", "İçine erişilirse alarm veren sahte DOSYA (örn. passwords.txt)"],
+          ["Honeytoken", "Sahte VERİ/kayıt; kullanılırsa sızıntı/erişim tespit edilir"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "ipucu",
+          "title": "Ayırma Refleksi",
+          "items": [
+            "Tek SİSTEM = Honeypot. AĞ (birden çok) = Honeynet.",
+            "DOSYA = Honeyfile. VERİ/kayıt (DB satırı, sahte kimlik bilgisi) = Honeytoken.",
+            "Amaç: saldırganı tespit etmek, oyalamak, davranışını öğrenmek."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Non-repudiation / Cannot deny / Prove who sent it", "maps_to": "Digital Signature", "explanation": "İnkâr edememe = dijital imza. CIA değil, ayrı kavram." },
+    { "trigger": "Hashing / Checksum / Not modified / Tampering", "maps_to": "Integrity", "explanation": "Değişmediğini kanıtlama = Bütünlük." },
+    { "trigger": "Encryption / Unauthorized read / Confidential / Eavesdropping", "maps_to": "Confidentiality", "explanation": "Yetkisiz okumayı engelleme = Gizlilik." },
+    { "trigger": "Redundancy / Uptime / Load balancing / RAID / DoS", "maps_to": "Availability", "explanation": "Erişilebilir kalma = Erişilebilirlik." },
+    { "trigger": "Never trust, always verify", "maps_to": "Zero Trust", "explanation": "Doğrudan Zero Trust ilkesi." },
+    { "trigger": "Who ENFORCES the access decision", "maps_to": "Policy Enforcement Point (PEP)", "explanation": "Kararı uygulayan nokta (Data Plane)." },
+    { "trigger": "Who DECIDES / makes the access decision", "maps_to": "Policy Engine", "explanation": "Kararı veren bileşen (Control Plane)." },
+    { "trigger": "Who you are vs What you can access", "maps_to": "Authentication vs Authorization", "explanation": "Kim olduğun vs neye izinli olduğun." },
+    { "trigger": "What did the user do / audit trail", "maps_to": "Accounting", "explanation": "Eylemlerin kaydı." },
+    { "trigger": "Two interlocking doors / prevent tailgating", "maps_to": "Access Control Vestibule (Mantrap)", "explanation": "Çift kapı ile peşe takılmayı engelleme." },
+    { "trigger": "Fake file that triggers an alert when opened", "maps_to": "Honeyfile", "explanation": "Sahte dosya tuzağı." },
+    { "trigger": "Fake system to lure attackers", "maps_to": "Honeypot", "explanation": "Saldırganı çeken sahte sistem." },
+    { "trigger": "Fake data/record to detect misuse", "maps_to": "Honeytoken", "explanation": "Sahte veri/kayıt tuzağı." },
+    { "trigger": "Current state vs desired state / find the difference", "maps_to": "Gap Analysis", "explanation": "Mevcut ile hedef arasındaki farkı bulma." },
+    { "trigger": "Unauthorized person follows employee without their knowledge", "maps_to": "Tailgating", "explanation": "Habersiz peşe takılma." }
+  ],
+  "questions": [
+    {
+      "id": "1.2-q1",
+      "questionEn": "A security analyst needs to ensure that a downloaded software package has not been altered since it was published. Which concept does this MOST directly address?",
+      "options": { "A": "Confidentiality", "B": "Availability", "C": "Integrity", "D": "Authentication" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir analist, indirilen bir yazılım paketinin yayınlandığından beri değiştirilmediğinden emin olmak istiyor. Bu en doğrudan hangi kavramı ilgilendirir?",
+        "optionsTr": { "A": "Gizlilik", "B": "Erişilebilirlik", "C": "Bütünlük", "D": "Kimlik doğrulama" },
+        "patternHint": "'has not been altered' = Integrity. 'altered/modified/changed' refleksi.",
+        "whyWrong": { "A": "Gizlilik okuma yetkisiyle ilgili.", "B": "Erişilebilirlik ulaşılabilirlikle ilgili.", "D": "Kimlik doğrulama kullanıcı kimliğini kanıtlar." }
+      }
+    },
+    {
+      "id": "1.2-q2",
+      "questionEn": "An organization places a file named 'employee_salaries_2024.xlsx' containing fabricated data on a server; any access triggers an alert to the SOC. Which technique is this?",
+      "options": { "A": "Honeypot", "B": "Honeyfile", "C": "DLP", "D": "Sandbox" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kurum, sunucuya uydurma veri içeren 'employee_salaries_2024.xlsx' adlı bir dosya koyuyor; erişim anında SOC'a alarm veriyor. Bu hangi tekniktir?",
+        "optionsTr": { "A": "Honeypot", "B": "Honeyfile", "C": "DLP", "D": "Sandbox" },
+        "patternHint": "Tek DOSYA + sahte veri + erişimde alarm = Honeyfile. Sahte SİSTEM olsa Honeypot olurdu.",
+        "whyWrong": { "A": "Honeypot sahte bir sistemdir.", "C": "DLP veri çıkışını izler/engeller.", "D": "Sandbox izole çalıştırma ortamıdır." }
+      }
+    },
+    {
+      "id": "1.2-q3",
+      "questionEn": "In a Zero Trust architecture, which component ENFORCES the access decision at the point where the subject connects to a resource?",
+      "options": { "A": "Policy Engine", "B": "Policy Administrator", "C": "Policy Enforcement Point", "D": "Policy Decision Point" },
+      "correct": "C",
+      "solution": {
+        "translation": "Zero Trust mimarisinde, öznenin kaynağa bağlandığı noktada erişim kararını UYGULAYAN bileşen hangisidir?",
+        "optionsTr": { "A": "Policy Engine", "B": "Policy Administrator", "C": "Policy Enforcement Point", "D": "Policy Decision Point" },
+        "patternHint": "'ENFORCES' = PEP. Karar verme PE, uygulama PEP.",
+        "whyWrong": { "A": "Policy Engine kararı verir.", "B": "Policy Administrator oturumu kurar/iletir.", "D": "PDP kararı verir, uygulamaz." }
+      }
+    },
+    {
+      "id": "1.2-q4",
+      "questionEn": "A user logs in with valid credentials and is then granted access only to the HR folder based on their role. Which concept governs the SECOND step (folder access)?",
+      "options": { "A": "Authentication", "B": "Authorization", "C": "Accounting", "D": "Identification" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kullanıcı geçerli kimlik bilgileriyle giriş yapıyor ve ardından rolüne göre yalnızca İK klasörüne erişim veriliyor. İKİNCİ adımı (klasör erişimi) hangi kavram yönetir?",
+        "optionsTr": { "A": "Kimlik doğrulama", "B": "Yetkilendirme", "C": "Kayıt", "D": "Tanımlama" },
+        "patternHint": "Giriş SONRASI 'neye erişebilir' = Authorization. Login = authentication, erişim hakkı = authorization.",
+        "whyWrong": { "A": "Authentication ilk adım (login) idi.", "C": "Accounting eylemlerin kaydıdır.", "D": "Identification kimlik beyanıdır, erişim kararı değil." }
+      }
+    },
+    {
+      "id": "1.2-q5",
+      "questionEn": "A hospital implements RAID, redundant power supplies, and load balancing for its patient records system. Which CIA principle is PRIMARILY being supported?",
+      "options": { "A": "Confidentiality", "B": "Integrity", "C": "Availability", "D": "Non-repudiation" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir hastane, hasta kayıt sistemi için RAID, yedekli güç kaynakları ve yük dengeleme uyguluyor. Öncelikle hangi CIA ilkesi destekleniyor?",
+        "optionsTr": { "A": "Gizlilik", "B": "Bütünlük", "C": "Erişilebilirlik", "D": "İnkâr edilemezlik" },
+        "patternHint": "RAID + redundancy + load balancing = Availability. Yedeklilik/süreklilik refleksi.",
+        "whyWrong": { "A": "Gizlilik şifreleme/erişimle ilgili.", "B": "Bütünlük değişmezlikle ilgili.", "D": "Non-repudiation CIA dışı, dijital imzayla ilgili." }
+      }
+    },
+    {
+      "id": "1.2-q6",
+      "questionEn": "A company digitally signs all outgoing contracts so that a sender cannot later claim they did not send a document. Which concept does this provide?",
+      "options": { "A": "Confidentiality", "B": "Non-repudiation", "C": "Availability", "D": "Authorization" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir şirket, gönderenin sonradan bir belgeyi göndermediğini iddia edememesi için tüm giden sözleşmeleri dijital olarak imzalıyor. Bu hangi kavramı sağlar?",
+        "optionsTr": { "A": "Gizlilik", "B": "İnkâr edilemezlik", "C": "Erişilebilirlik", "D": "Yetkilendirme" },
+        "patternHint": "'cannot later claim they did not send' = Non-repudiation. Dijital imza ile sağlanır.",
+        "whyWrong": { "A": "Gizlilik içeriği gizlemekle ilgili.", "C": "Erişilebilirlik ulaşılabilirlik.", "D": "Yetkilendirme erişim hakkı." }
+      }
+    },
+    {
+      "id": "1.2-q7",
+      "questionEn": "An unauthorized individual slips through a secure door immediately behind an employee, without the employee noticing. What is this called, and which control BEST prevents it?",
+      "options": {
+        "A": "Piggybacking; prevented by a firewall",
+        "B": "Tailgating; prevented by an access control vestibule",
+        "C": "Shoulder surfing; prevented by a privacy screen",
+        "D": "Phishing; prevented by training"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Yetkisiz biri, çalışan fark etmeden hemen arkasından güvenli bir kapıdan geçiyor. Buna ne denir ve hangi kontrol EN İYİ engeller?",
+        "optionsTr": {
+          "A": "Piggybacking; firewall ile engellenir",
+          "B": "Tailgating; access control vestibule (mantrap) ile engellenir",
+          "C": "Omuz sörfü; gizlilik ekranıyla engellenir",
+          "D": "Phishing; eğitimle engellenir"
+        },
+        "patternHint": "'without the employee noticing' = Tailgating (habersiz). Çözüm = mantrap. Eğer çalışan bilerek geçirseydi piggybacking olurdu.",
+        "whyWrong": {
+          "A": "Çalışan fark etmediği için tailgating; ayrıca firewall fiziksel geçişi engellemez.",
+          "C": "Shoulder surfing ekrana bakmaktır, kapıdan geçme değil.",
+          "D": "Phishing sosyal mühendislik e-postasıdır."
+        }
+      }
+    },
+    {
+      "id": "1.2-q8",
+      "questionEn": "A security team compares its current controls against the NIST Cybersecurity Framework to identify what is missing before an audit. What is this process called?",
+      "options": { "A": "Penetration test", "B": "Gap analysis", "C": "Risk transfer", "D": "Threat hunting" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir güvenlik ekibi, bir denetimden önce eksikleri belirlemek için mevcut kontrollerini NIST Siber Güvenlik Çerçevesi ile karşılaştırıyor. Bu sürece ne denir?",
+        "optionsTr": { "A": "Sızma testi", "B": "Boşluk analizi", "C": "Risk transferi", "D": "Tehdit avı" },
+        "patternHint": "'compares current vs framework to identify what is missing' = Gap Analysis. Mevcut vs hedef farkı.",
+        "whyWrong": { "A": "Sızma testi açıkları aktif sömürür.", "C": "Risk transferi sigorta/devirdir.", "D": "Threat hunting aktif tehdit arama." }
+      }
+    },
+    {
+      "id": "1.2-q9",
+      "questionEn": "Which of the following is NOT part of the CIA triad?",
+      "options": { "A": "Confidentiality", "B": "Integrity", "C": "Non-repudiation", "D": "Availability" },
+      "correct": "C",
+      "solution": {
+        "translation": "Aşağıdakilerden hangisi CIA üçgeninin parçası DEĞİLDİR?",
+        "optionsTr": { "A": "Gizlilik", "B": "Bütünlük", "C": "İnkâr edilemezlik", "D": "Erişilebilirlik" },
+        "patternHint": "CIA = Confidentiality, Integrity, Availability. Non-repudiation ayrı bir kavramdır — klasik tuzak.",
+        "whyWrong": { "A": "C harfi.", "B": "I harfi.", "D": "A harfi." }
+      }
+    },
+    {
+      "id": "1.2-q10",
+      "questionEn": "In a Zero Trust model, which Control Plane component is responsible for MAKING the allow/deny access decision?",
+      "options": { "A": "Policy Enforcement Point", "B": "Policy Engine", "C": "Subject", "D": "Implicit trust zone" },
+      "correct": "B",
+      "solution": {
+        "translation": "Zero Trust modelinde, izin ver/reddet erişim kararını VERMEKTEN sorumlu Control Plane bileşeni hangisidir?",
+        "optionsTr": { "A": "Policy Enforcement Point", "B": "Policy Engine", "C": "Özne (Subject)", "D": "Örtük güven bölgesi" },
+        "patternHint": "'MAKING the decision' = Policy Engine (beyin). Uygulayan PEP'tir.",
+        "whyWrong": { "A": "PEP kararı uygular, vermez.", "C": "Subject erişim talep edendir.", "D": "Implicit trust zone PEP sonrası güvenilen bölgedir." }
+      }
+    }
+  ]
+}

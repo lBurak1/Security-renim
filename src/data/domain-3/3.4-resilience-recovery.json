@@ -1,0 +1,257 @@
+{
+  "moduleId": "3.4",
+  "title": "Dayanıklılık ve Kurtarma",
+  "domainId": 3,
+  "documentation": [
+    {
+      "heading": "Yüksek Erişilebilirlik (High Availability)",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "HA Kavramları",
+          "items": [
+            "Load balancing: Trafiği dağıtarak performans + süreklilik.",
+            "Clustering: Birden fazla sunucuyu tek sistem gibi çalıştırma.",
+            "Redundancy: Yedekli bileşenler (tek hata noktasını yok etme).",
+            "Active/Active: Tüm düğümler aktif. Active/Passive: Yedek bekler.",
+            "Geographic dispersion: Coğrafi dağıtım (farklı bölgeler).",
+            "Multi-cloud / Platform diversity: Tek sağlayıcıya bağımlılığı azaltma."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Site Türleri (Recovery Sites)",
+      "specTable": {
+        "title": "Felaket Kurtarma Siteleri",
+        "columns": ["Site", "Kurulum", "Süre / Maliyet"],
+        "rows": [
+          ["Hot site", "Tam çalışır, güncel veri, anında devralır", "Dakikalar / EN PAHALI"],
+          ["Warm site", "Donanım var, veri güncel değil", "Saatler-gün / Orta"],
+          ["Cold site", "Sadece boş alan/altyapı", "Gün-hafta / EN UCUZ"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Site Refleksi",
+          "items": [
+            "'immediate failover / minimal downtime / minutes' → Hot.",
+            "'just empty space / cheapest / build from scratch' → Cold.",
+            "Warm = ikisi arası; donanım hazır ama veri senkron değil."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Yedekleme (Backups)",
+      "specTable": {
+        "title": "Yedekleme Türleri",
+        "columns": ["Tür", "Ne Yedekler", "Geri Yükleme"],
+        "rows": [
+          ["Full", "Her şeyi", "Tek seferde (en hızlı restore)"],
+          ["Incremental", "Son YEDEKTEN (herhangi) beri değişeni", "Full + TÜM incremental'lar (yavaş)"],
+          ["Differential", "Son FULL'den beri değişeni", "Full + SON differential (orta)"],
+          ["Snapshot", "Anlık sistem durumu (VM)", "Hızlı geri dönüş"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Yedekleme İlkeleri",
+          "items": [
+            "3-2-1 kuralı: 3 kopya, 2 farklı ortam, 1'i off-site.",
+            "Off-site/On-site: Konuma göre yedek.",
+            "Journaling: İşlem günlüğü ile tutarlılık.",
+            "Replication: Gerçek zamanlı kopyalama.",
+            "Encryption: Yedekler de şifrelenmeli."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Kurtarma Metrikleri ve Güç/Test",
+      "specTable": {
+        "title": "Kritik Metrikler",
+        "columns": ["Metrik", "Açılım", "Anlamı"],
+        "rows": [
+          ["RTO", "Recovery Time Objective", "Ne kadar SÜREDE geri dönülmeli"],
+          ["RPO", "Recovery Point Objective", "Ne kadar VERİ kaybı kabul edilebilir"],
+          ["MTTR", "Mean Time To Repair", "Ortalama onarım süresi"],
+          ["MTBF", "Mean Time Between Failures", "Arızalar arası ortalama süre"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "RTO vs RPO",
+          "items": [
+            "RTO = ZAMAN: 'Sistemi ne kadar sürede ayağa kaldırmalıyım?'",
+            "RPO = VERİ: 'En fazla ne kadarlık veri kaybedebilirim?' (yedekleme sıklığını belirler)."
+          ]
+        },
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Güç ve Test",
+          "items": [
+            "UPS: Kesintisiz güç kaynağı (kısa süreli).",
+            "Generator: Uzun süreli yedek güç.",
+            "Tabletop exercise: Masa başı senaryo (en az kesintili).",
+            "Failover test: Yedek sisteme geçiş testi.",
+            "Simulation / Parallel processing: Gerçeğe yakın tatbikat.",
+            "Capacity planning: People, technology, infrastructure."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Immediate failover / Fully operational backup / Minimal downtime / Minutes", "maps_to": "Hot Site", "explanation": "Anında devralan tam çalışır site." },
+    { "trigger": "Empty space / Just infrastructure / Cheapest / Build from scratch", "maps_to": "Cold Site", "explanation": "Sadece altyapı; sıfırdan kurulum." },
+    { "trigger": "How quickly must we restore / target time", "maps_to": "RTO", "explanation": "Geri dönüş hedef süresi." },
+    { "trigger": "How much data loss is acceptable", "maps_to": "RPO", "explanation": "Kabul edilebilir veri kaybı." },
+    { "trigger": "Only changes since last backup (any)", "maps_to": "Incremental Backup", "explanation": "Son yedekten beri değişen." },
+    { "trigger": "Only changes since last full backup", "maps_to": "Differential Backup", "explanation": "Son full'den beri değişen." },
+    { "trigger": "3 copies, 2 media, 1 offsite", "maps_to": "3-2-1 Rule", "explanation": "Yedekleme kuralı." },
+    { "trigger": "Discussion-based exercise / no real systems", "maps_to": "Tabletop Exercise", "explanation": "Masa başı tatbikat." },
+    { "trigger": "Short-term battery backup power", "maps_to": "UPS", "explanation": "Kesintisiz güç kaynağı." },
+    { "trigger": "Long-term backup power", "maps_to": "Generator", "explanation": "Jeneratör." }
+  ],
+  "questions": [
+    {
+      "id": "3.4-q1",
+      "questionEn": "A financial firm requires operations to resume at an alternate location within minutes with fully synchronized data. Which recovery site?",
+      "options": { "A": "Cold site", "B": "Warm site", "C": "Hot site", "D": "Mobile site" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir finans firması, operasyonların alternatif konumda dakikalar içinde tam senkronize veriyle devam etmesini istiyor. Hangi site?",
+        "optionsTr": { "A": "Cold", "B": "Warm", "C": "Hot", "D": "Mobil" },
+        "patternHint": "'within minutes + synchronized data' = Hot site.",
+        "whyWrong": { "A": "Cold gün-hafta sürer.", "B": "Warm veri güncel değil.", "D": "Mobil dakikalar/senkron garanti etmez." }
+      }
+    },
+    {
+      "id": "3.4-q2",
+      "questionEn": "Full backup every Sunday; each weeknight backs up only data changed since the last full backup. Which type are the weeknight backups?",
+      "options": { "A": "Incremental", "B": "Differential", "C": "Snapshot", "D": "Full" },
+      "correct": "B",
+      "solution": {
+        "translation": "Her Pazar full; her hafta içi gece yalnızca son full'den beri değişeni yedekliyor. Hafta içi yedekler hangi tür?",
+        "optionsTr": { "A": "Incremental", "B": "Differential", "C": "Snapshot", "D": "Full" },
+        "patternHint": "'since last FULL' = Differential.",
+        "whyWrong": { "A": "Incremental son herhangi yedekten beri.", "C": "Snapshot anlık durumdur.", "D": "Full her şeyi alır." }
+      }
+    },
+    {
+      "id": "3.4-q3",
+      "questionEn": "Management states the organization can tolerate losing at most 15 minutes of data. Which metric?",
+      "options": { "A": "RTO", "B": "RPO", "C": "MTBF", "D": "MTTR" },
+      "correct": "B",
+      "solution": {
+        "translation": "Yönetim, kurumun en fazla 15 dakikalık veri kaybını tolere edebileceğini belirtiyor. Hangi metrik?",
+        "optionsTr": { "A": "RTO", "B": "RPO", "C": "MTBF", "D": "MTTR" },
+        "patternHint": "'losing data' = RPO.",
+        "whyWrong": { "A": "RTO süredir.", "C": "MTBF arızalar arası süredir.", "D": "MTTR onarım süresidir." }
+      }
+    },
+    {
+      "id": "3.4-q4",
+      "questionEn": "An organization wants to know the target time to get systems back online after a disaster. Which metric defines this?",
+      "options": { "A": "RPO", "B": "RTO", "C": "MTBF", "D": "SLE" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kurum, bir felaketten sonra sistemleri tekrar çevrimiçi yapmanın hedef süresini bilmek istiyor. Hangi metrik tanımlar?",
+        "optionsTr": { "A": "RPO", "B": "RTO", "C": "MTBF", "D": "SLE" },
+        "patternHint": "'time to get back online' = RTO.",
+        "whyWrong": { "A": "RPO veri kaybıdır.", "C": "MTBF arıza aralığıdır.", "D": "SLE risk hesabıdır." }
+      }
+    },
+    {
+      "id": "3.4-q5",
+      "questionEn": "Following the 3-2-1 rule, how many total copies of data should exist and how many should be off-site?",
+      "options": {
+        "A": "2 copies, 0 off-site",
+        "B": "3 copies, 1 off-site",
+        "C": "1 copy, 1 off-site",
+        "D": "3 copies, 3 off-site"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "3-2-1 kuralına göre toplam kaç veri kopyası olmalı ve kaçı off-site olmalı?",
+        "optionsTr": { "A": "2 kopya, 0 off-site", "B": "3 kopya, 1 off-site", "C": "1 kopya, 1 off-site", "D": "3 kopya, 3 off-site" },
+        "patternHint": "3-2-1 = 3 kopya, 2 ortam, 1 off-site.",
+        "whyWrong": { "A": "Yetersiz.", "C": "Yetersiz.", "D": "Sadece 1 off-site gerekir." }
+      }
+    },
+    {
+      "id": "3.4-q6",
+      "questionEn": "A company wants the cheapest disaster recovery option and can tolerate days of downtime to set it up. Which site?",
+      "options": { "A": "Hot site", "B": "Warm site", "C": "Cold site", "D": "Active/active cluster" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir şirket en ucuz felaket kurtarma seçeneğini istiyor ve kurmak için günlerce kesintiyi tolere edebiliyor. Hangi site?",
+        "optionsTr": { "A": "Hot", "B": "Warm", "C": "Cold", "D": "Active/active küme" },
+        "patternHint": "'cheapest + days to set up' = Cold site.",
+        "whyWrong": { "A": "Hot en pahalıdır.", "B": "Warm orta maliyettir.", "D": "Küme HA'dır, DR sitesi değil." }
+      }
+    },
+    {
+      "id": "3.4-q7",
+      "questionEn": "To keep servers running during a brief power outage until a generator starts, which device is used?",
+      "options": { "A": "UPS", "B": "Load balancer", "C": "RAID", "D": "Firewall" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir jeneratör çalışana kadar kısa bir elektrik kesintisinde sunucuları çalışır tutmak için hangi cihaz kullanılır?",
+        "optionsTr": { "A": "UPS", "B": "Yük dengeleyici", "C": "RAID", "D": "Firewall" },
+        "patternHint": "Kısa süreli batarya güç = UPS.",
+        "whyWrong": { "B": "Trafik dağıtır.", "C": "Disk yedekliliğidir.", "D": "Güvenlik cihazıdır." }
+      }
+    },
+    {
+      "id": "3.4-q8",
+      "questionEn": "Which test discusses a disaster scenario in a meeting room without touching live production systems?",
+      "options": { "A": "Failover test", "B": "Tabletop exercise", "C": "Full interruption test", "D": "Parallel test" },
+      "correct": "B",
+      "solution": {
+        "translation": "Hangi test, canlı üretim sistemlerine dokunmadan bir toplantı odasında felaket senaryosu tartışır?",
+        "optionsTr": { "A": "Failover testi", "B": "Tabletop tatbikatı", "C": "Tam kesinti testi", "D": "Paralel test" },
+        "patternHint": "'discussion in a room + no live systems' = Tabletop.",
+        "whyWrong": { "A": "Failover gerçek geçiş yapar.", "C": "Tam kesinti gerçek durdurur.", "D": "Paralel yedeği gerçek çalıştırır." }
+      }
+    },
+    {
+      "id": "3.4-q9",
+      "questionEn": "Incremental and differential backups differ in their RESTORE process. Which statement is TRUE?",
+      "options": {
+        "A": "Incremental restore needs only the last backup",
+        "B": "Differential restore needs the full backup plus the latest differential",
+        "C": "Differential restore needs every differential since the full",
+        "D": "Incremental restore is always faster than full restore"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Incremental ve differential yedekler GERİ YÜKLEME sürecinde farklıdır. Hangi ifade DOĞRU?",
+        "optionsTr": {
+          "A": "Incremental geri yükleme sadece son yedeğe ihtiyaç duyar",
+          "B": "Differential geri yükleme full + en son differential gerektirir",
+          "C": "Differential geri yükleme full'den beri her differential'ı gerektirir",
+          "D": "Incremental geri yükleme her zaman full'den hızlıdır"
+        },
+        "patternHint": "Differential restore = Full + SON differential. Incremental restore = Full + TÜM incremental'lar.",
+        "whyWrong": { "A": "Incremental tüm zinciri gerektirir.", "C": "Differential sadece sonuncuyu gerektirir.", "D": "Incremental restore daha yavaştır." }
+      }
+    },
+    {
+      "id": "3.4-q10",
+      "questionEn": "To avoid losing all systems if one cloud provider has an outage, a company runs critical workloads across two different providers. Which resilience concept?",
+      "options": { "A": "Multi-cloud / platform diversity", "B": "RAID", "C": "Tokenization", "D": "Cold site" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir bulut sağlayıcısında kesinti olursa tüm sistemleri kaybetmemek için bir şirket kritik iş yüklerini iki farklı sağlayıcıda çalıştırıyor. Hangi dayanıklılık kavramı?",
+        "optionsTr": { "A": "Multi-cloud / platform çeşitliliği", "B": "RAID", "C": "Tokenization", "D": "Cold site" },
+        "patternHint": "İki farklı sağlayıcı = multi-cloud / platform diversity.",
+        "whyWrong": { "B": "RAID disk yedekliliğidir.", "C": "Token veri korumadır.", "D": "Cold site tek bir yedek tesistir." }
+      }
+    }
+  ]
+}

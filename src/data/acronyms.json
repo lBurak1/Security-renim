@@ -1,0 +1,182 @@
+{
+  "groups": [
+    {
+      "category": "Risk & İş Sürekliliği",
+      "items": [
+        { "acr": "SLE",  "en": "Single Loss Expectancy",           "tr": "Tek olay kaybı = AV × EF" },
+        { "acr": "ALE",  "en": "Annualized Loss Expectancy",       "tr": "Yıllık beklenen kayıp = SLE × ARO" },
+        { "acr": "ARO",  "en": "Annualized Rate of Occurrence",    "tr": "Yılda gerçekleşme sayısı" },
+        { "acr": "EF",   "en": "Exposure Factor",                  "tr": "Kayıp yüzdesi (%)" },
+        { "acr": "AV",   "en": "Asset Value",                      "tr": "Varlık değeri" },
+        { "acr": "RTO",  "en": "Recovery Time Objective",          "tr": "Geri dönüş hedef SÜRESİ" },
+        { "acr": "RPO",  "en": "Recovery Point Objective",         "tr": "Kabul edilebilir VERİ kaybı süresi" },
+        { "acr": "MTTR", "en": "Mean Time To Repair",              "tr": "Ortalama onarım süresi" },
+        { "acr": "MTBF", "en": "Mean Time Between Failures",       "tr": "Arızalar arası ortalama süre" },
+        { "acr": "BIA",  "en": "Business Impact Analysis",         "tr": "İş etki analizi" },
+        { "acr": "BCP",  "en": "Business Continuity Plan",         "tr": "İş sürekliliği planı (süreçler)" },
+        { "acr": "DRP",  "en": "Disaster Recovery Plan",           "tr": "Felaket kurtarma planı (IT sistemleri)" },
+        { "acr": "GRC",  "en": "Governance, Risk, Compliance",     "tr": "Yönetişim, risk ve uyumluluk bütünü" },
+        { "acr": "BPA",  "en": "Business Partners Agreement",      "tr": "İş ortaklığı anlaşması" }
+      ]
+    },
+    {
+      "category": "Kimlik & Erişim (IAM)",
+      "items": [
+        { "acr": "AAA",   "en": "Authentication, Authorization, Accounting", "tr": "Kimlik doğrulama, yetkilendirme, kayıt" },
+        { "acr": "MFA",   "en": "Multifactor Authentication",               "tr": "Çok faktörlü kimlik doğrulama" },
+        { "acr": "SSO",   "en": "Single Sign-On",                           "tr": "Tek oturum açma" },
+        { "acr": "RBAC",  "en": "Role-Based Access Control",                "tr": "Role dayalı erişim" },
+        { "acr": "ABAC",  "en": "Attribute-Based Access Control",           "tr": "Özniteliğe dayalı erişim" },
+        { "acr": "DAC",   "en": "Discretionary Access Control",             "tr": "Sahip takdirine bağlı erişim" },
+        { "acr": "MAC",   "en": "Mandatory Access Control",                 "tr": "Zorunlu (etiket tabanlı) erişim — en katı" },
+        { "acr": "PAM",   "en": "Privileged Access Management",             "tr": "Ayrıcalıklı erişim yönetimi" },
+        { "acr": "SAML",  "en": "Security Assertion Markup Language",       "tr": "Web SSO/federation kimlik doğrulama" },
+        { "acr": "OAuth", "en": "Open Authorization",                       "tr": "Üçüncü taraf YETK İLENDİRME (API erişimi)" },
+        { "acr": "OIDC",  "en": "OpenID Connect",                           "tr": "OAuth üzerine KİMLİK katmanı (kim olduğumu söyler)" },
+        { "acr": "LDAP",  "en": "Lightweight Directory Access Protocol",    "tr": "Dizin servisi sorgulama (Active Directory)" },
+        { "acr": "FIDO2", "en": "Fast Identity Online 2",                   "tr": "Şifresiz kimlik doğrulama standardı (WebAuthn)" },
+        { "acr": "TOTP",  "en": "Time-based One-Time Password",             "tr": "Zamana dayalı tek kullanımlık şifre (Google Auth)" },
+        { "acr": "HOTP",  "en": "HMAC-based One-Time Password",             "tr": "Sayaç tabanlı tek kullanımlık şifre" },
+        { "acr": "RADIUS","en": "Remote Authentication Dial-In User Svc",  "tr": "AAA sunucusu; UDP; şifrelemesi zayıf" },
+        { "acr": "TACACS+","en":"Terminal Access Controller ACS+",          "tr": "AAA sunucusu; TCP; TÜM paketi şifreler; Cisco" }
+      ]
+    },
+    {
+      "category": "Kriptografi & PKI",
+      "items": [
+        { "acr": "AES",    "en": "Advanced Encryption Standard",            "tr": "Simetrik şifreleme standardı (128/256-bit)" },
+        { "acr": "RSA",    "en": "Rivest-Shamir-Adleman",                   "tr": "Asimetrik şifreleme — yavaş, anahtar değişimi" },
+        { "acr": "ECC",    "en": "Elliptic Curve Cryptography",             "tr": "Az kaynakla güçlü asimetrik (mobil/IoT)" },
+        { "acr": "PKI",    "en": "Public Key Infrastructure",               "tr": "Açık anahtar altyapısı" },
+        { "acr": "CA",     "en": "Certificate Authority",                   "tr": "Sertifika otoritesi — sertifika imzalar" },
+        { "acr": "CSR",    "en": "Certificate Signing Request",             "tr": "Sertifika talep dosyası" },
+        { "acr": "CRL",    "en": "Certificate Revocation List",             "tr": "İptal edilmiş sertifika listesi (toplu, yavaş)" },
+        { "acr": "OCSP",   "en": "Online Certificate Status Protocol",      "tr": "Anlık sertifika geçerlilik sorgusu (hızlı)" },
+        { "acr": "TPM",    "en": "Trusted Platform Module",                 "tr": "Anakart kripto çipi (BitLocker, tek cihaz)" },
+        { "acr": "HSM",    "en": "Hardware Security Module",                "tr": "Kurumsal anahtar yönetimi donanımı (veri merkezi)" },
+        { "acr": "HMAC",   "en": "Hash-based Message Authentication Code", "tr": "Hash + gizli anahtar = bütünlük + kimlik" },
+        { "acr": "PFS",    "en": "Perfect Forward Secrecy",                 "tr": "Her oturuma özel anahtar; geçmiş trafiği korur" },
+        { "acr": "TLS",    "en": "Transport Layer Security",                "tr": "Aktarım katmanı şifreleme (HTTPS, TLS 1.3)" },
+        { "acr": "SSH",    "en": "Secure Shell",                            "tr": "Şifreli terminal/uzaktan yönetim (port 22)" },
+        { "acr": "DNSSEC", "en": "DNS Security Extensions",                 "tr": "DNS yanıtlarını imzalayarak spoofing'i önler" },
+        { "acr": "IPSec",  "en": "Internet Protocol Security",              "tr": "Ağ katmanı VPN şifreleme (ESP/AH/IKE)" }
+      ]
+    },
+    {
+      "category": "Ağ & Altyapı",
+      "items": [
+        { "acr": "IDS",   "en": "Intrusion Detection System",               "tr": "Tespit + ALARM (pasif, inline değil)" },
+        { "acr": "IPS",   "en": "Intrusion Prevention System",              "tr": "Tespit + ENGELLEME (aktif/inline)" },
+        { "acr": "WAF",   "en": "Web Application Firewall",                 "tr": "Web uygulama güvenlik duvarı (SQLi/XSS engeller)" },
+        { "acr": "NGFW",  "en": "Next-Generation Firewall",                 "tr": "Uygulama farkındalıklı güvenlik duvarı" },
+        { "acr": "VPN",   "en": "Virtual Private Network",                  "tr": "Şifreli uzak erişim tüneli" },
+        { "acr": "NAC",   "en": "Network Access Control",                   "tr": "Ağa erişim denetimi (posture check)" },
+        { "acr": "DMZ",   "en": "Demilitarized Zone",                       "tr": "İnternete açık tampon bölge (screened subnet)" },
+        { "acr": "SDN",   "en": "Software-Defined Networking",              "tr": "Yazılım tanımlı ağ (merkezi kontrol)" },
+        { "acr": "SASE",  "en": "Secure Access Service Edge",               "tr": "Ağ+güvenliği bulutta birleştirme" },
+        { "acr": "ZTNA",  "en": "Zero Trust Network Access",                "tr": "Kimlik doğrulanmadan erişim yok (VPN alternatifi)" },
+        { "acr": "NAT",   "en": "Network Address Translation",              "tr": "İç IP'yi dış IP'ye çevirme" },
+        { "acr": "VLAN",  "en": "Virtual Local Area Network",               "tr": "Ağ segmentasyonu (mantıksal ayrım)" },
+        { "acr": "EAP",   "en": "Extensible Authentication Protocol",       "tr": "802.1X kimlik doğrulama çerçevesi" },
+        { "acr": "WPA3",  "en": "Wi-Fi Protected Access 3",                 "tr": "En güncel kablosuz güvenlik standardı (SAE)" },
+        { "acr": "802.1X","en": "IEEE Port-Based Network Access Control",   "tr": "Kablolu/kablosuz NAC standardı (RADIUS ile)" }
+      ]
+    },
+    {
+      "category": "Operasyon & İzleme",
+      "items": [
+        { "acr": "SIEM",  "en": "Security Information and Event Management","tr": "Log topla + korele + ALARM (manuel yanıt)" },
+        { "acr": "SOAR",  "en": "Security Orchestration, Automation, Response","tr": "Otomatik YANIT (playbook)" },
+        { "acr": "EDR",   "en": "Endpoint Detection and Response",          "tr": "Endpoint tespit ve yanıt" },
+        { "acr": "XDR",   "en": "Extended Detection and Response",          "tr": "EDR + ağ + bulut = genişletilmiş görünürlük" },
+        { "acr": "DLP",   "en": "Data Loss Prevention",                     "tr": "Veri sızıntısı önleme" },
+        { "acr": "FIM",   "en": "File Integrity Monitoring",                "tr": "Dosya bütünlüğü izleme (hash karşılaştırma)" },
+        { "acr": "SOC",   "en": "Security Operations Center",               "tr": "Güvenlik operasyon merkezi" },
+        { "acr": "IoC",   "en": "Indicator of Compromise",                  "tr": "İhlal göstergesi (hash, IP, domain)" },
+        { "acr": "UEBA",  "en": "User and Entity Behavior Analytics",       "tr": "Kullanıcı/varlık davranış analizi (anomali tespiti)" },
+        { "acr": "STIX",  "en": "Structured Threat Information eXpression", "tr": "Tehdit istihbaratı FORMATI (ne paylaşılır)" },
+        { "acr": "TAXII", "en": "Trusted Automated eXchange of Intelligence","tr": "Tehdit istihbaratı PAYLAŞIM PROTOKOLÜ (nasıl taşınır)" },
+        { "acr": "TTPs",  "en": "Tactics, Techniques, and Procedures",      "tr": "Saldırgan davranış kalıpları (MITRE ATT&CK)" },
+        { "acr": "CTI",   "en": "Cyber Threat Intelligence",                "tr": "Siber tehdit istihbaratı" },
+        { "acr": "ISAC",  "en": "Information Sharing & Analysis Center",    "tr": "Sektörel tehdit paylaşım merkezi" },
+        { "acr": "C2",    "en": "Command and Control",                      "tr": "Zararlı yazılımın saldırgan sunucusuyla iletişimi" },
+        { "acr": "OSINT", "en": "Open Source Intelligence",                 "tr": "Herkese açık kaynaklardan istihbarat toplama" },
+        { "acr": "NVD",   "en": "National Vulnerability Database",          "tr": "ABD NIST'in CVE veritabanı" }
+      ]
+    },
+    {
+      "category": "Zafiyet & Uygulama Güvenliği",
+      "items": [
+        { "acr": "CVE",   "en": "Common Vulnerabilities and Exposures",     "tr": "Bilinen açık kimlik numarası" },
+        { "acr": "CVSS",  "en": "Common Vulnerability Scoring System",      "tr": "Açık önem skoru 0-10 (9-10=Kritik)" },
+        { "acr": "SAST",  "en": "Static Application Security Testing",      "tr": "Kaynak kod analizi — çalıştırmadan (white-box)" },
+        { "acr": "DAST",  "en": "Dynamic Application Security Testing",     "tr": "Çalışan uygulamayı test etme (black-box)" },
+        { "acr": "XSS",   "en": "Cross-Site Scripting",                     "tr": "Kurbanın tarayıcısında zararlı script çalıştırma" },
+        { "acr": "SQLi",  "en": "SQL Injection",                            "tr": "Veritabanı sorgu enjeksiyonu" },
+        { "acr": "CSRF",  "en": "Cross-Site Request Forgery",               "tr": "Kullanıcı adına izinsiz istek gönderme" },
+        { "acr": "SSRF",  "en": "Server-Side Request Forgery",              "tr": "Sunucuyu iç ağa istek yaptırma" },
+        { "acr": "IDOR",  "en": "Insecure Direct Object Reference",         "tr": "ID değiştirerek başka kullanıcı verisine erişim" },
+        { "acr": "RAT",   "en": "Remote Access Trojan",                     "tr": "Uzaktan tam kontrol sağlayan truva atı" },
+        { "acr": "APT",   "en": "Advanced Persistent Threat",               "tr": "Uzun süreli, hedefli, genelde devlet destekli saldırı" },
+        { "acr": "OWASP", "en": "Open Web Application Security Project",    "tr": "Web güvenlik rehberi — Top 10 listesi" },
+        { "acr": "SBOM",  "en": "Software Bill of Materials",               "tr": "Yazılımdaki tüm bileşenlerin listesi (tedarik zinciri)" }
+      ]
+    },
+    {
+      "category": "Uyumluluk & Regülasyon",
+      "items": [
+        { "acr": "GDPR",  "en": "General Data Protection Regulation",       "tr": "AB kişisel veri yönetmeliği — 72 saat ihlal bildirimi" },
+        { "acr": "HIPAA", "en": "Health Insurance Portability & Accountability Act","tr": "ABD sağlık verisi (PHI) düzenlemesi" },
+        { "acr": "PCI DSS","en":"Payment Card Industry Data Security Standard","tr": "Kredi/banka kartı veri güvenliği standardı" },
+        { "acr": "SOX",   "en": "Sarbanes-Oxley Act",                       "tr": "ABD halka açık şirket finansal raporlama yasası" },
+        { "acr": "CMMC",  "en": "Cybersecurity Maturity Model Certification","tr": "ABD savunma tedarikçileri siber olgunluk sertifikası" },
+        { "acr": "NIST",  "en": "National Institute of Standards & Technology","tr": "ABD standartlar kurumu — NIST CSF, SP 800-xx" },
+        { "acr": "FIPS",  "en": "Federal Information Processing Standards", "tr": "ABD federal kriptografi standartları (FIPS 140-2)" },
+        { "acr": "PII",   "en": "Personally Identifiable Information",      "tr": "Kişiyi tanımlayabilen bilgi (ad, TC, e-posta)" },
+        { "acr": "PHI",   "en": "Protected Health Information",             "tr": "Korumalı sağlık bilgisi (HIPAA kapsamında)" },
+        { "acr": "CISO",  "en": "Chief Information Security Officer",       "tr": "Bilgi güvenliği yöneticisi (üst yönetim)" },
+        { "acr": "DPO",   "en": "Data Protection Officer",                  "tr": "Veri koruma görevlisi (GDPR zorunlu kılar)" },
+        { "acr": "FERPA", "en": "Family Educational Rights & Privacy Act",  "tr": "ABD öğrenci eğitim kayıtları gizliliği" }
+      ]
+    },
+    {
+      "category": "E-posta & Bulut",
+      "items": [
+        { "acr": "SPF",   "en": "Sender Policy Framework",                  "tr": "Yetkili gönderici IP listesi (kim gönderebilir)" },
+        { "acr": "DKIM",  "en": "DomainKeys Identified Mail",               "tr": "E-posta içeriği dijital imzası (değiştirilmedi mi)" },
+        { "acr": "DMARC", "en": "Domain-based Message Authentication...",   "tr": "SPF/DKIM başarısızsa politika + raporlama" },
+        { "acr": "IaaS",  "en": "Infrastructure as a Service",              "tr": "Müşteri OS+uygulama+veriden sorumlu" },
+        { "acr": "PaaS",  "en": "Platform as a Service",                    "tr": "Müşteri uygulama+veriden sorumlu" },
+        { "acr": "SaaS",  "en": "Software as a Service",                    "tr": "Müşteri sadece veriden sorumlu" },
+        { "acr": "IaC",   "en": "Infrastructure as Code",                   "tr": "Altyapıyı kod ile yönetme (Terraform, Ansible)" },
+        { "acr": "CASB",  "en": "Cloud Access Security Broker",             "tr": "Bulut erişim güvenlik aracısı" },
+        { "acr": "BYOD",  "en": "Bring Your Own Device",                    "tr": "Kişisel cihazla iş ağına erişim politikası" },
+        { "acr": "MDM",   "en": "Mobile Device Management",                 "tr": "Mobil cihaz merkezi yönetimi" }
+      ]
+    },
+    {
+      "category": "OT & IoT Güvenlik",
+      "items": [
+        { "acr": "OT",    "en": "Operational Technology",                    "tr": "Endüstriyel kontrol teknolojisi (fabrika, altyapı)" },
+        { "acr": "ICS",   "en": "Industrial Control Systems",                "tr": "Endüstriyel kontrol sistemleri" },
+        { "acr": "SCADA", "en": "Supervisory Control and Data Acquisition",  "tr": "Uzaktan izleme ve endüstriyel kontrol" },
+        { "acr": "PLC",   "en": "Programmable Logic Controller",             "tr": "Fabrika/makine kontrolü için programlanabilir cihaz" },
+        { "acr": "HMI",   "en": "Human Machine Interface",                   "tr": "Operatörün sistemi izlediği/yönettiği arayüz" },
+        { "acr": "RTU",   "en": "Remote Terminal Unit",                      "tr": "SCADA sistemine veri gönderen saha cihazı" }
+      ]
+    },
+    {
+      "category": "Yönetişim & Sözleşme",
+      "items": [
+        { "acr": "SLA",   "en": "Service-Level Agreement",                   "tr": "Ölçülebilir hizmet taahhüdü (uptime %99.9)" },
+        { "acr": "MOU",   "en": "Memorandum of Understanding",               "tr": "Niyet beyanı (genellikle bağlayıcı değil)" },
+        { "acr": "MSA",   "en": "Master Service Agreement",                  "tr": "Genel çerçeve sözleşme" },
+        { "acr": "SOW",   "en": "Statement of Work",                         "tr": "Yapılacak işin detaylı kapsamı" },
+        { "acr": "NDA",   "en": "Non-Disclosure Agreement",                  "tr": "Gizlilik anlaşması" },
+        { "acr": "ISA",   "en": "Interconnection Security Agreement",        "tr": "İki kurum arası güvenli bağlantı anlaşması" },
+        { "acr": "AUP",   "en": "Acceptable Use Policy",                     "tr": "Kabul edilebilir kullanım politikası" },
+        { "acr": "CAB",   "en": "Change Advisory Board",                     "tr": "Değişiklik danışma kurulu (değişim yönetimi)" }
+      ]
+    }
+  ]
+}

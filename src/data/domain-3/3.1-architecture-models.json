@@ -1,0 +1,235 @@
+{
+  "moduleId": "3.1",
+  "title": "Mimari Modelleri ve Güvenlik Etkileri",
+  "domainId": 3,
+  "documentation": [
+    {
+      "heading": "Bulut Modelleri ve Paylaşımlı Sorumluluk",
+      "body": "Bulutta sorumluluk sağlayıcı ile müşteri arasında PAYLAŞILIR (shared responsibility model). Hizmet modeli, müşterinin neyden sorumlu olduğunu belirler.",
+      "specTable": {
+        "title": "Bulut Hizmet Modelleri",
+        "columns": ["Model", "Açılım", "Müşteri Sorumluluğu"],
+        "rows": [
+          ["IaaS", "Infrastructure as a Service", "OS, uygulama, veri, yama (EN FAZLA)"],
+          ["PaaS", "Platform as a Service", "Uygulama ve veri"],
+          ["SaaS", "Software as a Service", "Sadece veri/erişim (EN AZ)"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Bulut Dağıtım Modelleri",
+          "items": [
+            "Public cloud: Üçüncü taraf sağlayıcı, paylaşımlı.",
+            "Private cloud: Tek kuruma özel.",
+            "Hybrid cloud: Public + private karışımı.",
+            "Community cloud: Ortak ihtiyaçlı kurumlar paylaşır.",
+            "Responsibility matrix: Hangi tarafın neyden sorumlu olduğunu tanımlar."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "Sorumluluk Refleksi",
+          "items": [
+            "IaaS → müşteri OS+uygulama+veriden sorumlu ('customer manages OS').",
+            "SaaS → sağlayıcı çoğunu yönetir, müşteri sadece veri.",
+            "Fiziksel donanım/veri merkezi HER ZAMAN sağlayıcının sorumluluğundadır."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Modern Altyapı Kavramları",
+      "specTable": {
+        "title": "Mimari Yaklaşımları",
+        "columns": ["Kavram", "Açıklama"],
+        "rows": [
+          ["IaC (Infrastructure as Code)", "Altyapıyı kod ile tanımlama/otomasyon (Terraform)"],
+          ["Serverless (FaaS)", "Sunucu yönetimi olmadan fonksiyon çalıştırma"],
+          ["Microservices", "Uygulamayı küçük bağımsız servislere bölme"],
+          ["Containerization", "Uygulamayı bağımlılıklarıyla paketleme (Docker)"],
+          ["Virtualization", "Tek donanımda çoklu VM (hypervisor)"],
+          ["SDN", "Yazılım tanımlı ağ; control/data plane ayrımı"],
+          ["Thin client", "İşlemenin sunucuda olduğu hafif istemci"]
+        ]
+      }
+    },
+    {
+      "heading": "Özel Sistemler (ICS/SCADA/IoT/Embedded)",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Kritik/Gömülü Sistemler",
+          "items": [
+            "ICS/SCADA: Endüstriyel kontrol sistemleri (fabrika, enerji şebekesi, su).",
+            "Embedded systems: Gömülü sistemler (RTOS - real-time OS).",
+            "IoT: Nesnelerin interneti; zayıf güvenlik, varsayılan parola.",
+            "OT (Operational Technology): Fiziksel süreçleri yöneten teknoloji.",
+            "Ortak sorun: yama zorluğu, eski protokoller, AVAILABILITY önceliği (güvenlik ikinci planda kalabilir)."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Mimari Değerlendirme Kriterleri",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Karar Faktörleri",
+          "items": [
+            "Availability, Resilience, Cost, Responsiveness, Scalability, Ease of deployment, Risk transference, Ease of recovery, Patch availability, Power, Compute.",
+            "On-premises: Tam kontrol ama yüksek maliyet/sorumluluk.",
+            "Centralized: Yönetim kolay ama tek hata noktası. Decentralized: Dayanıklı ama karmaşık."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Customer manages OS and apps / Provider gives hardware", "maps_to": "IaaS", "explanation": "Müşteri OS+uygulamadan sorumlu." },
+    { "trigger": "Provider manages everything, user just uses the app", "maps_to": "SaaS", "explanation": "En az müşteri sorumluluğu." },
+    { "trigger": "Define infrastructure with code / Terraform", "maps_to": "Infrastructure as Code (IaC)", "explanation": "Altyapıyı kodla yönetme." },
+    { "trigger": "No server to manage / Functions / FaaS", "maps_to": "Serverless", "explanation": "Sunucusuz fonksiyon." },
+    { "trigger": "Factory / Power grid / SCADA / Industrial", "maps_to": "ICS/SCADA (OT)", "explanation": "Endüstriyel kontrol sistemleri." },
+    { "trigger": "Small independent services / Break the monolith", "maps_to": "Microservices", "explanation": "Bağımsız servis mimarisi." },
+    { "trigger": "Who is responsible for what in cloud", "maps_to": "Shared Responsibility Model", "explanation": "Bulut sorumluluk paylaşımı." },
+    { "trigger": "Package app with dependencies / Docker", "maps_to": "Containerization", "explanation": "Konteynerleştirme." }
+  ],
+  "questions": [
+    {
+      "id": "3.1-q1",
+      "questionEn": "A company uses a cloud service where the provider manages hardware and the hypervisor, but the company manages the OS, patching, and applications. Which model?",
+      "options": { "A": "SaaS", "B": "PaaS", "C": "IaaS", "D": "FaaS" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir şirket, sağlayıcının donanım ve hipervizörü yönettiği ama şirketin OS, yama ve uygulamaları yönettiği bir bulut hizmeti kullanıyor. Hangi model?",
+        "optionsTr": { "A": "SaaS", "B": "PaaS", "C": "IaaS", "D": "FaaS" },
+        "patternHint": "'customer manages OS + patching + apps' = IaaS.",
+        "whyWrong": { "A": "SaaS'ta müşteri OS yönetmez.", "B": "PaaS'ta OS sağlayıcıdadır.", "D": "FaaS fonksiyon düzeyidir." }
+      }
+    },
+    {
+      "id": "3.1-q2",
+      "questionEn": "A manufacturing plant runs decades-old systems controlling physical machinery, prioritizing uptime and unable to be easily patched. Which environment?",
+      "options": { "A": "Serverless", "B": "ICS/SCADA (OT)", "C": "Microservices", "D": "SaaS" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir üretim tesisi, fiziksel makineleri kontrol eden, uptime'a öncelik veren ve kolay yamalanamayan onlarca yıllık sistemler çalıştırıyor. Hangi ortam?",
+        "optionsTr": { "A": "Serverless", "B": "ICS/SCADA (OT)", "C": "Mikroservisler", "D": "SaaS" },
+        "patternHint": "'plant + physical machinery + uptime + cannot patch' = ICS/SCADA/OT.",
+        "whyWrong": { "A": "Modern bulut modelidir.", "C": "Yazılım mimarisidir.", "D": "Bulut uygulamasıdır." }
+      }
+    },
+    {
+      "id": "3.1-q3",
+      "questionEn": "A DevOps team defines all servers, networks, and firewall rules in version-controlled files that auto-provision the environment. Which approach?",
+      "options": { "A": "Infrastructure as Code", "B": "Containerization", "C": "Virtualization", "D": "SDN" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir DevOps ekibi tüm sunucu, ağ ve firewall kurallarını ortamı otomatik kuran sürüm kontrollü dosyalarda tanımlıyor. Hangi yaklaşım?",
+        "optionsTr": { "A": "Infrastructure as Code", "B": "Konteynerleştirme", "C": "Sanallaştırma", "D": "SDN" },
+        "patternHint": "'define in config files + auto-provision' = IaC.",
+        "whyWrong": { "B": "Uygulama paketlemedir.", "C": "Donanım bölmedir.", "D": "Sadece ağ kontrolüdür." }
+      }
+    },
+    {
+      "id": "3.1-q4",
+      "questionEn": "In the cloud shared responsibility model, who is ALWAYS responsible for the physical security of the data center?",
+      "options": { "A": "The customer", "B": "The cloud provider", "C": "It is shared equally", "D": "A third-party auditor" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bulut paylaşımlı sorumluluk modelinde, veri merkezinin fiziksel güvenliğinden HER ZAMAN kim sorumludur?",
+        "optionsTr": { "A": "Müşteri", "B": "Bulut sağlayıcı", "C": "Eşit paylaşılır", "D": "Üçüncü taraf denetçi" },
+        "patternHint": "Fiziksel donanım/veri merkezi = her zaman sağlayıcı.",
+        "whyWrong": { "A": "Müşteri fiziksel altyapıdan sorumlu değildir.", "C": "Fiziksel kısım paylaşılmaz.", "D": "Denetçi sorumlu taraf değil." }
+      }
+    },
+    {
+      "id": "3.1-q5",
+      "questionEn": "An app is broken into many small, independently deployable services that communicate via APIs. Which architecture?",
+      "options": { "A": "Monolithic", "B": "Microservices", "C": "Serverless", "D": "Thin client" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir uygulama, API'ler üzerinden iletişen birçok küçük, bağımsız dağıtılabilir servise bölünüyor. Hangi mimari?",
+        "optionsTr": { "A": "Monolitik", "B": "Mikroservisler", "C": "Serverless", "D": "İnce istemci" },
+        "patternHint": "'small independent services + APIs' = Microservices.",
+        "whyWrong": { "A": "Monolitik tek büyük blok.", "C": "Serverless fonksiyon modelidir.", "D": "Thin client istemci türüdür." }
+      }
+    },
+    {
+      "id": "3.1-q6",
+      "questionEn": "A startup wants to run code in response to events without managing any servers, paying only per execution. Which model?",
+      "options": { "A": "IaaS", "B": "Serverless (FaaS)", "C": "On-premises", "D": "Private cloud" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir startup, hiç sunucu yönetmeden olaylara yanıt olarak kod çalıştırmak ve yalnızca çalıştırma başına ödemek istiyor. Hangi model?",
+        "optionsTr": { "A": "IaaS", "B": "Serverless (FaaS)", "C": "On-premises", "D": "Özel bulut" },
+        "patternHint": "'no servers to manage + pay per execution' = Serverless.",
+        "whyWrong": { "A": "IaaS'ta sunucu yönetilir.", "C": "On-prem tam yönetim gerektirir.", "D": "Özel bulut altyapı yönetimi gerektirir." }
+      }
+    },
+    {
+      "id": "3.1-q7",
+      "questionEn": "Which is a PRIMARY security concern with IoT devices?",
+      "options": {
+        "A": "They are too expensive to deploy",
+        "B": "They often ship with weak/default credentials and are hard to patch",
+        "C": "They require too much electricity",
+        "D": "They cannot connect to networks"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "IoT cihazlarıyla ilgili BİRİNCİL güvenlik endişesi hangisidir?",
+        "optionsTr": {
+          "A": "Kurulumları çok pahalı",
+          "B": "Genelde zayıf/varsayılan kimlik bilgileriyle gelir ve yamalanması zor",
+          "C": "Çok fazla elektrik gerektirir",
+          "D": "Ağlara bağlanamazlar"
+        },
+        "patternHint": "IoT = zayıf/varsayılan parola + yama zorluğu.",
+        "whyWrong": { "A": "Maliyet güvenlik endişesi değil.", "C": "Güç tüketimi güvenlik değil.", "D": "IoT ağa bağlanır." }
+      }
+    },
+    {
+      "id": "3.1-q8",
+      "questionEn": "A company wants centralized management for easy administration but is warned about which trade-off?",
+      "options": {
+        "A": "Higher resilience automatically",
+        "B": "A single point of failure",
+        "C": "Lower cost guaranteed",
+        "D": "Zero attack surface"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir şirket kolay yönetim için merkezi yönetim istiyor ama hangi takas konusunda uyarılıyor?",
+        "optionsTr": { "A": "Otomatik daha yüksek dayanıklılık", "B": "Tek hata noktası", "C": "Garantili daha düşük maliyet", "D": "Sıfır saldırı yüzeyi" },
+        "patternHint": "Merkezi yönetim = kolay ama Single Point of Failure riski.",
+        "whyWrong": { "A": "Merkezi yapı dayanıklılığı azaltabilir.", "C": "Maliyet garantisi yok.", "D": "Sıfır yüzey imkansız." }
+      }
+    },
+    {
+      "id": "3.1-q9",
+      "questionEn": "Multiple VMs run on a single physical host managed by a hypervisor. What is this called?",
+      "options": { "A": "Virtualization", "B": "Containerization", "C": "Serverless", "D": "Microservices" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir hipervizör tarafından yönetilen tek bir fiziksel host'ta birden fazla VM çalışıyor. Buna ne denir?",
+        "optionsTr": { "A": "Sanallaştırma", "B": "Konteynerleştirme", "C": "Serverless", "D": "Mikroservisler" },
+        "patternHint": "VM + hypervisor = Virtualization.",
+        "whyWrong": { "B": "Konteyner OS çekirdeğini paylaşır, VM değildir.", "C": "Serverless fonksiyondur.", "D": "Yazılım mimarisidir." }
+      }
+    },
+    {
+      "id": "3.1-q10",
+      "questionEn": "A hospital keeps sensitive records on its own private cloud but bursts to a public cloud during peak demand. Which deployment model?",
+      "options": { "A": "Public cloud", "B": "Hybrid cloud", "C": "Community cloud", "D": "On-premises only" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir hastane hassas kayıtları kendi özel bulutunda tutuyor ama yoğun talepte public bulута taşıyor. Hangi dağıtım modeli?",
+        "optionsTr": { "A": "Public bulut", "B": "Hybrid bulut", "C": "Community bulut", "D": "Sadece on-premises" },
+        "patternHint": "Private + public birlikte = Hybrid.",
+        "whyWrong": { "A": "Sadece public değil.", "C": "Community ortak kurumlar içindir.", "D": "Public kullanımı var, sadece on-prem değil." }
+      }
+    }
+  ]
+}

@@ -1,0 +1,238 @@
+{
+  "moduleId": "5.3",
+  "title": "Üçüncü Taraf Risk Yönetimi",
+  "domainId": 5,
+  "documentation": [
+    {
+      "heading": "Satıcı Değerlendirme ve Seçimi",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Vendor Assessment Yöntemleri",
+          "items": [
+            "Due diligence: Satıcıyı sözleşme öncesi kapsamlı değerlendirme.",
+            "Questionnaires: Satıcıya güvenlik soruları gönderme.",
+            "Right-to-audit clause: Sözleşmede satıcıyı denetleme hakkı.",
+            "SOC reports (SOC 1/2/3): Bağımsız denetim raporları — satıcının kontrol etkinliği.",
+            "Site visit: Fiziksel tesis ziyareti.",
+            "Penetration testing: Satıcı sistemlerinin sızma testi.",
+            "Independent assessment: Üçüncü taraf bağımsız güvenlik değerlendirmesi.",
+            "Vendor monitoring: Satıcıyı sürekli izleme (tedarik zinciri riski)."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Kritik Sözleşme ve Anlaşma Türleri",
+      "specTable": {
+        "title": "Sözleşme ve Anlaşma Türleri",
+        "columns": ["Belge", "Açılım", "Amaç"],
+        "rows": [
+          ["SLA", "Service Level Agreement", "Hizmet düzeyi gereksinimleri (uptime, yanıt süresi)"],
+          ["MOU", "Memorandum of Understanding", "İki tarafın niyetini belgeleyen çerçeve anlaşma (yasal değil)"],
+          ["MSA", "Master Service Agreement", "Uzun vadeli çerçeve hizmet sözleşmesi"],
+          ["SOW", "Statement of Work", "Proje kapsamı, teslimatlar, zaman çizelgesi"],
+          ["NDA", "Non-Disclosure Agreement", "Gizli bilginin korunması"],
+          ["BPA", "Business Partnership Agreement", "İş ortaklığı anlaşması"],
+          ["ISA", "Interconnection Security Agreement", "İki sistem arasındaki bağlantı güvenlik gereksinimleri"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "SLA vs MOU vs SOW",
+          "items": [
+            "SLA = hizmet performansı taahhütleri (uptime %99.9, 4 saat yanıt).",
+            "MOU = niyet belgesi (hukuki bağlayıcılığı zayıf).",
+            "SOW = ne yapılacak, ne zaman, nasıl teslim edilecek (proje detayı).",
+            "NDA = gizlilik — bilgi sızdırmama taahhüdü."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Tedarik Zinciri Riski",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Supply Chain Security",
+          "items": [
+            "Supply chain attack: Yazılım/donanımı tedarikçi aracılığıyla zehirleme (SolarWinds örneği).",
+            "Hardware source risk: Sahte/değiştirilmiş donanım bileşenleri.",
+            "Software supply chain: Kötü amaçlı bağımlılık (dependency/package).",
+            "SBOM (Software Bill of Materials): Yazılımın içindeki tüm bileşenlerin listesi.",
+            "Vendor lock-in: Tek satıcıya bağımlılık = kaldıraç kaybı."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Dış Kaynak Kullanımı Riskleri",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Outsourcing Güvenlik Konuları",
+          "items": [
+            "Veri güvenliği: Satıcının müşteri verilerine erişim riski.",
+            "Regulatory compliance: Satıcının da uyumluluk gereksinimlerini karşılaması.",
+            "Right-to-audit: Sözleşmede denetim hakkı zorunlu olmalı.",
+            "Data handling: Verinin nasıl işlendiği, nerede saklandığı.",
+            "Exit strategy: Satıcı değiştiğinde veri geri alma planı."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Service uptime / response time guarantee", "maps_to": "SLA (Service Level Agreement)", "explanation": "Hizmet düzeyi anlaşması." },
+    { "trigger": "Intent agreement / not legally binding / framework", "maps_to": "MOU (Memorandum of Understanding)", "explanation": "Niyet mektubu." },
+    { "trigger": "Project scope / deliverables / timeline", "maps_to": "SOW (Statement of Work)", "explanation": "İş tanımı belgesi." },
+    { "trigger": "Keep information confidential / non-disclosure", "maps_to": "NDA (Non-Disclosure Agreement)", "explanation": "Gizlilik anlaşması." },
+    { "trigger": "Right to audit vendor / included in contract", "maps_to": "Right-to-audit Clause", "explanation": "Sözleşmesel denetim hakkı." },
+    { "trigger": "List of all software components / open-source dependencies", "maps_to": "SBOM (Software Bill of Materials)", "explanation": "Yazılım bileşen listesi." },
+    { "trigger": "Attack through trusted vendor / SolarWinds-style", "maps_to": "Supply Chain Attack", "explanation": "Tedarik zinciri saldırısı." },
+    { "trigger": "Independent audit report on vendor controls (Type 1/2)", "maps_to": "SOC 2 Report", "explanation": "Bağımsız denetim raporu." }
+  ],
+  "questions": [
+    {
+      "id": "5.3-q1",
+      "questionEn": "A company signs a contract with a cloud provider guaranteeing 99.9% uptime and a 4-hour response time for critical incidents. Which document?",
+      "options": { "A": "NDA", "B": "MOU", "C": "SLA", "D": "SOW" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir şirket, %99.9 uptime ve kritik olaylar için 4 saatlik yanıt süresi garantisi veren bir bulut sağlayıcısıyla sözleşme imzalıyor. Hangi belge?",
+        "optionsTr": { "A": "NDA", "B": "MOU", "C": "SLA", "D": "SOW" },
+        "patternHint": "Uptime + yanıt süresi garantisi = SLA.",
+        "whyWrong": { "A": "NDA gizlilik.", "B": "MOU niyet belgesi.", "D": "SOW proje kapsamı." }
+      }
+    },
+    {
+      "id": "5.3-q2",
+      "questionEn": "An organization wants to ensure that if a vendor is ever breached, the organization can inspect the vendor's security controls and logs. Which contract clause ensures this right?",
+      "options": { "A": "NDA clause", "B": "Right-to-audit clause", "C": "SLA penalty clause", "D": "BPA clause" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kuruluş, satıcının ihlale uğraması halinde satıcının güvenlik kontrollerini ve loglarını inceleyebilmesini istiyor. Hangi sözleşme maddesi bu hakkı sağlar?",
+        "optionsTr": { "A": "NDA maddesi", "B": "Denetim hakkı maddesi", "C": "SLA ceza maddesi", "D": "BPA maddesi" },
+        "patternHint": "Satıcıyı denetleme hakkı sözleşmede = Right-to-audit clause.",
+        "whyWrong": { "A": "NDA gizliliği korur.", "C": "SLA cezası performans ihlalini ele alır.", "D": "BPA ortaklık anlaşması." }
+      }
+    },
+    {
+      "id": "5.3-q3",
+      "questionEn": "Attackers compromised a widely-used IT management software's update mechanism and pushed malware to thousands of customers. Which attack type?",
+      "options": { "A": "Phishing", "B": "SQL injection", "C": "Supply chain attack", "D": "Ransomware" },
+      "correct": "C",
+      "solution": {
+        "translation": "Saldırganlar, yaygın kullanılan bir BT yönetim yazılımının güncelleme mekanizmasını ele geçirdi ve binlerce müşteriye kötü amaçlı yazılım yolladı. Hangi saldırı türü?",
+        "optionsTr": { "A": "Kimlik avı", "B": "SQL enjeksiyonu", "C": "Tedarik zinciri saldırısı", "D": "Fidye yazılımı" },
+        "patternHint": "Güvenilen tedarikçi üzerinden saldırı = Supply chain attack (SolarWinds benzeri).",
+        "whyWrong": { "A": "Phishing e-posta tabanlı.", "B": "SQLi veritabanı saldırısı.", "D": "Ransomware şifreleyip fidye ister." }
+      }
+    },
+    {
+      "id": "5.3-q4",
+      "questionEn": "Two government agencies agree on a framework for sharing threat intelligence, documenting their mutual intentions. Which document type is MOST appropriate?",
+      "options": { "A": "SLA", "B": "MOU", "C": "SOW", "D": "NDA" },
+      "correct": "B",
+      "solution": {
+        "translation": "İki devlet kurumu, tehdit istihbaratı paylaşımı için çerçeve üzerinde anlaşarak karşılıklı niyetlerini belgeliyor. Hangi belge türü EN uygun?",
+        "optionsTr": { "A": "SLA", "B": "MOU", "C": "SOW", "D": "NDA" },
+        "patternHint": "Niyet belgesi + çerçeve + resmi olmayan = MOU.",
+        "whyWrong": { "A": "SLA hizmet performansı.", "C": "SOW proje kapsamı.", "D": "NDA gizlilik." }
+      }
+    },
+    {
+      "id": "5.3-q5",
+      "questionEn": "A security team requests a list of ALL open-source libraries and dependencies included in a vendor's software product. Which document?",
+      "options": { "A": "SOC 2 report", "B": "NDA", "C": "SBOM (Software Bill of Materials)", "D": "SLA" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir güvenlik ekibi, satıcının yazılım ürününde yer alan TÜM açık kaynak kütüphanelerin ve bağımlılıkların listesini talep ediyor. Hangi belge?",
+        "optionsTr": { "A": "SOC 2 raporu", "B": "NDA", "C": "SBOM (Yazılım Bileşen Listesi)", "D": "SLA" },
+        "patternHint": "Yazılım bileşen listesi = SBOM.",
+        "whyWrong": { "A": "SOC 2 kontrol etkinlik raporu.", "B": "NDA gizlilik.", "D": "SLA performans taahhüdü." }
+      }
+    },
+    {
+      "id": "5.3-q6",
+      "questionEn": "A vendor provides a SOC 2 Type 2 report. What does this report confirm?",
+      "options": {
+        "A": "The vendor has no security vulnerabilities",
+        "B": "The vendor's controls have been tested and found effective over a period of time",
+        "C": "The vendor is certified by the government",
+        "D": "The vendor has passed a penetration test"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir satıcı SOC 2 Tür 2 raporu sunuyor. Bu rapor ne doğrular?",
+        "optionsTr": {
+          "A": "Satıcının güvenlik açığı yok",
+          "B": "Satıcının kontrolleri bir süre boyunca test edilmiş ve etkin bulunmuş",
+          "C": "Satıcı hükümet tarafından sertifikalandırılmış",
+          "D": "Satıcı sızma testini geçmiş"
+        },
+        "patternHint": "SOC 2 Type 2 = bağımsız denetçi belirli süre boyunca kontrollerin etkinliğini doğrular.",
+        "whyWrong": { "A": "Zafiyet olmadığını kanıtlamaz.", "C": "Hükümet sertifikası değil.", "D": "Pentest başka bir süreçtir." }
+      }
+    },
+    {
+      "id": "5.3-q7",
+      "questionEn": "Which agreement specifically defines what work will be performed, when it will be delivered, and what the deliverables are for a specific project?",
+      "options": { "A": "MSA", "B": "NDA", "C": "MOU", "D": "SOW" },
+      "correct": "D",
+      "solution": {
+        "translation": "Hangi anlaşma, belirli bir proje için ne iş yapılacağını, ne zaman teslim edileceğini ve teslimatların ne olduğunu spesifik olarak tanımlar?",
+        "optionsTr": { "A": "MSA", "B": "NDA", "C": "MOU", "D": "SOW" },
+        "patternHint": "Proje kapsamı + teslimatlar + zaman çizelgesi = SOW.",
+        "whyWrong": { "A": "MSA uzun vadeli çerçeve sözleşmesi.", "B": "NDA gizlilik.", "C": "MOU niyet belgesi." }
+      }
+    },
+    {
+      "id": "5.3-q8",
+      "questionEn": "An organization outsources payroll processing to a third party. Which is a PRIMARY security concern with this arrangement?",
+      "options": {
+        "A": "The vendor may use different programming languages",
+        "B": "The vendor will have access to sensitive employee PII and financial data",
+        "C": "The vendor is in a different time zone",
+        "D": "The vendor may work too quickly"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kuruluş maaş bordro işlemlerini üçüncü bir tarafa dış kaynak olarak veriyor. Bu düzenlemenin BİRİNCİL güvenlik endişesi nedir?",
+        "optionsTr": {
+          "A": "Satıcı farklı programlama dilleri kullanabilir",
+          "B": "Satıcı hassas çalışan PII ve finansal verilere erişecek",
+          "C": "Satıcı farklı saat diliminde",
+          "D": "Satıcı çok hızlı çalışabilir"
+        },
+        "patternHint": "Üçüncü taraf + PII/finansal veri erişimi = birincil güvenlik endişesi.",
+        "whyWrong": { "A": "Programlama dili güvenlik endişesi değil.", "C": "Saat dilimi operasyonel.", "D": "Hız güvenlik endişesi değil." }
+      }
+    },
+    {
+      "id": "5.3-q9",
+      "questionEn": "A company relies entirely on one cloud provider for all services. Which supply chain risk does this represent?",
+      "options": { "A": "SBOM risk", "B": "Vendor lock-in", "C": "SOC 2 failure", "D": "MOU violation" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir şirket tüm hizmetleri için tamamen tek bir bulut sağlayıcısına bağımlı. Bu hangi tedarik zinciri riskini temsil eder?",
+        "optionsTr": { "A": "SBOM riski", "B": "Satıcıya kilitlenme", "C": "SOC 2 başarısızlığı", "D": "MOU ihlali" },
+        "patternHint": "Tek satıcıya tam bağımlılık = Vendor lock-in.",
+        "whyWrong": { "A": "SBOM yazılım bileşen listesi.", "C": "SOC 2 denetim raporu.", "D": "MOU niyet belgesi." }
+      }
+    },
+    {
+      "id": "5.3-q10",
+      "questionEn": "Before signing a contract with a new cloud storage vendor, a security team thoroughly reviews the vendor's security policies, certifications, and past incident history. Which practice is this?",
+      "options": { "A": "Due diligence", "B": "Risk transfer", "C": "Risk acceptance", "D": "Penetration testing" },
+      "correct": "A",
+      "solution": {
+        "translation": "Yeni bir bulut depolama satıcısıyla sözleşme imzalamadan önce güvenlik ekibi satıcının güvenlik politikalarını, sertifikalarını ve geçmiş olay geçmişini kapsamlı şekilde inceliyor. Bu hangi uygulama?",
+        "optionsTr": { "A": "Ön inceleme (due diligence)", "B": "Risk transferi", "C": "Risk kabulü", "D": "Sızma testi" },
+        "patternHint": "Sözleşme öncesi kapsamlı satıcı değerlendirmesi = Due diligence.",
+        "whyWrong": { "B": "Transfer sigorta/outsource ile risk devri.", "C": "Acceptance bilinçli kabul.", "D": "Pentest sistem güvenlik testi." }
+      }
+    }
+  ]
+}

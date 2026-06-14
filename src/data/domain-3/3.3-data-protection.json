@@ -1,0 +1,244 @@
+{
+  "moduleId": "3.3",
+  "title": "Veri Koruma Stratejileri",
+  "domainId": 3,
+  "documentation": [
+    {
+      "heading": "Veri Durumları (Data States)",
+      "specTable": {
+        "title": "Verinin 3 Hali",
+        "columns": ["Durum", "Açıklama", "Koruma"],
+        "rows": [
+          ["Data at rest", "Diskte/depoda duran veri", "Disk/dosya şifreleme (AES)"],
+          ["Data in transit", "Ağda hareket eden veri", "TLS, VPN, IPSec"],
+          ["Data in use", "Bellekte işlenen veri", "Secure enclave, bellek şifreleme"]
+        ]
+      }
+    },
+    {
+      "heading": "Veri Sınıflandırması (Classification)",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Sınıflandırma Seviyeleri",
+          "items": [
+            "Kurumsal: Public < Private/Internal < Sensitive < Confidential < Restricted/Critical.",
+            "Devlet/askeri: Unclassified < Confidential < Secret < Top Secret.",
+            "Sınıflandırma; erişim, şifreleme ve saklama kararlarını yönlendirir."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Veri Türleri ve Yönetişim Rolleri",
+      "specTable": {
+        "title": "Veri Rolleri",
+        "columns": ["Rol", "Sorumluluk"],
+        "rows": [
+          ["Data owner", "Verinin NİHAİ sorumlusu (üst yönetim)"],
+          ["Data controller", "Verinin nasıl/neden işleneceğine karar verir"],
+          ["Data processor", "Veriyi controller adına işler"],
+          ["Data custodian/steward", "Veriyi teknik olarak saklar/korur"],
+          ["DPO", "Veri koruma uyumundan sorumlu (privacy)"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Veri Türleri",
+          "items": [
+            "PII: Kişiyi tanımlayan bilgi (ad, SSN, adres).",
+            "PHI: Korunan sağlık bilgisi (HIPAA).",
+            "Financial information: Finansal veri.",
+            "Intellectual property: Fikri mülkiyet.",
+            "Regulated data: Yasal düzenlemeye tabi veri.",
+            "Trade secrets: Ticari sır."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Veri Koruma Yöntemleri",
+      "specTable": {
+        "title": "Koruma Teknikleri",
+        "columns": ["Yöntem", "Açıklama"],
+        "rows": [
+          ["Encryption", "Veriyi şifreleme"],
+          ["Hashing", "Tek yönlü dönüştürme (bütünlük)"],
+          ["Masking", "Verinin bir kısmını gizleme (****-1234)"],
+          ["Tokenization", "Veriyi anlamsız token ile değiştirme"],
+          ["Obfuscation", "Veriyi anlaşılmaz hale getirme"],
+          ["Segmentation", "Veriyi/ağı bölme"],
+          ["Permission restrictions", "Erişim izni kısıtlama"],
+          ["Geographic restrictions (geofencing)", "Coğrafi konum bazlı kısıtlama"],
+          ["Data sovereignty", "Verinin bulunduğu ülkenin yasalarına tabi olması"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "DLP",
+          "items": [
+            "DLP (Data Loss Prevention): Hassas verinin yetkisiz çıkışını tespit/engelle.",
+            "Endpoint DLP, network DLP, cloud DLP olarak konumlandırılır.",
+            "Örnek: PII içeren e-postanın dışarı gönderilmesini engeller."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "Tokenization vs Encryption vs Masking",
+          "items": [
+            "Tokenization: gerçek veriyi anlamsız token ile değiştirir, gerçek veri ayrı kasada (matematiksel ilişki YOK).",
+            "Encryption: veriyi anahtarla şifreler (matematiksel ilişki VAR, çözülebilir).",
+            "Masking: verinin bir kısmını gizler (****-1234), genelde geri alınamaz görüntüleme."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Data stored on disk / in database / not moving", "maps_to": "Data at rest", "explanation": "Depoda duran veri." },
+    { "trigger": "Data moving over network / being transmitted", "maps_to": "Data in transit", "explanation": "İletimdeki veri." },
+    { "trigger": "Data being processed in memory", "maps_to": "Data in use", "explanation": "Bellekte işlenen veri." },
+    { "trigger": "Replace SSN with random token / separate vault", "maps_to": "Tokenization", "explanation": "Veriyi token ile değiştirme." },
+    { "trigger": "Show only last 4 digits / ****", "maps_to": "Masking", "explanation": "Verinin kısmen gizlenmesi." },
+    { "trigger": "Prevent sensitive data from leaving / Block PII via email", "maps_to": "DLP", "explanation": "Veri sızıntısı önleme." },
+    { "trigger": "Data must stay within country borders / subject to its laws", "maps_to": "Data Sovereignty", "explanation": "Yasal coğrafi konum." },
+    { "trigger": "Ultimate responsibility for data (executive)", "maps_to": "Data Owner", "explanation": "Verinin nihai sahibi." },
+    { "trigger": "Technically stores/protects the data", "maps_to": "Data Custodian", "explanation": "Veriyi teknik koruyan rol." },
+    { "trigger": "Decides why/how data is processed", "maps_to": "Data Controller", "explanation": "İşleme amacını belirleyen." },
+    { "trigger": "Restrict access based on location", "maps_to": "Geofencing", "explanation": "Konuma göre erişim kısıtlama." }
+  ],
+  "questions": [
+    {
+      "id": "3.3-q1",
+      "questionEn": "A payment company replaces card numbers with random values having no mathematical relationship to the original, with real numbers in a separate vault. Which technique?",
+      "options": { "A": "Encryption", "B": "Masking", "C": "Tokenization", "D": "Hashing" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir ödeme şirketi kart numaralarını, orijinalle matematiksel ilişkisi olmayan rastgele değerlerle değiştiriyor; gerçek numaralar ayrı kasada. Hangi teknik?",
+        "optionsTr": { "A": "Şifreleme", "B": "Maskeleme", "C": "Tokenization", "D": "Hashing" },
+        "patternHint": "'random + no mathematical relationship + separate vault' = Tokenization.",
+        "whyWrong": { "A": "Şifrelemede matematiksel ilişki var.", "B": "Masking gizler, kasa mantığı yok.", "D": "Hashing tek yönlüdür." }
+      }
+    },
+    {
+      "id": "3.3-q2",
+      "questionEn": "A law requires citizen data collected in a country to be stored within its borders and remain subject to its laws. Which concept?",
+      "options": { "A": "Data masking", "B": "Data sovereignty", "C": "Data at rest", "D": "Geofencing" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir yasa, bir ülkede toplanan vatandaş verisinin sınırlar içinde saklanmasını ve o ülkenin yasalarına tabi kalmasını gerektiriyor. Hangi kavram?",
+        "optionsTr": { "A": "Veri maskeleme", "B": "Veri egemenliği", "C": "Durağan veri", "D": "Coğrafi çitleme" },
+        "patternHint": "'within borders + subject to laws' = Data Sovereignty.",
+        "whyWrong": { "A": "Maskeleme gizlemedir.", "C": "Data at rest durumdur.", "D": "Geofencing erişim kısıtıdır." }
+      }
+    },
+    {
+      "id": "3.3-q3",
+      "questionEn": "Which control BEST prevents an employee from emailing a spreadsheet of customer SSNs to a personal account?",
+      "options": { "A": "Full disk encryption", "B": "DLP", "C": "Load balancing", "D": "TLS" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir çalışanın müşteri SSN'lerini içeren bir tabloyu kişisel hesaba e-postayla göndermesini EN İYİ hangi kontrol engeller?",
+        "optionsTr": { "A": "Disk şifreleme", "B": "DLP", "C": "Yük dengeleme", "D": "TLS" },
+        "patternHint": "'prevent sensitive data leaving via email' = DLP.",
+        "whyWrong": { "A": "Disk şifreleme durağan veriyi korur.", "C": "Yük dengeleme alakasız.", "D": "TLS iletimi şifreler, gönderimi engellemez." }
+      }
+    },
+    {
+      "id": "3.3-q4",
+      "questionEn": "Data is encrypted using TLS while moving between a browser and a web server. Which data state is being protected?",
+      "options": { "A": "Data at rest", "B": "Data in transit", "C": "Data in use", "D": "Data archived" },
+      "correct": "B",
+      "solution": {
+        "translation": "Veri, bir tarayıcı ile web sunucusu arasında hareket ederken TLS ile şifreleniyor. Hangi veri durumu korunuyor?",
+        "optionsTr": { "A": "Durağan veri", "B": "İletimdeki veri", "C": "Kullanımdaki veri", "D": "Arşivlenmiş veri" },
+        "patternHint": "'moving between + TLS' = Data in transit.",
+        "whyWrong": { "A": "At rest depoda durandır.", "C": "In use bellektedir.", "D": "Arşiv ayrı bir durum değil burada." }
+      }
+    },
+    {
+      "id": "3.3-q5",
+      "questionEn": "Who holds ULTIMATE accountability for a dataset and its classification, typically a senior executive?",
+      "options": { "A": "Data custodian", "B": "Data owner", "C": "Data processor", "D": "End user" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir veri kümesi ve sınıflandırması için NİHAİ sorumluluğu kim taşır, tipik olarak bir üst düzey yönetici?",
+        "optionsTr": { "A": "Data custodian", "B": "Data owner", "C": "Data processor", "D": "Son kullanıcı" },
+        "patternHint": "'ultimate accountability + executive' = Data Owner.",
+        "whyWrong": { "A": "Custodian teknik korur.", "C": "Processor işler.", "D": "Son kullanıcı sorumlu değil." }
+      }
+    },
+    {
+      "id": "3.3-q6",
+      "questionEn": "A customer service screen shows a credit card as ****-****-****-1234. Which technique is this?",
+      "options": { "A": "Tokenization", "B": "Data masking", "C": "Hashing", "D": "Encryption" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir müşteri hizmetleri ekranı bir kredi kartını ****-****-****-1234 olarak gösteriyor. Hangi teknik?",
+        "optionsTr": { "A": "Tokenization", "B": "Veri maskeleme", "C": "Hashing", "D": "Şifreleme" },
+        "patternHint": "'show only last 4 / ****' = Masking.",
+        "whyWrong": { "A": "Tokenization değiştirir, kısmen gizlemez.", "C": "Hashing tek yönlüdür.", "D": "Şifreleme tüm veriyi dönüştürür." }
+      }
+    },
+    {
+      "id": "3.3-q7",
+      "questionEn": "A hospital must protect patient health records to comply with HIPAA. What type of data is this?",
+      "options": { "A": "PII only", "B": "PHI", "C": "Intellectual property", "D": "Public data" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir hastane, HIPAA'ya uymak için hasta sağlık kayıtlarını korumalı. Bu hangi veri türü?",
+        "optionsTr": { "A": "Sadece PII", "B": "PHI", "C": "Fikri mülkiyet", "D": "Açık veri" },
+        "patternHint": "Sağlık kaydı + HIPAA = PHI.",
+        "whyWrong": { "A": "PII genel kişisel veridir; sağlık özel olarak PHI.", "C": "Fikri mülkiyet farklı.", "D": "Sağlık verisi açık değildir." }
+      }
+    },
+    {
+      "id": "3.3-q8",
+      "questionEn": "An organization restricts access to a financial app so it only works for devices located inside the corporate country. Which control is this?",
+      "options": { "A": "Geofencing", "B": "Tokenization", "C": "Hashing", "D": "Data sovereignty" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir kurum, bir finans uygulamasına erişimi yalnızca şirket ülkesindeki cihazlarda çalışacak şekilde kısıtlıyor. Hangi kontrol?",
+        "optionsTr": { "A": "Geofencing", "B": "Tokenization", "C": "Hashing", "D": "Veri egemenliği" },
+        "patternHint": "Konuma göre erişim kısıtlama = Geofencing. (Verinin saklanma yeri yasası = sovereignty.)",
+        "whyWrong": { "B": "Token değiştirmedir.", "C": "Hashing bütünlüktür.", "D": "Sovereignty saklama yeri yasasıdır, erişim kısıtı değil." }
+      }
+    },
+    {
+      "id": "3.3-q9",
+      "questionEn": "Which data state is the HARDEST to protect because the data must be unencrypted in memory to be processed?",
+      "options": { "A": "Data at rest", "B": "Data in transit", "C": "Data in use", "D": "Data in backup" },
+      "correct": "C",
+      "solution": {
+        "translation": "Hangi veri durumu, veri işlenebilmek için bellekte şifresiz olması gerektiğinden korunması EN ZOR olandır?",
+        "optionsTr": { "A": "Durağan", "B": "İletimde", "C": "Kullanımda", "D": "Yedekte" },
+        "patternHint": "Bellekte işlenirken şifresiz = Data in use (en zor korunan).",
+        "whyWrong": { "A": "At rest şifrelenebilir.", "B": "In transit TLS ile korunur.", "D": "Yedek şifrelenebilir." }
+      }
+    },
+    {
+      "id": "3.3-q10",
+      "questionEn": "A company classifies data as Public, Internal, Confidential, and Restricted. What is the PRIMARY purpose of this classification?",
+      "options": {
+        "A": "To make data load faster",
+        "B": "To apply appropriate protection and access controls based on sensitivity",
+        "C": "To reduce storage costs",
+        "D": "To eliminate the need for encryption"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir şirket veriyi Public, Internal, Confidential ve Restricted olarak sınıflandırıyor. Bu sınıflandırmanın BİRİNCİL amacı nedir?",
+        "optionsTr": {
+          "A": "Verinin daha hızlı yüklenmesi",
+          "B": "Hassasiyete göre uygun koruma ve erişim kontrolü uygulamak",
+          "C": "Depolama maliyetini azaltmak",
+          "D": "Şifreleme ihtiyacını ortadan kaldırmak"
+        },
+        "patternHint": "Sınıflandırma = hassasiyete göre uygun koruma seviyesi belirleme.",
+        "whyWrong": { "A": "Performansla ilgisiz.", "C": "Maliyet birincil amaç değil.", "D": "Şifrelemeyi gereksizleştirmez." }
+      }
+    }
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "moduleId": "5.4",
+  "title": "Güvenlik Uyumluluğu (Compliance)",
+  "domainId": 5,
+  "documentation": [
+    {
+      "heading": "Temel Uyumluluk Düzenlemeleri",
+      "specTable": {
+        "title": "Önemli Regülasyonlar",
+        "columns": ["Düzenleme", "Alan", "Koruma Konusu"],
+        "rows": [
+          ["GDPR", "Avrupa Birliği — genel", "AB vatandaşlarının kişisel verileri; ihlal bildirimi 72 saat"],
+          ["HIPAA", "ABD — sağlık", "Korunan sağlık bilgisi (PHI); sağlık kuruluşları"],
+          ["PCI DSS", "Küresel — ödeme", "Kredi/banka kartı bilgileri; işlem yapan herkes"],
+          ["SOX", "ABD — finans", "Finansal raporlama bütünlüğü; halka açık şirketler"],
+          ["CMMC", "ABD — savunma", "Federal tedarikçilerin siber güvenlik olgunluğu"],
+          ["FERPA", "ABD — eğitim", "Öğrenci eğitim kayıtlarının gizliliği"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Düzenleme Refleksi",
+          "items": [
+            "GDPR = Avrupa + kişisel veri + 72 saat ihlal bildirimi.",
+            "HIPAA = Sağlık + PHI (Protected Health Information).",
+            "PCI DSS = Kredi kartı → SADECE ödeme kartı verisi.",
+            "SOX = Halka açık şirket + finansal rapor bütünlüğü."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Due Diligence vs Due Care",
+      "specTable": {
+        "title": "Due Diligence vs Due Care",
+        "columns": ["Kavram", "Açıklama", "Örnek"],
+        "rows": [
+          ["Due diligence", "Riskleri araştırma, anlama ve tanımlama (ÖNCE)", "Satın almadan önce güvenlik açıklarını araştır"],
+          ["Due care", "Riskleri azaltmak için gerekli adımları atma (SONRA)", "Yama uygula, eğitim ver, kontrol koy"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Due Diligence vs Due Care",
+          "items": [
+            "Due diligence = 'Ne var, ne risk var?' → ARAŞTIRMA/ANLAMA.",
+            "Due care = 'Bilinen riski azaltmak için ne yaptım?' → EYLEM/UYGULAMA.",
+            "'Negligence' = due care uygulanmaması (ihmal)."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Attestation ve Uyumluluk Doğrulama",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Uyumluluk Doğrulama Mekanizmaları",
+          "items": [
+            "Attestation: Uyumluluğun resmi olarak doğrulanması/beyan edilmesi.",
+            "Internal audit: Kurumun kendi denetimi.",
+            "External audit: Bağımsız üçüncü taraf denetimi.",
+            "Compliance monitoring: Sürekli uyumluluk izleme.",
+            "Regulatory reporting: Düzenleyici otoriteye periyodik raporlama.",
+            "Penalties/fines: GDPR ihlali → yıllık küresel gelirin %4'üne kadar ceza."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Veri Gizlilik Kavramları",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Privacy Kavramları",
+          "items": [
+            "Data subject: Verisi işlenen kişi (GDPR terimi).",
+            "Data controller: Verinin nasıl işleneceğine karar veren.",
+            "Data processor: Controller adına işleyen üçüncü taraf.",
+            "Consent: Açık rıza (GDPR'de zorunlu).",
+            "Right to be forgotten (erasure): Kişinin verilerinin silinmesini talep hakkı.",
+            "Data minimization: Sadece gerekli veriyi topla.",
+            "Purpose limitation: Sadece belirtilen amaç için kullan."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "EU personal data regulation / 72-hour breach notification", "maps_to": "GDPR", "explanation": "AB kişisel veri yönetmeliği." },
+    { "trigger": "Protected Health Information / US healthcare regulation", "maps_to": "HIPAA", "explanation": "ABD sağlık veri düzenlemesi." },
+    { "trigger": "Credit/debit card data security standard", "maps_to": "PCI DSS", "explanation": "Ödeme kartı güvenlik standardı." },
+    { "trigger": "Financial reporting integrity / publicly traded companies", "maps_to": "SOX (Sarbanes-Oxley)", "explanation": "Finansal raporlama yasası." },
+    { "trigger": "Investigate and understand risks BEFORE acting", "maps_to": "Due Diligence", "explanation": "Risk araştırma/anlama." },
+    { "trigger": "Take action to reduce known risks / apply controls", "maps_to": "Due Care", "explanation": "Risk azaltma eylemi." },
+    { "trigger": "Formal declaration of compliance / signed attestation", "maps_to": "Attestation", "explanation": "Uyumluluk beyanı." },
+    { "trigger": "Right to delete personal data / erasure request", "maps_to": "Right to be Forgotten", "explanation": "Silinme hakkı (GDPR)." }
+  ],
+  "questions": [
+    {
+      "id": "5.4-q1",
+      "questionEn": "A hospital experiences a data breach exposing patient health records. Under which regulation must it report this breach?",
+      "options": { "A": "PCI DSS", "B": "HIPAA", "C": "SOX", "D": "GDPR" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir hastane, hasta sağlık kayıtlarını açığa çıkaran bir veri ihlali yaşıyor. Bu ihlali hangi düzenleme kapsamında bildirmeli?",
+        "optionsTr": { "A": "PCI DSS", "B": "HIPAA", "C": "SOX", "D": "GDPR" },
+        "patternHint": "Hastane + hasta sağlık kaydı = HIPAA (PHI).",
+        "whyWrong": { "A": "PCI DSS ödeme kartı.", "C": "SOX finansal rapor.", "D": "GDPR AB vatandaşı kişisel verisi." }
+      }
+    },
+    {
+      "id": "5.4-q2",
+      "questionEn": "An e-commerce company stores and processes customer credit card data. Which compliance framework MUST it follow?",
+      "options": { "A": "HIPAA", "B": "SOX", "C": "PCI DSS", "D": "FERPA" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir e-ticaret şirketi müşteri kredi kartı verilerini saklıyor ve işliyor. Hangi uyumluluk çerçevesine uymak ZORUNDA?",
+        "optionsTr": { "A": "HIPAA", "B": "SOX", "C": "PCI DSS", "D": "FERPA" },
+        "patternHint": "Kredi kartı verisi = PCI DSS.",
+        "whyWrong": { "A": "HIPAA sağlık verisi.", "B": "SOX halka açık şirket finansal raporu.", "D": "FERPA öğrenci kaydı." }
+      }
+    },
+    {
+      "id": "5.4-q3",
+      "questionEn": "A company discovers a breach of EU citizen personal data. GDPR requires breach notification to the supervisory authority within how many hours?",
+      "options": { "A": "24 hours", "B": "48 hours", "C": "72 hours", "D": "7 days" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir şirket, AB vatandaşı kişisel verilerinin ihlaline uğradığını keşfediyor. GDPR, denetim otoritesine ihlal bildirimini kaç saat içinde yapılmasını gerektiriyor?",
+        "optionsTr": { "A": "24 saat", "B": "48 saat", "C": "72 saat", "D": "7 gün" },
+        "patternHint": "GDPR ihlal bildirimi = 72 saat.",
+        "whyWrong": { "A": "24 saat değil.", "B": "48 saat değil.", "D": "7 gün çok uzun." }
+      }
+    },
+    {
+      "id": "5.4-q4",
+      "questionEn": "Before acquiring a company, a corporation researches the target's security vulnerabilities, regulatory violations, and data handling practices. Which concept?",
+      "options": { "A": "Due care", "B": "Risk transfer", "C": "Due diligence", "D": "Attestation" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir şirket satın almadan önce, hedef şirketin güvenlik açıklarını, yasal ihlallerini ve veri işleme uygulamalarını araştırıyor. Hangi kavram?",
+        "optionsTr": { "A": "Due care", "B": "Risk transferi", "C": "Ön inceleme (due diligence)", "D": "Tasdik" },
+        "patternHint": "Önce araştır/anla = Due diligence.",
+        "whyWrong": { "A": "Due care risk azaltma eylemi.", "B": "Transfer sigorta/outsource.", "D": "Attestation uyumluluk beyanı." }
+      }
+    },
+    {
+      "id": "5.4-q5",
+      "questionEn": "After identifying that employees are not using MFA, a company implements MFA on all systems to reduce the risk of account compromise. Which concept?",
+      "options": { "A": "Due diligence", "B": "Risk transfer", "C": "Due care", "D": "Attestation" },
+      "correct": "C",
+      "solution": {
+        "translation": "Çalışanların MFA kullanmadığını tespit ettikten sonra, bir şirket hesap ihlali riskini azaltmak için tüm sistemlere MFA uygular. Hangi kavram?",
+        "optionsTr": { "A": "Ön inceleme", "B": "Risk transferi", "C": "Gerekli özen (due care)", "D": "Tasdik" },
+        "patternHint": "Bilinen riski azaltmak için kontrol uygulama = Due care.",
+        "whyWrong": { "A": "Due diligence araştırma aşaması.", "B": "Transfer sigorta.", "D": "Attestation beyan." }
+      }
+    },
+    {
+      "id": "5.4-q6",
+      "questionEn": "Which regulation requires publicly traded companies to maintain accurate financial records and have internal controls to prevent fraud?",
+      "options": { "A": "HIPAA", "B": "GDPR", "C": "PCI DSS", "D": "SOX (Sarbanes-Oxley)" },
+      "correct": "D",
+      "solution": {
+        "translation": "Hangi düzenleme, halka açık şirketlerin doğru finansal kayıtlar tutmasını ve sahteciliği önlemek için iç kontroller uygulamasını zorunlu kılar?",
+        "optionsTr": { "A": "HIPAA", "B": "GDPR", "C": "PCI DSS", "D": "SOX (Sarbanes-Oxley)" },
+        "patternHint": "Halka açık şirket + finansal rapor bütünlüğü = SOX.",
+        "whyWrong": { "A": "HIPAA sağlık.", "B": "GDPR AB kişisel veri.", "C": "PCI DSS ödeme kartı." }
+      }
+    },
+    {
+      "id": "5.4-q7",
+      "questionEn": "A GDPR request comes in: a user wants all personal data the company holds about them to be permanently deleted. Which right is the user exercising?",
+      "options": { "A": "Right to portability", "B": "Right to access", "C": "Right to be forgotten (erasure)", "D": "Right to restriction" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir GDPR talebi geliyor: kullanıcı, şirketin kendisiyle ilgili tuttuğu tüm kişisel verilerin kalıcı olarak silinmesini istiyor. Kullanıcı hangi hakkı kullanıyor?",
+        "optionsTr": { "A": "Taşınabilirlik hakkı", "B": "Erişim hakkı", "C": "Silinme hakkı (unutulma hakkı)", "D": "Kısıtlama hakkı" },
+        "patternHint": "Verilerin silinmesini talep = Right to be forgotten / Right to erasure.",
+        "whyWrong": { "A": "Portability veriyi alıp başka yere götürme.", "B": "Access kopyasına erişim.", "D": "Restriction işlemi durdurma." }
+      }
+    },
+    {
+      "id": "5.4-q8",
+      "questionEn": "Which compliance concept requires an organization to collect only the minimum personal data necessary for its stated purpose?",
+      "options": { "A": "Data sovereignty", "B": "Data minimization", "C": "Data masking", "D": "Data retention" },
+      "correct": "B",
+      "solution": {
+        "translation": "Hangi uyumluluk kavramı, bir kuruluşun belirtilen amacı için yalnızca minimum düzeyde kişisel veri toplamasını gerektirir?",
+        "optionsTr": { "A": "Veri egemenliği", "B": "Veri minimizasyonu", "C": "Veri maskeleme", "D": "Veri saklama" },
+        "patternHint": "Sadece gereken kadar veri topla = Data minimization (GDPR ilkesi).",
+        "whyWrong": { "A": "Sovereignty coğrafi saklama.", "C": "Masking kısmen gizleme.", "D": "Retention ne kadar saklanacağı." }
+      }
+    },
+    {
+      "id": "5.4-q9",
+      "questionEn": "A company officially declares in writing that it meets all HIPAA requirements for protecting patient data. What is this formal declaration called?",
+      "options": { "A": "SLA", "B": "Due diligence report", "C": "Attestation", "D": "NDA" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir şirket, hasta verilerini korumak için tüm HIPAA gereksinimlerini karşıladığını yazılı olarak resmi beyan ediyor. Bu resmi beyan ne olarak adlandırılır?",
+        "optionsTr": { "A": "SLA", "B": "Ön inceleme raporu", "C": "Tasdik/beyan", "D": "NDA" },
+        "patternHint": "Uyumluluk resmi yazılı beyanı = Attestation.",
+        "whyWrong": { "A": "SLA hizmet performansı.", "B": "Due diligence araştırma raporu.", "D": "NDA gizlilik." }
+      }
+    },
+    {
+      "id": "5.4-q10",
+      "questionEn": "A company fails to apply known patches to critical servers, resulting in a breach. Which concept describes the failure to take reasonable protective steps?",
+      "options": { "A": "Due diligence failure", "B": "Negligence (failure of due care)", "C": "Risk acceptance", "D": "Risk transfer" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir şirket, kritik sunuculara bilinen yamaları uygulamayı ihmal ediyor ve bu bir ihlale yol açıyor. Hangi kavram, makul koruyucu adımları atmama başarısızlığını tanımlar?",
+        "optionsTr": { "A": "Due diligence başarısızlığı", "B": "İhmal (due care başarısızlığı)", "C": "Risk kabulü", "D": "Risk transferi" },
+        "patternHint": "Bilinen riski azaltmak için eylem almama = Negligence / due care failure.",
+        "whyWrong": { "A": "Due diligence araştırma aşaması.", "C": "Risk acceptance bilinçli.", "D": "Transfer başka tarafa devir." }
+      }
+    }
+  ]
+}

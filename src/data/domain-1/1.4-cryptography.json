@@ -1,0 +1,330 @@
+{
+  "moduleId": "1.4",
+  "title": "Kriptografik Çözümler",
+  "domainId": 1,
+  "documentation": [
+    {
+      "heading": "Simetrik vs Asimetrik Şifreleme",
+      "specTable": {
+        "title": "Temel Karşılaştırma",
+        "columns": ["Özellik", "Simetrik", "Asimetrik"],
+        "rows": [
+          ["Anahtar", "TEK paylaşılan anahtar", "Açık (public) + özel (private) çift"],
+          ["Hız", "HIZLI (büyük veri için ideal)", "YAVAŞ"],
+          ["Algoritmalar", "AES, 3DES, ChaCha20, Blowfish, RC4", "RSA, ECC, Diffie-Hellman, DSA, ElGamal"],
+          ["Ana sorun", "Anahtar dağıtımı/paylaşımı zor", "Yavaşlık"],
+          ["Kullanım", "Veri şifreleme (bulk)", "Anahtar değişimi, imza, kimlik"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Asimetrik Anahtar Mantığı (EZBERLE)",
+          "items": [
+            "GİZLİLİK için: ALICININ AÇIK (public) anahtarıyla şifrele → alıcı kendi ÖZEL (private) anahtarıyla açar.",
+            "İMZA / inkâr edilemezlik için: GÖNDERENİN ÖZEL (private) anahtarıyla imzala → herkes gönderenin AÇIK (public) anahtarıyla doğrular.",
+            "Public anahtar herkese açıktır; private anahtar GİZLİ ve kimseyle paylaşılmaz."
+          ]
+        },
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Hibrit Yaklaşım (Gerçek Hayat)",
+          "items": [
+            "TLS gibi sistemler İKİSİNİ birleştirir: Asimetrik ile simetrik anahtar GÜVENLE değişilir, sonra hızlı simetrik ile veri şifrelenir.",
+            "Diffie-Hellman: Güvensiz kanalda anahtar değişimi (key exchange) sağlar.",
+            "ECC: Az kaynakla (mobil/IoT) RSA'ya denk güvenlik; kısa anahtar, yüksek performans."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "En Sık Tuzak",
+          "items": [
+            "'Encrypt for confidentiality' → alıcının PUBLIC anahtarı.",
+            "'Sign / non-repudiation' → gönderenin PRIVATE anahtarı.",
+            "Bu ikisini TERS çevirme; sınavda mutlaka sorulur."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Şifreleme Seviyeleri (Encryption Levels)",
+      "specTable": {
+        "title": "Neyi Şifreliyoruz?",
+        "columns": ["Seviye", "Açıklama"],
+        "rows": [
+          ["Full-disk (FDE)", "Tüm disk şifrelenir (BitLocker, FileVault)"],
+          ["Partition", "Belirli bir disk bölümü"],
+          ["Volume", "Mantıksal birim/volume"],
+          ["File", "Tek tek dosyalar"],
+          ["Database", "Tüm veritabanı"],
+          ["Record", "Veritabanındaki tek bir kayıt/satır"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Durağan vs İletimdeki Veri",
+          "items": [
+            "Data at rest → FDE, file, database şifreleme.",
+            "Data in transit → TLS, VPN/IPSec.",
+            "Data in use → bellekte; secure enclave/homomorphic gibi ileri teknikler."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Hashing, Salting ve Key Stretching",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Hashing",
+          "items": [
+            "Tek yönlüdür (geri döndürülemez), bütünlük sağlar.",
+            "Güvenli: SHA-256, SHA-3, SHA-512.",
+            "KIRIK / kullanma: MD5, SHA-1 (collision açıkları).",
+            "Aynı girdi her zaman aynı hash'i üretir; tek bit değişse hash tamamen değişir (avalanche)."
+          ]
+        },
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Salt ve Key Stretching",
+          "items": [
+            "Salt: Parolaya eklenen RASTGELE değer; aynı parolaların aynı hash'i üretmesini engeller. Rainbow table'a karşı.",
+            "Key stretching: Parola hash'lemeyi kasıtlı YAVAŞLATARAK kaba kuvveti zorlaştırma.",
+            "Key stretching algoritmaları: PBKDF2, bcrypt, scrypt, Argon2.",
+            "Pepper: Salt'a benzer ama gizli ve genelde koddan/ayrı saklanan sabit değer."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "Salt vs Key Stretching",
+          "items": [
+            "Salt = aynılığı bozar (rainbow table'a karşı).",
+            "Key stretching = yavaşlatır (brute force'a karşı).",
+            "HMAC = hash + gizli anahtar = bütünlük + kimlik doğrulama."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "PKI ve Sertifikalar (DETAYLI)",
+      "specTable": {
+        "title": "PKI Bileşenleri",
+        "columns": ["Bileşen", "İşlevi"],
+        "rows": [
+          ["CA (Certificate Authority)", "Sertifikaları imzalayan/veren güvenilir otorite"],
+          ["RA (Registration Authority)", "Talepleri doğrular, CA'ya iletir"],
+          ["CSR (Certificate Signing Request)", "Sertifika talep dosyası (public anahtar + bilgi içerir)"],
+          ["CRL (Certificate Revocation List)", "İptal edilmiş sertifikaların listesi (toplu, periyodik)"],
+          ["OCSP", "Sertifika geçerliliğini ANLIK sorgular (CRL'den hızlı)"],
+          ["Root of Trust", "Güvenin başladığı kök CA"],
+          ["Self-signed cert", "Kendi kendine imzalı (kurum içi, tarayıcı güvenmez)"],
+          ["Third-party cert", "Güvenilir CA'dan alınmış (tarayıcı güvenir)"],
+          ["Wildcard cert", "*.ornek.com — tüm alt alan adlarını kapsar"],
+          ["Key escrow", "Anahtarların güvenilir 3. tarafta yedeklenmesi/emaneti"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "CRL vs OCSP",
+          "items": [
+            "CRL = iptal listesinin TAMAMI, periyodik indirilir (yavaş, büyük).",
+            "OCSP = TEK sertifika için anlık 'geçerli mi?' sorgusu (hızlı).",
+            "OCSP stapling = sunucu OCSP yanıtını önceden ekler, performansı artırır."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Kriptografik Donanım ve Obfuscation",
+      "specTable": {
+        "title": "Donanım ve Gizleme Teknikleri",
+        "columns": ["Terim", "Açıklama"],
+        "rows": [
+          ["TPM (Trusted Platform Module)", "Anakarttaki kripto çip; disk şifreleme anahtarı saklar (BitLocker)"],
+          ["HSM (Hardware Security Module)", "Anahtar üretimi/saklama için adanmış KURUMSAL donanım"],
+          ["Secure Enclave", "İşlemci içinde izole güvenli alan"],
+          ["Key Management System (KMS)", "Anahtar yaşam döngüsü yönetimi"],
+          ["Tokenization", "Hassas veriyi anlamsız token ile değiştirme (ödeme)"],
+          ["Data Masking", "Verinin bir kısmını gizleme (****-1234)"],
+          ["Steganography", "Veriyi başka dosyaya (resim/ses/video) gizleme"],
+          ["Obfuscation", "Veriyi/kodu anlaşılmaz hale getirme"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Blockchain & Dijital İmza",
+          "items": [
+            "Blockchain: Dağıtık, değiştirilemez (immutable) kayıt defteri; her blok öncekinin hash'ini içerir.",
+            "Open public ledger: Herkese açık şeffaf defter (kripto para temeli).",
+            "Digital signature: Gönderenin private anahtarıyla imza = bütünlük + kimlik + inkâr edilemezlik."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "TPM vs HSM",
+          "items": [
+            "TPM = TEK cihaza gömülü çip (laptop/anakart, BitLocker).",
+            "HSM = KURUMSAL, çok sunuculu, adanmış harici donanım.",
+            "'Single device / motherboard' → TPM. 'Data center / thousands of servers' → HSM."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Encrypt so only the recipient can read / confidentiality", "maps_to": "Recipient's PUBLIC key", "explanation": "Gizlilik = alıcının açık anahtarı." },
+    { "trigger": "Sign / non-repudiation / prove the sender", "maps_to": "Sender's PRIVATE key", "explanation": "İmza = gönderenin özel anahtarı." },
+    { "trigger": "Random value added to each password", "maps_to": "Salt", "explanation": "Rainbow table'a karşı parolaya rastgele ekleme." },
+    { "trigger": "Slow down brute force / bcrypt / PBKDF2 / Argon2", "maps_to": "Key Stretching", "explanation": "Hash'lemeyi yavaşlatma." },
+    { "trigger": "Chip on the motherboard / stores BitLocker key", "maps_to": "TPM", "explanation": "Anakart kripto çipi." },
+    { "trigger": "Dedicated hardware for keys (enterprise/data center)", "maps_to": "HSM", "explanation": "Kurumsal anahtar donanımı." },
+    { "trigger": "Replace card/SSN number with a token", "maps_to": "Tokenization", "explanation": "Hassas veriyi token ile değiştirme." },
+    { "trigger": "Hide data inside an image or audio file", "maps_to": "Steganography", "explanation": "Veriyi başka dosyaya gizleme." },
+    { "trigger": "Check certificate validity in real time", "maps_to": "OCSP", "explanation": "Anlık sertifika sorgusu." },
+    { "trigger": "List of revoked certificates", "maps_to": "CRL", "explanation": "İptal edilmiş sertifika listesi." },
+    { "trigger": "*.domain.com / covers all subdomains", "maps_to": "Wildcard Certificate", "explanation": "Tüm alt alan adlarını kapsayan sertifika." },
+    { "trigger": "Self-signed / browser shows untrusted", "maps_to": "Self-signed Certificate", "explanation": "Kurum içi, tarayıcının güvenmediği sertifika." },
+    { "trigger": "Immutable distributed ledger / each block has previous hash", "maps_to": "Blockchain", "explanation": "Dağıtık değiştirilemez kayıt defteri." },
+    { "trigger": "Encrypt the entire hard drive", "maps_to": "Full-Disk Encryption (FDE)", "explanation": "Tüm disk şifreleme." },
+    { "trigger": "Backup copy of keys held by a trusted third party", "maps_to": "Key Escrow", "explanation": "Anahtar emaneti." }
+  ],
+  "questions": [
+    {
+      "id": "1.4-q1",
+      "questionEn": "Alice wants to send Bob an encrypted email so that ONLY Bob can read it. Which key should Alice use to encrypt the message?",
+      "options": { "A": "Alice's private key", "B": "Alice's public key", "C": "Bob's public key", "D": "Bob's private key" },
+      "correct": "C",
+      "solution": {
+        "translation": "Alice, Bob'a yalnızca Bob'un okuyabileceği şifreli bir e-posta göndermek istiyor. Alice mesajı şifrelemek için hangi anahtarı kullanmalı?",
+        "optionsTr": { "A": "Alice'in özel anahtarı", "B": "Alice'in açık anahtarı", "C": "Bob'un açık anahtarı", "D": "Bob'un özel anahtarı" },
+        "patternHint": "'ONLY Bob can read' = gizlilik. Alıcının (Bob) PUBLIC anahtarıyla şifrele.",
+        "whyWrong": { "A": "Alice'in private'ı imza içindir.", "B": "Alice'in public'iyle şifrelenen sadece Alice'in private'ıyla açılır.", "D": "Kimse Bob'un private'ını bilmez." }
+      }
+    },
+    {
+      "id": "1.4-q2",
+      "questionEn": "A developer stores passwords by appending a unique random value to each password before hashing. What is the PRIMARY purpose of this value?",
+      "options": { "A": "To encrypt the password", "B": "To prevent the use of rainbow tables", "C": "To compress the hash", "D": "To enable password recovery" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir geliştirici parolaları, hash'lemeden önce her birine benzersiz rastgele bir değer ekleyerek saklıyor. Bu değerin BİRİNCİL amacı nedir?",
+        "optionsTr": { "A": "Parolayı şifrelemek", "B": "Rainbow table kullanımını engellemek", "C": "Hash'i sıkıştırmak", "D": "Parola kurtarmayı sağlamak" },
+        "patternHint": "'unique random value before hashing' = SALT. Amacı rainbow table'ı boşa çıkarmak.",
+        "whyWrong": { "A": "Salt şifreleme yapmaz.", "C": "Sıkıştırmayla ilgisi yok.", "D": "Hashing tek yönlüdür." }
+      }
+    },
+    {
+      "id": "1.4-q3",
+      "questionEn": "An organization needs hardware that securely generates and stores cryptographic keys for thousands of servers in a data center. Which is MOST appropriate?",
+      "options": { "A": "TPM", "B": "HSM", "C": "Key escrow", "D": "Salting" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kurumun, veri merkezindeki binlerce sunucu için kriptografik anahtarları güvenle üretip saklayan donanıma ihtiyacı var. En uygunu hangisidir?",
+        "optionsTr": { "A": "TPM", "B": "HSM", "C": "Anahtar emaneti", "D": "Salting" },
+        "patternHint": "'thousands of servers / data center' = HSM. TPM tek cihaz, HSM kurumsal.",
+        "whyWrong": { "A": "TPM tek cihaza gömülüdür.", "C": "Key escrow yedek emanetidir.", "D": "Salting parola tekniğidir." }
+      }
+    },
+    {
+      "id": "1.4-q4",
+      "questionEn": "A user wants to digitally sign a document so recipients can verify it truly came from them and was not altered. Which key does the user sign with?",
+      "options": { "A": "Their own private key", "B": "Their own public key", "C": "The recipient's public key", "D": "A shared symmetric key" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir kullanıcı, alıcıların belgenin gerçekten kendisinden geldiğini ve değiştirilmediğini doğrulayabilmesi için bir belgeyi dijital olarak imzalamak istiyor. Kullanıcı hangi anahtarla imzalar?",
+        "optionsTr": { "A": "Kendi özel anahtarı", "B": "Kendi açık anahtarı", "C": "Alıcının açık anahtarı", "D": "Paylaşılan simetrik anahtar" },
+        "patternHint": "İmza = gönderenin PRIVATE anahtarı. Herkes public ile doğrular.",
+        "whyWrong": { "B": "Public ile imza atılmaz, doğrulanır.", "C": "Alıcının anahtarı gizlilik şifrelemesi içindir.", "D": "Simetrik anahtar inkâr edilemezlik sağlamaz." }
+      }
+    },
+    {
+      "id": "1.4-q5",
+      "questionEn": "A browser needs to check whether a single TLS certificate has been revoked, with minimal delay. Which mechanism is BEST?",
+      "options": { "A": "CRL", "B": "OCSP", "C": "CSR", "D": "Key escrow" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir tarayıcının, tek bir TLS sertifikasının iptal edilip edilmediğini minimum gecikmeyle kontrol etmesi gerekiyor. En iyi mekanizma hangisidir?",
+        "optionsTr": { "A": "CRL", "B": "OCSP", "C": "CSR", "D": "Anahtar emaneti" },
+        "patternHint": "'single certificate + minimal delay' = OCSP (anlık). CRL tüm listeyi indirir (yavaş).",
+        "whyWrong": { "A": "CRL tüm iptal listesidir, yavaştır.", "C": "CSR sertifika talep dosyasıdır.", "D": "Key escrow anahtar emanetidir." }
+      }
+    },
+    {
+      "id": "1.4-q6",
+      "questionEn": "A company wants to secure a primary domain and ALL of its subdomains (mail.site.com, vpn.site.com, etc.) with one certificate. Which type should they obtain?",
+      "options": { "A": "Self-signed certificate", "B": "Wildcard certificate", "C": "Root certificate", "D": "Code-signing certificate" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir şirket, bir ana alan adını ve TÜM alt alan adlarını (mail.site.com, vpn.site.com vb.) tek bir sertifikayla güvenceye almak istiyor. Hangi türü almalı?",
+        "optionsTr": { "A": "Self-signed sertifika", "B": "Wildcard sertifika", "C": "Kök sertifika", "D": "Kod imzalama sertifikası" },
+        "patternHint": "'all subdomains / one certificate' = Wildcard (*.site.com).",
+        "whyWrong": { "A": "Self-signed güven sorunu yaratır, alt alan kapsamıyla ilgisiz.", "C": "Root CA'nın kök sertifikasıdır.", "D": "Kod imzalama yazılım imzası içindir." }
+      }
+    },
+    {
+      "id": "1.4-q7",
+      "questionEn": "Which technique hides a secret message inside the pixels of an ordinary-looking image file?",
+      "options": { "A": "Tokenization", "B": "Steganography", "C": "Hashing", "D": "Salting" },
+      "correct": "B",
+      "solution": {
+        "translation": "Hangi teknik, sıradan görünen bir resim dosyasının pikselleri içine gizli bir mesaj saklar?",
+        "optionsTr": { "A": "Tokenization", "B": "Steganografi", "C": "Hashing", "D": "Salting" },
+        "patternHint": "'hide inside an image' = Steganography. Veriyi başka dosyaya gizleme.",
+        "whyWrong": { "A": "Tokenization veriyi token ile değiştirir.", "C": "Hashing tek yönlü dönüşümdür.", "D": "Salting parola tekniğidir." }
+      }
+    },
+    {
+      "id": "1.4-q8",
+      "questionEn": "A team must encrypt a very large volume of data quickly and efficiently. Which type of encryption is BEST suited for bulk data?",
+      "options": { "A": "Asymmetric (RSA)", "B": "Symmetric (AES)", "C": "Hashing (SHA-256)", "D": "Digital signatures" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir ekibin çok büyük miktarda veriyi hızlı ve verimli şekilde şifrelemesi gerekiyor. Toplu (bulk) veri için en uygun şifreleme türü hangisidir?",
+        "optionsTr": { "A": "Asimetrik (RSA)", "B": "Simetrik (AES)", "C": "Hashing (SHA-256)", "D": "Dijital imza" },
+        "patternHint": "'large volume / quickly / bulk' = Symmetric (AES). Simetrik hızlıdır; asimetrik yavaş.",
+        "whyWrong": { "A": "Asimetrik yavaştır, bulk için uygun değil.", "C": "Hashing şifreleme değildir, geri alınamaz.", "D": "İmza bütünlük/kimlik içindir, bulk şifreleme değil." }
+      }
+    },
+    {
+      "id": "1.4-q9",
+      "questionEn": "Two parties need to securely agree on a shared secret key over an insecure network without ever transmitting the key itself. Which method achieves this?",
+      "options": { "A": "Diffie-Hellman key exchange", "B": "SHA-256 hashing", "C": "Full-disk encryption", "D": "Steganography" },
+      "correct": "A",
+      "solution": {
+        "translation": "İki taraf, anahtarın kendisini hiç iletmeden güvensiz bir ağ üzerinden ortak gizli bir anahtar üzerinde güvenle anlaşmalı. Bunu hangi yöntem sağlar?",
+        "optionsTr": { "A": "Diffie-Hellman anahtar değişimi", "B": "SHA-256 hashing", "C": "Tam disk şifreleme", "D": "Steganografi" },
+        "patternHint": "'agree on a shared key over insecure network' = Diffie-Hellman (key exchange).",
+        "whyWrong": { "B": "Hashing anahtar değişimi yapmaz.", "C": "FDE disk şifrelemesidir.", "D": "Steganografi veri gizlemedir." }
+      }
+    },
+    {
+      "id": "1.4-q10",
+      "questionEn": "An administrator notices the organization still uses MD5 to hash passwords. Why is this a security concern?",
+      "options": {
+        "A": "MD5 is too slow for modern systems",
+        "B": "MD5 is cryptographically broken and vulnerable to collisions",
+        "C": "MD5 encrypts data that cannot be decrypted",
+        "D": "MD5 requires an HSM to function"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir yönetici, kurumun parolaları hash'lemek için hâlâ MD5 kullandığını fark ediyor. Bu neden bir güvenlik endişesidir?",
+        "optionsTr": {
+          "A": "MD5 modern sistemler için çok yavaş",
+          "B": "MD5 kriptografik olarak kırık ve çakışmalara (collision) açık",
+          "C": "MD5 şifrelenip çözülemeyen veri üretir",
+          "D": "MD5 çalışmak için HSM gerektirir"
+        },
+        "patternHint": "MD5 ve SHA-1 = KIRIK (collision). Modern: SHA-256+. 'MD5/SHA-1' gördüysen 'broken' refleksi.",
+        "whyWrong": {
+          "A": "Sorun yavaşlık değil, güvenlik zayıflığı (collision).",
+          "C": "MD5 hash'tir, şifreleme değil; ifade yanlış.",
+          "D": "MD5 HSM gerektirmez."
+        }
+      }
+    }
+  ]
+}

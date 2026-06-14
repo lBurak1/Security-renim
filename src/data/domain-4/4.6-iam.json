@@ -1,0 +1,250 @@
+{
+  "moduleId": "4.6",
+  "title": "Kimlik ve Erişim Yönetimi (IAM)",
+  "domainId": 4,
+  "documentation": [
+    {
+      "heading": "Kimlik Yaşam Döngüsü (Identity Lifecycle)",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Provisioning ve Deprovisioning",
+          "items": [
+            "Provisioning: Kullanıcı hesabı oluşturma ve gerekli erişim haklarını atama.",
+            "Deprovisioning: Kullanıcı ayrılınca hesabı devre dışı bırakma/silme — hızlıca yapılmalı!",
+            "Identity proofing: Kullanıcı kimliğini doğrulama (onboarding aşamasında).",
+            "Least privilege: Yalnızca görev için gereken minimum erişim.",
+            "Account types: User, service, shared, guest, privileged."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Çok Faktörlü Kimlik Doğrulama (MFA)",
+      "specTable": {
+        "title": "MFA Faktörleri",
+        "columns": ["Faktör Türü", "Açıklama", "Örnek"],
+        "rows": [
+          ["Something you know", "Bilgi faktörü", "Parola, PIN, güvenlik sorusu"],
+          ["Something you have", "Sahiplik faktörü", "Akıllı kart, OTP token, SMS kodu, TOTP uygulaması"],
+          ["Something you are", "Biyometri faktörü", "Parmak izi, retina, yüz tanıma"],
+          ["Somewhere you are", "Konum faktörü", "GPS, IP adresi, ağ konumu"],
+          ["Something you do", "Davranış faktörü", "Yazma ritmi, fare hareketi"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "MFA Faktör Sayısı",
+          "items": [
+            "2FA = 2 farklı TÜR faktör (bilgi + sahiplik).",
+            "Parola + PIN = tek faktör türü (ikisi de 'something you know') → MFA DEĞİL.",
+            "OTP token = 'something you have'.",
+            "Passkey/FIDO2: Şifresiz kimlik doğrulama (özel anahtar cihazda)."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "SSO ve Federasyon Protokolleri",
+      "specTable": {
+        "title": "Kimlik Federasyonu",
+        "columns": ["Protokol/Teknoloji", "Kullanım", "Açıklama"],
+        "rows": [
+          ["SSO", "Single Sign-On", "Bir kez giriş → birden fazla uygulama erişimi"],
+          ["SAML", "Security Assertion Markup Language", "Web tabanlı SSO; IdP→SP XML assertion"],
+          ["OAuth 2.0", "Open Authorization", "Yetkilendirme (authorization) çerçevesi — üçüncü tarafa sınırlı erişim"],
+          ["OIDC", "OpenID Connect", "OAuth 2.0 üstüne kimlik doğrulama (authentication) ekler"],
+          ["Kerberos", "Ticket-based auth", "Etki alanı içi (on-prem AD) kimlik doğrulama; KDC, TGT, biletler"],
+          ["LDAP", "Lightweight Directory Access Protocol", "Dizin hizmetleri sorgu protokolü (AD'yi sorgulamak için)"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "OAuth vs SAML vs OIDC",
+          "items": [
+            "OAuth = YETKİLENDİRME (authorization) — 'bu uygulamanın Google Drive'ıma erişmesine izin ver'.",
+            "SAML = KİMLİK DOĞRULAMA (authentication) — kurumsal SSO web uygulamaları.",
+            "OIDC = OAuth + kimlik katmanı — 'Google ile giriş yap' butonu.",
+            "Kerberos = on-prem Active Directory ticket tabanlı."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Erişim Kontrol Modelleri",
+      "specTable": {
+        "title": "Erişim Kontrol Türleri",
+        "columns": ["Model", "Açılım", "Nasıl Çalışır"],
+        "rows": [
+          ["RBAC", "Role-Based Access Control", "Kullanıcıya rol atanır; rol erişim sağlar (en yaygın kurumsal)"],
+          ["ABAC", "Attribute-Based Access Control", "Kullanıcı/kaynak özelliklerine göre dinamik erişim (zaman, konum, departman)"],
+          ["DAC", "Discretionary Access Control", "Kaynak sahibi erişimi belirler (en esnek, en az güvenli)"],
+          ["MAC", "Mandatory Access Control", "Merkezi politika belirler; etiket bazlı (gizli/hassas — askeri)"],
+          ["RBAC (Rule-based)", "Rule-Based Access Control", "Kurallara göre (zaman/konum tabanlı) — attribute'larla karışmasın"]
+        ]
+      }
+    },
+    {
+      "heading": "PAM — Ayrıcalıklı Erişim Yönetimi",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "PAM (Privileged Access Management)",
+          "items": [
+            "PAM: Yönetici/root/service hesaplarını güvenli yönetme.",
+            "Just-in-time access: Ayrıcalıklı erişim sadece ihtiyaç anında verilir, sonra alınır.",
+            "Password vaulting: Ayrıcalıklı parolalar kasada saklanır, rotasyonla değişir.",
+            "Session recording: Tüm ayrıcalıklı oturumlar kaydedilir.",
+            "Ephemeral credentials: Tek kullanımlık geçici kimlik bilgileri."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Create account and assign access rights", "maps_to": "Provisioning", "explanation": "Hesap oluşturma ve hak atama." },
+    { "trigger": "Disable account when employee leaves / offboarding", "maps_to": "Deprovisioning", "explanation": "Hesap devre dışı bırakma." },
+    { "trigger": "Password + fingerprint = two factors", "maps_to": "MFA (Multi-Factor Authentication)", "explanation": "Çok faktörlü kimlik doğrulama." },
+    { "trigger": "Log in once, access many apps", "maps_to": "SSO (Single Sign-On)", "explanation": "Tek giriş, çoklu erişim." },
+    { "trigger": "Corporate web SSO / XML assertions / IdP to SP", "maps_to": "SAML", "explanation": "Web tabanlı kurumsal SSO protokolü." },
+    { "trigger": "Authorization framework / third-party access delegation", "maps_to": "OAuth 2.0", "explanation": "Yetkilendirme çerçevesi." },
+    { "trigger": "Access based on role / most common enterprise", "maps_to": "RBAC", "explanation": "Rol tabanlı erişim kontrolü." },
+    { "trigger": "Manage admin/root credentials / password vault / just-in-time", "maps_to": "PAM", "explanation": "Ayrıcalıklı erişim yönetimi." },
+    { "trigger": "Active Directory on-prem ticket-based auth / TGT / KDC", "maps_to": "Kerberos", "explanation": "Bilet tabanlı kimlik doğrulama." },
+    { "trigger": "Sign in with Google button / identity layer on OAuth", "maps_to": "OIDC (OpenID Connect)", "explanation": "OAuth üzerine kimlik katmanı." }
+  ],
+  "questions": [
+    {
+      "id": "4.6-q1",
+      "questionEn": "A user enters a password (something they know) and then approves a push notification on their phone (something they have). How many authentication FACTORS are used?",
+      "options": { "A": "One factor (both are knowledge-based)", "B": "Two factors (knowledge + possession)", "C": "Three factors", "D": "Zero — this is authorization, not authentication" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kullanıcı parola giriyor (bildiği şey) ve ardından telefonunda anlık bildirimi onaylıyor (sahip olduğu şey). Kaç kimlik doğrulama FAKTÖRÜ kullanılıyor?",
+        "optionsTr": { "A": "Bir faktör (ikisi de bilgi tabanlı)", "B": "İki faktör (bilgi + sahiplik)", "C": "Üç faktör", "D": "Sıfır — bu kimlik doğrulama değil, yetkilendirme" },
+        "patternHint": "Parola (bilgi) + push notification telefondan (sahiplik) = 2 farklı tür = MFA (2FA).",
+        "whyWrong": { "A": "Telefon 'something you have' kategorisinde.", "C": "İki faktör var.", "D": "Bu kesinlikle authentication'dır." }
+      }
+    },
+    {
+      "id": "4.6-q2",
+      "questionEn": "An employee enters a password and a PIN. Why does this NOT qualify as MFA?",
+      "options": {
+        "A": "Both factors must be biometric",
+        "B": "Both are 'something you know' — the same factor type",
+        "C": "MFA requires at least three factors",
+        "D": "PINs are not secure enough"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir çalışan parola ve PIN giriyor. Bu neden MFA sayılmaz?",
+        "optionsTr": {
+          "A": "Her iki faktör de biyometrik olmalı",
+          "B": "İkisi de 'bildiğiniz şey' — aynı faktör türü",
+          "C": "MFA en az üç faktör gerektirir",
+          "D": "PIN'ler yeterince güvenli değil"
+        },
+        "patternHint": "Parola + PIN = ikisi de 'something you know' = tek faktör türü = MFA değil.",
+        "whyWrong": { "A": "Biyometrik zorunluluğu yok.", "C": "MFA en az 2 FARKLI TÜR faktör.", "D": "PIN güvenliği konu değil." }
+      }
+    },
+    {
+      "id": "4.6-q3",
+      "questionEn": "A company deploys SSO so employees log in once to access email, CRM, and HR systems. Which federation protocol is MOST commonly used for web-based enterprise SSO?",
+      "options": { "A": "Kerberos", "B": "LDAP", "C": "SAML", "D": "OAuth" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir şirket, çalışanların e-posta, CRM ve İK sistemlerine tek girişle erişebilmesi için SSO kuruyor. Web tabanlı kurumsal SSO için EN yaygın hangi federasyon protokolü kullanılır?",
+        "optionsTr": { "A": "Kerberos", "B": "LDAP", "C": "SAML", "D": "OAuth" },
+        "patternHint": "Web tabanlı kurumsal SSO = SAML (IdP → SP XML assertion).",
+        "whyWrong": { "A": "Kerberos on-prem AD içindir.", "B": "LDAP dizin sorgulama protokolüdür.", "D": "OAuth yetkilendirme çerçevesidir, öncelikle authentication değil." }
+      }
+    },
+    {
+      "id": "4.6-q4",
+      "questionEn": "A third-party app asks permission to access a user's Google Calendar without sharing the user's Google password. Which protocol enables this?",
+      "options": { "A": "SAML", "B": "Kerberos", "C": "OAuth 2.0", "D": "LDAP" },
+      "correct": "C",
+      "solution": {
+        "translation": "Üçüncü taraf bir uygulama, kullanıcının Google parolasını paylaşmadan Google Takvim'e erişim izni istiyor. Bunu hangi protokol sağlar?",
+        "optionsTr": { "A": "SAML", "B": "Kerberos", "C": "OAuth 2.0", "D": "LDAP" },
+        "patternHint": "'Third-party access without sharing password' = OAuth (yetkilendirme devri).",
+        "whyWrong": { "A": "SAML kimlik doğrulama SSO'su.", "B": "Kerberos iç ağ bilet sistemi.", "D": "LDAP dizin protokolü." }
+      }
+    },
+    {
+      "id": "4.6-q5",
+      "questionEn": "An organization assigns permissions based on job function: HR staff get HR system access, developers get code repos. Which access control model?",
+      "options": { "A": "MAC", "B": "DAC", "C": "ABAC", "D": "RBAC" },
+      "correct": "D",
+      "solution": {
+        "translation": "Bir kurum izinleri iş işlevine göre atıyor: İK personeli İK sistemine, geliştiriciler kod depolarına erişebiliyor. Hangi erişim kontrol modeli?",
+        "optionsTr": { "A": "MAC", "B": "DAC", "C": "ABAC", "D": "RBAC" },
+        "patternHint": "İş pozisyonu/rol bazlı erişim = RBAC.",
+        "whyWrong": { "A": "MAC etiket/güvenlik sınıfı tabanlı.", "B": "DAC kaynak sahibi karar verir.", "C": "ABAC çok özelliğe (zaman, konum vb.) bakar." }
+      }
+    },
+    {
+      "id": "4.6-q6",
+      "questionEn": "A government system classifies files as Unclassified, Secret, and Top Secret. Users can only access files at or below their clearance level, enforced by a central policy. Which model?",
+      "options": { "A": "DAC", "B": "RBAC", "C": "MAC", "D": "ABAC" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir devlet sistemi dosyaları Gizli Değil, Gizli ve Çok Gizli olarak sınıflandırıyor. Kullanıcılar yalnızca izin düzeylerinde veya altındaki dosyalara erişebiliyor, merkezi politika tarafından uygulanıyor. Hangi model?",
+        "optionsTr": { "A": "DAC", "B": "RBAC", "C": "MAC", "D": "ABAC" },
+        "patternHint": "Güvenlik etiketi + merkezi politika + devlet = MAC (Mandatory Access Control).",
+        "whyWrong": { "A": "DAC'ta kaynak sahibi karar verir.", "B": "RBAC rol bazlı.", "D": "ABAC çok özelliğe göre dinamik." }
+      }
+    },
+    {
+      "id": "4.6-q7",
+      "questionEn": "A PAM solution gives a sysadmin temporary elevated credentials for a maintenance window and revokes them automatically afterward. Which PAM feature is this?",
+      "options": { "A": "Password vaulting", "B": "Just-in-time access", "C": "Session recording", "D": "Account provisioning" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir PAM çözümü, bakım penceresi için bir sistem yöneticisine geçici yükseltilmiş kimlik bilgileri veriyor ve ardından otomatik olarak geri alıyor. Hangi PAM özelliği?",
+        "optionsTr": { "A": "Parola kasası", "B": "Anlık (just-in-time) erişim", "C": "Oturum kaydı", "D": "Hesap provisioning" },
+        "patternHint": "'Temporary + maintenance window + revoked after' = Just-in-time access.",
+        "whyWrong": { "A": "Vaulting parola saklama.", "C": "Session recording oturum kaydı.", "D": "Provisioning hesap oluşturmadır." }
+      }
+    },
+    {
+      "id": "4.6-q8",
+      "questionEn": "An employee leaves the company. Which is the MOST critical IAM action to take immediately?",
+      "options": { "A": "Change their password", "B": "Disable or remove the account (deprovisioning)", "C": "Move them to a guest account", "D": "Archive their email only" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir çalışan şirketten ayrılıyor. Hemen yapılması gereken EN kritik IAM eylemi nedir?",
+        "optionsTr": { "A": "Parolasını değiştir", "B": "Hesabı devre dışı bırak veya kaldır (deprovisioning)", "C": "Misafir hesabına taşı", "D": "Sadece e-postayı arşivle" },
+        "patternHint": "Çalışan ayrılışı + hemen = Deprovisioning (hesabı devre dışı bırak).",
+        "whyWrong": { "A": "Parola değişikliği erişimi kesmez.", "C": "Guest hesap hâlâ erişim sağlar.", "D": "Sadece e-posta arşivi yeterli değil." }
+      }
+    },
+    {
+      "id": "4.6-q9",
+      "questionEn": "In an on-premises Active Directory environment, a user logs in and receives a TGT from the KDC. Which authentication protocol is in use?",
+      "options": { "A": "SAML", "B": "OAuth", "C": "Kerberos", "D": "OIDC" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir on-premises Active Directory ortamında, kullanıcı oturum açıyor ve KDC'den TGT alıyor. Hangi kimlik doğrulama protokolü kullanılıyor?",
+        "optionsTr": { "A": "SAML", "B": "OAuth", "C": "Kerberos", "D": "OIDC" },
+        "patternHint": "TGT + KDC + AD on-prem = Kerberos.",
+        "whyWrong": { "A": "SAML web SSO.", "B": "OAuth yetkilendirme.", "D": "OIDC OAuth tabanlı web kimlik doğrulama." }
+      }
+    },
+    {
+      "id": "4.6-q10",
+      "questionEn": "An access policy grants a doctor access to patient records only during work hours (8am-5pm) on hospital-owned devices. Which access control model uses these dynamic attributes?",
+      "options": { "A": "RBAC", "B": "DAC", "C": "MAC", "D": "ABAC" },
+      "correct": "D",
+      "solution": {
+        "translation": "Bir erişim politikası, bir doktora hastane cihazlarında yalnızca çalışma saatlerinde (08:00-17:00) hasta kayıtlarına erişim veriyor. Hangi erişim kontrol modeli bu dinamik özellikler kullanır?",
+        "optionsTr": { "A": "RBAC", "B": "DAC", "C": "MAC", "D": "ABAC" },
+        "patternHint": "Zaman + cihaz + rol kombinasyonu = ABAC (çoklu özellik tabanlı).",
+        "whyWrong": { "A": "RBAC sadece role bakar, zaman/cihaz gözetmez.", "B": "DAC kaynak sahibi kontrol.", "C": "MAC güvenlik etiketi." }
+      }
+    }
+  ]
+}

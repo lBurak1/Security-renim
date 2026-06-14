@@ -1,0 +1,253 @@
+{
+  "moduleId": "4.8",
+  "title": "Olay Müdahalesi (Incident Response)",
+  "domainId": 4,
+  "documentation": [
+    {
+      "heading": "Olay Müdahale Aşamaları (IR Phases)",
+      "specTable": {
+        "title": "NIST IR Süreci (Sırayla)",
+        "columns": ["Aşama", "Faaliyetler"],
+        "rows": [
+          ["1. Preparation", "Politika, playbook, ekip oluştur, araçları hazırla, eğitim"],
+          ["2. Detection & Analysis", "Olayı tespit et, analiz et, sınıflandır, önceliklendir"],
+          ["3. Containment", "Kısa vadeli (izolasyon) + uzun vadeli (ağ segmentasyonu) sınırlama"],
+          ["4. Eradication", "Kötü amaçlı yazılımı/back door'u temizle, kök nedeni gider"],
+          ["5. Recovery", "Sistemleri temiz yedekten geri yükle, izleme altında devreye al"],
+          ["6. Lessons Learned", "Olay sonrası inceleme; süreçleri güncelle, raporla"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "IR Aşama Sırası",
+          "items": [
+            "Hazırlık → Tespit → Kapsama → Temizlik → Kurtarma → Dersler.",
+            "Preparation ÖNCE gelir (olay olmadan!). Lessons Learned EN SON.",
+            "'What comes after containment?' → Eradication.",
+            "'What is the FIRST phase?' → Preparation."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "BCP ve DRP",
+      "specTable": {
+        "title": "İş Sürekliliği ve Felaket Kurtarma",
+        "columns": ["Plan", "Odak", "Kapsam"],
+        "rows": [
+          ["BCP (Business Continuity Plan)", "İş süreçlerinin kesintide devam etmesi", "Geniş — tüm iş"],
+          ["DRP (Disaster Recovery Plan)", "BT sistemlerini felaketten kurtarma", "Dar — IT altyapısı"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "BCP vs DRP",
+          "items": [
+            "BCP = iş süreçlerinin devamı (genel).",
+            "DRP = BT sistemlerini geri getirme (spesifik).",
+            "DRP, BCP'nin bir parçasıdır."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Adli Bilişim (Digital Forensics)",
+      "specTable": {
+        "title": "Adli Bilişim Kavramları",
+        "columns": ["Kavram", "Açıklama"],
+        "rows": [
+          ["Legal hold", "Soruşturma için verinin silinmemesi"],
+          ["Chain of custody", "Delillerin kimin elinde, ne zaman, nasıl olduğunun belgelenmesi"],
+          ["Order of volatility", "En uçucu (kaybolacak) veriden başla: RAM → CPU cache → Disk → Log → Yedek"],
+          ["Data acquisition", "Delil toplama — bit-for-bit kopya (forensic image)"],
+          ["Preservation", "Delili değiştirmeden koruma (write-blocker kullan)"],
+          ["E-discovery", "Elektronik delil toplama ve üretme süreci"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Order of Volatility",
+          "items": [
+            "En önce EN UÇUCU veri alınır: RAM içeriği (çalışan süreçler, şifreleme anahtarları).",
+            "Sıra: CPU cache/register → RAM → Swap/Virtual memory → Disk → Yedeklemeler → Ağ logları.",
+            "'What should be collected FIRST?' → RAM / memory."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Tabletop ve Test Egzersizleri",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "IR Test Türleri",
+          "items": [
+            "Tabletop exercise: Masa başı senaryo tartışması — sisteme dokunulmaz.",
+            "Walkthrough: Planı adım adım gözden geçirme.",
+            "Simulation: Gerçeğe yakın tatbikat, sistemler test edilir.",
+            "Parallel test: Yedek sistem gerçek verilerle çalıştırılır ama üretim etkilenmez.",
+            "Full interruption test: Üretim tamamen durdurulur, yedek devreye alınır (en gerçekçi, en riskli).",
+            "Red team / Blue team / Purple team egzersizleri."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Document who had evidence and when / evidence tracking", "maps_to": "Chain of Custody", "explanation": "Delil muhafaza zinciri." },
+    { "trigger": "Collect RAM before disk / most volatile first", "maps_to": "Order of Volatility", "explanation": "Uçuculuk sırasına göre delil toplama." },
+    { "trigger": "Preserve data for lawsuit / no deletion", "maps_to": "Legal Hold", "explanation": "Yasal veri dondurma." },
+    { "trigger": "First phase of incident response / before any incident", "maps_to": "Preparation", "explanation": "IR'ın ilk aşaması." },
+    { "trigger": "Isolate infected host / limit spread", "maps_to": "Containment", "explanation": "Olayı sınırlama/izolasyon." },
+    { "trigger": "Remove malware / root cause elimination", "maps_to": "Eradication", "explanation": "Kötü amaçlı yazılımı temizleme." },
+    { "trigger": "Restore from clean backup / return to production", "maps_to": "Recovery", "explanation": "Sistemleri geri getirme." },
+    { "trigger": "Post-incident review / what went wrong", "maps_to": "Lessons Learned", "explanation": "Olay sonrası analiz." },
+    { "trigger": "Business processes continue during disruption", "maps_to": "BCP (Business Continuity Plan)", "explanation": "İş sürekliliği planı." },
+    { "trigger": "IT systems restore after disaster", "maps_to": "DRP (Disaster Recovery Plan)", "explanation": "Felaket kurtarma planı." }
+  ],
+  "questions": [
+    {
+      "id": "4.8-q1",
+      "questionEn": "In the NIST incident response process, which phase involves developing policies, playbooks, and training BEFORE any incident occurs?",
+      "options": { "A": "Detection & Analysis", "B": "Containment", "C": "Preparation", "D": "Eradication" },
+      "correct": "C",
+      "solution": {
+        "translation": "NIST olay müdahale sürecinde, herhangi bir olay gerçekleşmeden ÖNCE politika, playbook ve eğitim geliştirme hangi aşamada olur?",
+        "optionsTr": { "A": "Tespit ve Analiz", "B": "Kapsama", "C": "Hazırlık", "D": "Temizlik" },
+        "patternHint": "'Before any incident + policies + training' = Preparation (ilk aşama).",
+        "whyWrong": { "A": "Detection olay olduktan sonra.", "B": "Containment olay sırasında.", "D": "Eradication kötü yazılımı temizleme." }
+      }
+    },
+    {
+      "id": "4.8-q2",
+      "questionEn": "After a ransomware attack is detected, the security team immediately disconnects infected servers from the network. Which IR phase is this?",
+      "options": { "A": "Preparation", "B": "Eradication", "C": "Containment", "D": "Recovery" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir fidye yazılımı saldırısı tespit edildikten sonra güvenlik ekibi etkilenen sunucuları hemen ağdan ayırıyor. Bu hangi IR aşaması?",
+        "optionsTr": { "A": "Hazırlık", "B": "Temizlik", "C": "Kapsama", "D": "Kurtarma" },
+        "patternHint": "Enfekte sunucuyu ağdan ayırma = Containment (yayılmayı durdur).",
+        "whyWrong": { "A": "Preparation olay öncesi.", "B": "Eradication kötü yazılımı siler.", "D": "Recovery sistemi geri getirir." }
+      }
+    },
+    {
+      "id": "4.8-q3",
+      "questionEn": "After containment, the team removes the malware, patches the exploited vulnerability, and deletes backdoors. Which IR phase?",
+      "options": { "A": "Preparation", "B": "Detection", "C": "Eradication", "D": "Lessons Learned" },
+      "correct": "C",
+      "solution": {
+        "translation": "Kapsamadan sonra ekip kötü amaçlı yazılımı kaldırıyor, istismar edilen zafiyeti yamıyor ve arka kapıları siliyor. Hangi IR aşaması?",
+        "optionsTr": { "A": "Hazırlık", "B": "Tespit", "C": "Temizlik", "D": "Dersler" },
+        "patternHint": "Kötü yazılım kaldırma + yama + backdoor silme = Eradication.",
+        "whyWrong": { "A": "Preparation olay öncesi.", "B": "Detection tespit eder.", "D": "Lessons Learned en sondadır." }
+      }
+    },
+    {
+      "id": "4.8-q4",
+      "questionEn": "A forensics investigator responds to a compromised server. In what ORDER should evidence be collected, following the order of volatility?",
+      "options": {
+        "A": "Disk image → RAM → CPU cache → Logs",
+        "B": "Logs → Disk → RAM → CPU cache",
+        "C": "CPU cache → RAM → Disk → Logs",
+        "D": "RAM → CPU cache → Disk → Logs"
+      },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir adli bilişim araştırmacısı ele geçirilmiş bir sunucuya müdahale ediyor. Uçuculuk sırasına göre delil HANGI SIRAYLA toplanmalı?",
+        "optionsTr": {
+          "A": "Disk → RAM → CPU cache → Loglar",
+          "B": "Loglar → Disk → RAM → CPU cache",
+          "C": "CPU cache → RAM → Disk → Loglar",
+          "D": "RAM → CPU cache → Disk → Loglar"
+        },
+        "patternHint": "En uçucu önce: CPU cache → RAM → Disk → Loglar → Yedek.",
+        "whyWrong": { "A": "Disk en son olmalı.", "B": "Loglar en az uçucudur.", "D": "CPU cache RAM'den daha uçucudur." }
+      }
+    },
+    {
+      "id": "4.8-q5",
+      "questionEn": "An organization holds a meeting to walk through a cyberattack scenario, discussing roles and procedures without touching any live systems. Which exercise type?",
+      "options": { "A": "Full interruption test", "B": "Parallel test", "C": "Tabletop exercise", "D": "Failover test" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir kurum, hiçbir canlı sisteme dokunmadan rolleri ve prosedürleri tartışarak bir siber saldırı senaryosunu geçirmek için toplantı düzenliyor. Hangi egzersiz türü?",
+        "optionsTr": { "A": "Tam kesinti testi", "B": "Paralel test", "C": "Masa başı egzersizi", "D": "Failover testi" },
+        "patternHint": "'Discussion + no live systems + roles/procedures' = Tabletop.",
+        "whyWrong": { "A": "Full interruption üretimi durdurur.", "B": "Parallel yedek sistemi gerçek verilerle çalıştırır.", "D": "Failover gerçek geçiş yapar." }
+      }
+    },
+    {
+      "id": "4.8-q6",
+      "questionEn": "Which document tracks who collected a piece of digital evidence, where it was stored, who accessed it, and when — to ensure it's admissible in court?",
+      "options": { "A": "Incident response playbook", "B": "Chain of custody", "C": "Retention policy", "D": "SLA" },
+      "correct": "B",
+      "solution": {
+        "translation": "Hangi belge, dijital delili kimin topladığını, nerede saklandığını, kimin eriştiğini ve ne zaman erişildiğini izler — mahkemede kabul edilebilirliğini sağlamak için?",
+        "optionsTr": { "A": "Olay müdahale playbook'u", "B": "Muhafaza zinciri", "C": "Saklama politikası", "D": "SLA" },
+        "patternHint": "Delil takibi + mahkeme kabul = Chain of custody.",
+        "whyWrong": { "A": "Playbook prosedür kılavuzudur.", "C": "Retention policy saklama süresi.", "D": "SLA hizmet anlaşması." }
+      }
+    },
+    {
+      "id": "4.8-q7",
+      "questionEn": "What is the difference between BCP and DRP?",
+      "options": {
+        "A": "BCP focuses on IT systems; DRP focuses on business processes",
+        "B": "BCP focuses on business process continuity; DRP focuses on IT system recovery",
+        "C": "They are identical",
+        "D": "BCP is for natural disasters only; DRP is for cyber incidents"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "BCP ve DRP arasındaki fark nedir?",
+        "optionsTr": {
+          "A": "BCP BT sistemlerine odaklanır; DRP iş süreçlerine",
+          "B": "BCP iş süreci sürekliliğine odaklanır; DRP BT sistemi kurtarmaya",
+          "C": "İkisi aynıdır",
+          "D": "BCP sadece doğal afetler için; DRP siber olaylar için"
+        },
+        "patternHint": "BCP = iş süreçleri devam etsin. DRP = BT sistemleri geri gelsin.",
+        "whyWrong": { "A": "Tanımlar ters.", "C": "Farklı odaklara sahipler.", "D": "Her ikisi de her tür felakete uygulanır." }
+      }
+    },
+    {
+      "id": "4.8-q8",
+      "questionEn": "During forensic imaging, which tool prevents any writes to the source drive, ensuring evidence is not modified?",
+      "options": { "A": "Firewall", "B": "Write blocker", "C": "Hash algorithm", "D": "DLP solution" },
+      "correct": "B",
+      "solution": {
+        "translation": "Adli görüntüleme sırasında, kaynak sürücüye hiçbir yazma işlemi gerçekleştirilmemesini sağlayan ve delillerin değiştirilmediğinden emin olan hangi araç kullanılır?",
+        "optionsTr": { "A": "Firewall", "B": "Yazma engelleyici", "C": "Hash algoritması", "D": "DLP çözümü" },
+        "patternHint": "Adli kopyalamada delili koruma = Write blocker (yazma engelleyici).",
+        "whyWrong": { "A": "Firewall ağ trafiği kontrolü.", "C": "Hash bütünlük doğrulama (ama yazmayı engellemez).", "D": "DLP veri sızıntısı önleme." }
+      }
+    },
+    {
+      "id": "4.8-q9",
+      "questionEn": "After systems are restored from clean backups and verified to be functioning normally, which IR phase is the team in?",
+      "options": { "A": "Containment", "B": "Eradication", "C": "Recovery", "D": "Lessons Learned" },
+      "correct": "C",
+      "solution": {
+        "translation": "Sistemler temiz yedeklerden geri yüklendikten ve normal çalıştığı doğrulandıktan sonra ekip hangi IR aşamasındadır?",
+        "optionsTr": { "A": "Kapsama", "B": "Temizlik", "C": "Kurtarma", "D": "Dersler" },
+        "patternHint": "Yedekten geri yükle + normal çalıştır = Recovery.",
+        "whyWrong": { "A": "Containment yayılmayı durdurur.", "B": "Eradication kötü yazılımı temizler.", "D": "Lessons Learned en sondadır." }
+      }
+    },
+    {
+      "id": "4.8-q10",
+      "questionEn": "Which IR activity involves reviewing what happened, what worked, and what failed — and updating processes to prevent future recurrence?",
+      "options": { "A": "Preparation", "B": "Containment", "C": "Detection", "D": "Lessons Learned (post-incident review)" },
+      "correct": "D",
+      "solution": {
+        "translation": "Hangi IR faaliyeti, ne olduğunu, neyin işe yarayıp neyin başarısız olduğunu incelemeyi ve gelecekteki tekrarlı olayları önlemek için süreçleri güncellemeyi içerir?",
+        "optionsTr": { "A": "Hazırlık", "B": "Kapsama", "C": "Tespit", "D": "Dersler (olay sonrası inceleme)" },
+        "patternHint": "Olay sonrası + ne öğrendik + süreç güncelle = Lessons Learned.",
+        "whyWrong": { "A": "Preparation olay öncesi.", "B": "Containment yayılmayı durdurmak.", "C": "Detection olayı tanımlamak." }
+      }
+    }
+  ]
+}

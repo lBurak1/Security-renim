@@ -1,0 +1,32 @@
+[
+  {
+    "id": "v1",
+    "word": "prior",
+    "phrase": "roll back to any prior version",
+    "turkishMeaning": "önceki, daha önceki",
+    "exampleSentence": "Git allows the team to roll back to any prior version of the configuration files.",
+    "examNote": "Version control sorusunda geçti. 'Prior' = önceki. 'Roll back to prior version' = Version Control'ün tanımıdır.",
+    "date": "2026-06-14",
+    "domain": "1"
+  },
+  {
+    "id": "v2",
+    "word": "repudiation",
+    "phrase": "non-repudiation",
+    "turkishMeaning": "inkâr etme, reddetme",
+    "exampleSentence": "Digital signatures provide non-repudiation — the sender cannot deny sending the message.",
+    "examNote": "Non-repudiation = 'Ben bunu göndermedim' diyememek. Dijital imza + loglama ile sağlanır.",
+    "date": "2026-06-14",
+    "domain": "1"
+  },
+  {
+    "id": "v3",
+    "word": "compensating",
+    "phrase": "compensating control",
+    "turkishMeaning": "telafi edici, tamamlayıcı",
+    "exampleSentence": "When patching is not possible, a compensating control such as network isolation can reduce risk.",
+    "examNote": "Asıl kontrolü uygulayamıyorsan yerine geçen alternatif önlem. 'Patch yapamıyorum ama izole ettim' = compensating.",
+    "date": "2026-06-14",
+    "domain": "1"
+  }
+]

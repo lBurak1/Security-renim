@@ -1,0 +1,230 @@
+{
+  "moduleId": "4.1",
+  "title": "Bilişim Kaynaklarına Güvenlik Teknikleri",
+  "domainId": 4,
+  "documentation": [
+    {
+      "heading": "Güvenli Temel Yapılandırma (Secure Baselines)",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Baseline Süreci",
+          "items": [
+            "Establish: Güvenli temel yapılandırmayı oluştur.",
+            "Deploy: Sistemlere uygula.",
+            "Maintain: Sürekli güncel tut.",
+            "Kaynaklar: CIS Benchmarks, DISA STIG, vendor guides."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Sertleştirme Hedefleri (Hardening Targets)",
+      "specTable": {
+        "title": "Hardening Yapılacak Hedefler",
+        "columns": ["Hedef", "Önlem"],
+        "rows": [
+          ["Mobile devices", "MDM, ekran kilidi, şifreleme"],
+          ["Workstations", "Patch, EDR, gereksiz servis kapatma"],
+          ["Servers", "Minimal rol, port kapatma"],
+          ["Switches/Routers", "Varsayılan parola değiştir, port security"],
+          ["Cloud infrastructure", "IAM, güvenlik grupları"],
+          ["IoT/ICS/SCADA", "Segmentasyon, varsayılan parola"],
+          ["Embedded/RTOS", "Firmware güncelleme"]
+        ]
+      }
+    },
+    {
+      "heading": "Kablosuz Güvenlik (Wireless)",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Wi-Fi Güvenliği",
+          "items": [
+            "WPA3: EN güncel/güvenli; SAE (Simultaneous Authentication of Equals) kullanır.",
+            "WPA2: Yaygın; AES-CCMP. WEP/WPA artık GÜVENSİZ.",
+            "AAA/RADIUS: Kurumsal kimlik doğrulama (802.1X / WPA Enterprise).",
+            "PSK (ev) vs Enterprise (802.1X).",
+            "PMF (Protected Management Frames): yönetim çerçevesi koruması."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Mobil Dağıtım ve MDM",
+      "specTable": {
+        "title": "Mobil Dağıtım Modelleri",
+        "columns": ["Model", "Açılım", "Kontrol"],
+        "rows": [
+          ["BYOD", "Bring Your Own Device", "EN AZ kontrol (çalışanın cihazı)"],
+          ["COPE", "Corporate-Owned, Personally Enabled", "Şirket cihazı + kişisel kullanım"],
+          ["CYOD", "Choose Your Own Device", "Onaylı listeden seçim"],
+          ["COBO", "Corporate-Owned, Business Only", "EN FAZLA kontrol (sadece iş)"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "MDM Özellikleri",
+          "items": [
+            "Remote wipe: Kayıp cihazı uzaktan silme.",
+            "Şifreleme/parola zorunluluğu.",
+            "Containerization: İş/kişisel veriyi ayırma.",
+            "Sideloading kontrolü, jailbreak/root tespiti.",
+            "Connection methods: Cellular, Wi-Fi, Bluetooth."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "BYOD vs COBO",
+          "items": [
+            "BYOD = çalışanın cihazı = en az kontrol, en yüksek risk.",
+            "COBO = sadece iş = en fazla kontrol. 'Maximum control / business only' → COBO."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Most secure Wi-Fi / SAE / latest standard", "maps_to": "WPA3", "explanation": "En güncel kablosuz güvenlik." },
+    { "trigger": "Employee uses personal phone for work", "maps_to": "BYOD", "explanation": "Kişisel cihaz kullanımı." },
+    { "trigger": "Maximum corporate control / business only", "maps_to": "COBO", "explanation": "Sadece iş, en fazla kontrol." },
+    { "trigger": "Remotely erase a lost device", "maps_to": "MDM (Remote Wipe)", "explanation": "Uzaktan silme." },
+    { "trigger": "CIS Benchmark / STIG / secure config standard", "maps_to": "Secure Baseline", "explanation": "Güvenli temel yapılandırma." },
+    { "trigger": "Separate work and personal data on phone", "maps_to": "Containerization", "explanation": "İş/kişisel ayrımı." },
+    { "trigger": "Enterprise Wi-Fi auth with 802.1X", "maps_to": "RADIUS / WPA Enterprise", "explanation": "Kurumsal kablosuz doğrulama." },
+    { "trigger": "Corporate device that also allows personal use", "maps_to": "COPE", "explanation": "Şirket cihazı + kişisel kullanım." }
+  ],
+  "questions": [
+    {
+      "id": "4.1-q1",
+      "questionEn": "An organization wants the STRONGEST available Wi-Fi encryption/authentication protocol. Which should be selected?",
+      "options": { "A": "WEP", "B": "WPA2-PSK", "C": "WPA3", "D": "Open with captive portal" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir kurum mevcut EN GÜÇLÜ Wi-Fi şifreleme/doğrulama protokolünü istiyor. Hangisi seçilmeli?",
+        "optionsTr": { "A": "WEP", "B": "WPA2-PSK", "C": "WPA3", "D": "Captive portal ile açık" },
+        "patternHint": "'strongest available Wi-Fi' = WPA3.",
+        "whyWrong": { "A": "WEP kırıktır.", "B": "WPA2 güvenli ama WPA3 daha güçlü.", "D": "Açık ağ şifrelemez." }
+      }
+    },
+    {
+      "id": "4.1-q2",
+      "questionEn": "A company issues phones used ONLY for business with full corporate control, no personal use. Which deployment model?",
+      "options": { "A": "BYOD", "B": "COPE", "C": "CYOD", "D": "COBO" },
+      "correct": "D",
+      "solution": {
+        "translation": "Bir şirket, tam kontrolle YALNIZCA iş için kullanılan, kişisel kullanıma kapalı telefonlar veriyor. Hangi model?",
+        "optionsTr": { "A": "BYOD", "B": "COPE", "C": "CYOD", "D": "COBO" },
+        "patternHint": "'only business + full control + no personal' = COBO.",
+        "whyWrong": { "A": "BYOD çalışanın cihazıdır.", "B": "COPE kişisel kullanıma izin verir.", "C": "CYOD seçim modelidir." }
+      }
+    },
+    {
+      "id": "4.1-q3",
+      "questionEn": "Before deploying hundreds of servers, an admin wants a consistent, industry-recognized secure config standard. Which resource?",
+      "options": { "A": "CIS Benchmark", "B": "A penetration test report", "C": "An SLA", "D": "A honeypot" },
+      "correct": "A",
+      "solution": {
+        "translation": "Yüzlerce sunucuyu kurmadan önce yönetici tutarlı, sektörce tanınan güvenli yapılandırma standardı istiyor. Hangi kaynak?",
+        "optionsTr": { "A": "CIS Benchmark", "B": "Sızma testi raporu", "C": "SLA", "D": "Honeypot" },
+        "patternHint": "'industry-recognized secure config standard' = CIS Benchmark/STIG.",
+        "whyWrong": { "B": "Pentest açık bulur.", "C": "SLA hizmet anlaşmasıdır.", "D": "Honeypot tuzaktır." }
+      }
+    },
+    {
+      "id": "4.1-q4",
+      "questionEn": "An employee loses their company phone containing sensitive data. Which MDM feature BEST mitigates the risk?",
+      "options": { "A": "Remote wipe", "B": "Load balancing", "C": "DNS filtering", "D": "RAID" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir çalışan hassas veri içeren şirket telefonunu kaybediyor. Riski EN İYİ hangi MDM özelliği azaltır?",
+        "optionsTr": { "A": "Uzaktan silme", "B": "Yük dengeleme", "C": "DNS filtreleme", "D": "RAID" },
+        "patternHint": "Kayıp cihaz + hassas veri = Remote wipe.",
+        "whyWrong": { "B": "Yük dengeleme alakasız.", "C": "DNS filtreleme web içindir.", "D": "RAID disk yedekliliğidir." }
+      }
+    },
+    {
+      "id": "4.1-q5",
+      "questionEn": "Employees use their own personal laptops for work with minimal corporate control. Which deployment model creates the GREATEST security challenge?",
+      "options": { "A": "COBO", "B": "BYOD", "C": "CYOD", "D": "Air gap" },
+      "correct": "B",
+      "solution": {
+        "translation": "Çalışanlar iş için minimum kurumsal kontrolle kendi kişisel dizüstülerini kullanıyor. Hangi dağıtım modeli EN BÜYÜK güvenlik zorluğunu yaratır?",
+        "optionsTr": { "A": "COBO", "B": "BYOD", "C": "CYOD", "D": "Air gap" },
+        "patternHint": "Kişisel cihaz + az kontrol = BYOD (en yüksek risk).",
+        "whyWrong": { "A": "COBO en fazla kontroldür.", "C": "CYOD kontrollüdür.", "D": "Air gap dağıtım modeli değildir." }
+      }
+    },
+    {
+      "id": "4.1-q6",
+      "questionEn": "A company wants to keep corporate apps/data separate from personal apps on the same managed phone. Which MDM capability?",
+      "options": { "A": "Containerization", "B": "Geofencing", "C": "Tokenization", "D": "Clustering" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir şirket, aynı yönetilen telefonda kurumsal uygulama/veriyi kişisel olanlardan ayrı tutmak istiyor. Hangi MDM yeteneği?",
+        "optionsTr": { "A": "Containerization", "B": "Geofencing", "C": "Tokenization", "D": "Clustering" },
+        "patternHint": "İş/kişisel ayrımı telefonda = Containerization.",
+        "whyWrong": { "B": "Geofencing konum kısıtıdır.", "C": "Token veri korumadır.", "D": "Clustering HA'dır." }
+      }
+    },
+    {
+      "id": "4.1-q7",
+      "questionEn": "For enterprise Wi-Fi, the company wants each user to authenticate with their own corporate credentials via a central server rather than a shared key. Which approach?",
+      "options": { "A": "WPA2-PSK", "B": "WPA Enterprise (802.1X/RADIUS)", "C": "WEP", "D": "Open network" },
+      "correct": "B",
+      "solution": {
+        "translation": "Kurumsal Wi-Fi için şirket, her kullanıcının paylaşılan anahtar yerine merkezi bir sunucu üzerinden kendi kurumsal kimlik bilgileriyle doğrulanmasını istiyor. Hangi yaklaşım?",
+        "optionsTr": { "A": "WPA2-PSK", "B": "WPA Enterprise (802.1X/RADIUS)", "C": "WEP", "D": "Açık ağ" },
+        "patternHint": "Bireysel kimlik + merkezi sunucu = WPA Enterprise (802.1X/RADIUS). PSK = paylaşılan anahtar.",
+        "whyWrong": { "A": "PSK paylaşılan tek anahtardır.", "C": "WEP kırıktır.", "D": "Açık ağ doğrulama yapmaz." }
+      }
+    },
+    {
+      "id": "4.1-q8",
+      "questionEn": "What is the FIRST step in establishing secure baselines across an enterprise?",
+      "options": {
+        "A": "Wipe all devices",
+        "B": "Establish (define) the secure baseline configuration",
+        "C": "Disable all logging",
+        "D": "Remove all firewalls"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kurum genelinde güvenli temel yapılandırmalar oluşturmanın İLK adımı nedir?",
+        "optionsTr": { "A": "Tüm cihazları sil", "B": "Güvenli baseline'ı oluştur (tanımla)", "C": "Tüm loglamayı kapat", "D": "Tüm firewall'ları kaldır" },
+        "patternHint": "Baseline süreci: Establish → Deploy → Maintain. İlk = Establish.",
+        "whyWrong": { "A": "Silme baseline kurma değil.", "C": "Loglama kapatmak zararlıdır.", "D": "Firewall kaldırmak zararlıdır." }
+      }
+    },
+    {
+      "id": "4.1-q9",
+      "questionEn": "A network switch still uses its factory default admin password. Which hardening step is MOST urgent?",
+      "options": { "A": "Change default credentials", "B": "Add a honeypot", "C": "Enable a screensaver", "D": "Increase RAM" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir ağ switch'i hâlâ fabrika varsayılan admin parolasını kullanıyor. EN acil sertleştirme adımı?",
+        "optionsTr": { "A": "Varsayılan kimlik bilgilerini değiştir", "B": "Honeypot ekle", "C": "Ekran koruyucu etkinleştir", "D": "RAM artır" },
+        "patternHint": "Varsayılan parola = hemen değiştir.",
+        "whyWrong": { "B": "Honeypot bu sorunu çözmez.", "C": "Ekran koruyucu alakasız.", "D": "RAM güvenlik değil." }
+      }
+    },
+    {
+      "id": "4.1-q10",
+      "questionEn": "Why is WEP considered unacceptable for securing wireless networks today?",
+      "options": {
+        "A": "It is too fast",
+        "B": "It uses weak, easily cracked encryption",
+        "C": "It requires WPA3 hardware",
+        "D": "It only works with fiber"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "WEP bugün kablosuz ağları güvenceye almak için neden kabul edilemez sayılır?",
+        "optionsTr": { "A": "Çok hızlı", "B": "Zayıf, kolay kırılan şifreleme kullanır", "C": "WPA3 donanımı gerektirir", "D": "Sadece fiberle çalışır" },
+        "patternHint": "WEP = zayıf/kırık şifreleme.",
+        "whyWrong": { "A": "Hız sorun değil.", "C": "WEP eski standarttır.", "D": "Fiberle ilgisiz." }
+      }
+    }
+  ]
+}

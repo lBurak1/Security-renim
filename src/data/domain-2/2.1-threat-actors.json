@@ -1,0 +1,240 @@
+{
+  "moduleId": "2.1",
+  "title": "Tehdit Aktörleri ve Motivasyonlar",
+  "domainId": 2,
+  "documentation": [
+    {
+      "heading": "Tehdit Aktörü Nedir? (Sınıflandırma Mantığı)",
+      "body": "Tehdit aktörü (threat actor), bir sisteme zarar verme niyeti ve/veya kapasitesi olan kişi/gruptur. SY0-701 aktörleri iki şeye göre ayırt etmeni ister: **Öznitelikler (attributes)** — aktörü tanımlayan özellikler; ve **Motivasyonlar** — neden saldırdıkları. Senaryoda 'kim yaptı?' (aktör) veya 'neden yaptı?' (motivasyon) sorulur; saldırının kaynağı, yetkinliği ve hedefi ipucudur.",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Aktör Öznitelikleri (Attributes)",
+          "items": [
+            "Internal vs External: İçeriden mi (çalışan/iş ortağı) dışarıdan mı?",
+            "Resources/Funding: Kaynak/bütçe (devlet = çok yüksek, script kiddie = düşük).",
+            "Level of sophistication/capability: Teknik yetkinlik düzeyi."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Tehdit Aktörü Türleri (Tam Liste)",
+      "specTable": {
+        "title": "Aktörler ve Karakteristikleri",
+        "columns": ["Aktör", "Kaynak/Yetkinlik", "Internal/External", "Tipik Motivasyon"],
+        "rows": [
+          ["Nation-state (Devlet)", "Çok yüksek (APT)", "External", "Casusluk, sabotaj, savaş, politik"],
+          ["APT", "Çok yüksek, kalıcı", "External", "Uzun süreli gizli erişim, veri sızdırma"],
+          ["Organized crime", "Yüksek, finanssal", "External", "Para (fidye, dolandırıcılık)"],
+          ["Hacktivist", "Orta", "External", "İdeoloji, politik/sosyal mesaj"],
+          ["Insider threat", "Değişken, erişim avantajı", "Internal", "İntikam, para, casusluk"],
+          ["Script kiddie", "Düşük (hazır araç)", "External", "Eğlence, ün, dikkat"],
+          ["Unskilled attacker", "Düşük", "External", "Merak, kaos"],
+          ["Shadow IT", "Değişken (kötü niyetsiz)", "Internal", "İş kolaylığı; onaysız araç"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Aktör Tanıma Anahtarları",
+          "items": [
+            "Nation-state/APT → 'sophisticated', 'persistent', 'long-term', 'zero-day', 'well-funded', 'espionage', 'foreign'.",
+            "Hacktivist → 'political', 'ideology', 'protest', 'message', 'defacement'.",
+            "Organized crime → 'financial gain', 'ransomware', 'profit', 'extortion'.",
+            "Insider → 'employee', 'disgruntled', 'has access', 'terminated', 'contractor'.",
+            "Script kiddie → 'pre-made tools', 'unskilled', 'for fun', 'low skill'.",
+            "Shadow IT → 'unauthorized but NOT malicious', 'employee installed own tool'."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Motivasyonlar (Motivations) — Tam Liste",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Yaygın Motivasyonlar",
+          "items": [
+            "Data exfiltration: Veri çalma/sızdırma.",
+            "Espionage: Casusluk (genelde devlet).",
+            "Service disruption: Hizmeti aksatma (DDoS).",
+            "Financial gain: Para (fidye, dolandırıcılık).",
+            "Blackmail: Şantaj.",
+            "Philosophical/political beliefs: İdeolojik (hacktivist).",
+            "Ethical: Etik (beyaz şapkalı, izinli test).",
+            "Revenge: İntikam (genelde insider).",
+            "Disruption/chaos: Kaos yaratma.",
+            "War: Siber savaş (devlet)."
+          ]
+        },
+        {
+          "kind": "onemli-not",
+          "title": "Shadow IT Özel Durumu",
+          "items": [
+            "Shadow IT KÖTÜ NİYETLİ DEĞİLDİR; çalışanın onaysız (unauthorized) ama iyi niyetli araç/servis kullanımıdır.",
+            "Risk: BT'nin görmediği, denetlemediği, güncellemediği sistemler güvenlik açığı yaratır.",
+            "'No malicious intent' + 'unauthorized' = Shadow IT refleksi."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Sophisticated / Persistent / Long-term / Well-funded / Zero-day / Foreign", "maps_to": "Nation-state / APT", "explanation": "İleri, kalıcı, yüksek bütçeli devlet destekli aktör." },
+    { "trigger": "Political / Ideology / Protest / Defacement / Social cause", "maps_to": "Hacktivist", "explanation": "İdeolojik/politik amaçlı." },
+    { "trigger": "Financial gain / Profit / Ransomware gang / Extortion", "maps_to": "Organized Crime", "explanation": "Para odaklı organize grup." },
+    { "trigger": "Disgruntled employee / Has access / Terminated / Contractor", "maps_to": "Insider Threat", "explanation": "İçeriden, erişimi olan kişi." },
+    { "trigger": "Pre-made tools / Unskilled / For fun / Low skill", "maps_to": "Script Kiddie", "explanation": "Hazır araç kullanan düşük yetkinlikli." },
+    { "trigger": "Unauthorized app, NOT malicious / Employee's own tool", "maps_to": "Shadow IT", "explanation": "Onaysız ama iyi niyetli araç kullanımı." },
+    { "trigger": "Steal and leak data", "maps_to": "Data Exfiltration", "explanation": "Veri sızdırma motivasyonu." },
+    { "trigger": "Spying / intelligence gathering", "maps_to": "Espionage", "explanation": "Casusluk motivasyonu (genelde devlet)." }
+  ],
+  "questions": [
+    {
+      "id": "2.1-q1",
+      "questionEn": "Security finds malware undetected for over a year, using custom zero-day exploits and exfiltrating IP to a foreign IP range. Which threat actor is MOST likely?",
+      "options": { "A": "Script kiddie", "B": "Hacktivist", "C": "Nation-state (APT)", "D": "Shadow IT" },
+      "correct": "C",
+      "solution": {
+        "translation": "Güvenlik ekibi, bir yıldan fazla tespit edilmeyen, özel zero-day kullanan ve fikri mülkiyeti yabancı bir IP aralığına sızdıran zararlı buluyor. En olası aktör?",
+        "optionsTr": { "A": "Script kiddie", "B": "Hacktivist", "C": "Devlet (APT)", "D": "Shadow IT" },
+        "patternHint": "'over a year' (kalıcı) + 'custom zero-day' + 'foreign IP' = APT/Nation-state.",
+        "whyWrong": { "A": "Script kiddie zero-day geliştiremez.", "B": "Hacktivist mesaj verir, gizli IP çalmaz.", "D": "Shadow IT casusluk yapmaz." }
+      }
+    },
+    {
+      "id": "2.1-q2",
+      "questionEn": "A group breaches a website and replaces the homepage with a message protesting the company's environmental policies. MOST likely motivation?",
+      "options": { "A": "Financial gain", "B": "Philosophical/political beliefs", "C": "Espionage", "D": "Revenge" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir grup web sitesini ele geçirip ana sayfayı şirketin çevre politikalarını protesto eden mesajla değiştiriyor. En olası motivasyon?",
+        "optionsTr": { "A": "Finansal kazanç", "B": "Felsefi/politik inanç", "C": "Casusluk", "D": "İntikam" },
+        "patternHint": "'protesting policies' + defacement = hacktivist = politik inanç.",
+        "whyWrong": { "A": "Para talebi yok.", "C": "Casuslukta gizlilik esastır.", "D": "İntikam kişiseldir." }
+      }
+    },
+    {
+      "id": "2.1-q3",
+      "questionEn": "A marketing employee signs up for an unapproved cloud service to work faster, with no malicious intent. This BEST describes which?",
+      "options": { "A": "Insider threat", "B": "Shadow IT", "C": "Hacktivism", "D": "Organized crime" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir pazarlama çalışanı, daha hızlı çalışmak için onaylanmamış bir bulut servisine kötü niyet olmadan kaydoluyor. Bu en iyi hangisi?",
+        "optionsTr": { "A": "İçeriden tehdit", "B": "Shadow IT", "C": "Hacktivizm", "D": "Örgütlü suç" },
+        "patternHint": "'unapproved' + 'no malicious intent' = Shadow IT.",
+        "whyWrong": { "A": "Insider kötü niyet içerir.", "C": "İdeolojik amaç yok.", "D": "Suç organizasyonu değil." }
+      }
+    },
+    {
+      "id": "2.1-q4",
+      "questionEn": "Which threat actor typically has the GREATEST resources, funding, and sophistication?",
+      "options": { "A": "Script kiddie", "B": "Hacktivist", "C": "Nation-state", "D": "Insider" },
+      "correct": "C",
+      "solution": {
+        "translation": "Hangi tehdit aktörü tipik olarak EN FAZLA kaynağa, bütçeye ve yetkinliğe sahiptir?",
+        "optionsTr": { "A": "Script kiddie", "B": "Hacktivist", "C": "Devlet", "D": "İçeriden" },
+        "patternHint": "En yüksek kaynak/bütçe/yetkinlik = Nation-state.",
+        "whyWrong": { "A": "Düşük yetkinlik.", "B": "Orta düzey.", "D": "Erişim avantajı var ama bütçe değişken." }
+      }
+    },
+    {
+      "id": "2.1-q5",
+      "questionEn": "A recently fired system administrator uses still-active credentials to delete critical databases out of anger. Which actor and motivation?",
+      "options": {
+        "A": "Nation-state; espionage",
+        "B": "Insider threat; revenge",
+        "C": "Script kiddie; for fun",
+        "D": "Hacktivist; ideology"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Yakın zamanda kovulan bir sistem yöneticisi, öfkeyle kritik veritabanlarını silmek için hâlâ aktif kimlik bilgilerini kullanıyor. Aktör ve motivasyon?",
+        "optionsTr": { "A": "Devlet; casusluk", "B": "İçeriden tehdit; intikam", "C": "Script kiddie; eğlence", "D": "Hacktivist; ideoloji" },
+        "patternHint": "'fired admin' + 'active credentials' + 'anger' = Insider + Revenge.",
+        "whyWrong": { "A": "Casusluk değil, intikam.", "C": "Yetkin bir admin, script kiddie değil.", "D": "İdeoloji değil, kişisel öfke." }
+      }
+    },
+    {
+      "id": "2.1-q6",
+      "questionEn": "An attacker downloads a ready-made exploit kit from a forum and runs it without understanding how it works. Which actor is this?",
+      "options": { "A": "APT", "B": "Script kiddie", "C": "Nation-state", "D": "Organized crime" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir saldırgan, bir forumdan hazır bir exploit kitini indirip nasıl çalıştığını anlamadan çalıştırıyor. Bu hangi aktör?",
+        "optionsTr": { "A": "APT", "B": "Script kiddie", "C": "Devlet", "D": "Örgütlü suç" },
+        "patternHint": "'ready-made' + 'without understanding' = Script kiddie.",
+        "whyWrong": { "A": "APT kendi araçlarını geliştirir.", "C": "Devlet ileri düzeydir.", "D": "Organize suç finanssaldır ve daha yetkin." }
+      }
+    },
+    {
+      "id": "2.1-q7",
+      "questionEn": "A criminal group deploys ransomware across hundreds of companies and demands cryptocurrency payments. Primary motivation?",
+      "options": { "A": "Espionage", "B": "Financial gain", "C": "Political beliefs", "D": "Ethical testing" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir suç grubu yüzlerce şirkete fidye yazılımı yayıp kripto para ödemeleri talep ediyor. Birincil motivasyon?",
+        "optionsTr": { "A": "Casusluk", "B": "Finansal kazanç", "C": "Politik inanç", "D": "Etik test" },
+        "patternHint": "'ransomware' + 'payments' = Financial gain.",
+        "whyWrong": { "A": "Casusluk veri toplar, para istemez.", "C": "Politik mesaj yok.", "D": "İzinsiz, etik değil." }
+      }
+    },
+    {
+      "id": "2.1-q8",
+      "questionEn": "Which attribute distinguishes an insider threat from most external actors?",
+      "options": {
+        "A": "They always have nation-state funding",
+        "B": "They already have legitimate access to internal systems",
+        "C": "They only use pre-made tools",
+        "D": "They are always financially motivated"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Hangi öznitelik, içeriden bir tehdidi çoğu dış aktörden ayırır?",
+        "optionsTr": {
+          "A": "Her zaman devlet bütçesine sahiptirler",
+          "B": "İç sistemlere zaten meşru erişimleri vardır",
+          "C": "Sadece hazır araç kullanırlar",
+          "D": "Her zaman finansal motivasyona sahiptirler"
+        },
+        "patternHint": "Insider'ın ayırt edici özelliği = mevcut meşru ERİŞİM. Mutlak ifadeli (always) şıklar tuzak.",
+        "whyWrong": { "A": "'Always' mutlak, yanlış.", "C": "Insider yetenekli olabilir.", "D": "Motivasyon değişir (intikam da olabilir)." }
+      }
+    },
+    {
+      "id": "2.1-q9",
+      "questionEn": "A hostile government funds a cyber unit to disable another country's power grid during a conflict. Which actor and motivation BEST fit?",
+      "options": {
+        "A": "Hacktivist; ideology",
+        "B": "Nation-state; war/disruption",
+        "C": "Script kiddie; for fun",
+        "D": "Shadow IT; convenience"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Düşman bir hükümet, bir çatışma sırasında başka bir ülkenin elektrik şebekesini devre dışı bırakmak için bir siber birimi finanse ediyor. En uygun aktör ve motivasyon?",
+        "optionsTr": { "A": "Hacktivist; ideoloji", "B": "Devlet; savaş/aksatma", "C": "Script kiddie; eğlence", "D": "Shadow IT; kolaylık" },
+        "patternHint": "'government funds' + 'power grid' + 'conflict' = Nation-state + War.",
+        "whyWrong": { "A": "Hacktivist devlet finansmanlı değil.", "C": "Eğlence değil savaş.", "D": "Shadow IT saldırgan değil." }
+      }
+    },
+    {
+      "id": "2.1-q10",
+      "questionEn": "Which factor would MOST increase the likely sophistication of a threat actor's attacks?",
+      "options": {
+        "A": "Lack of funding",
+        "B": "High levels of resources and funding",
+        "C": "Using only public Wi-Fi",
+        "D": "Being an unskilled attacker"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Hangi faktör, bir tehdit aktörünün saldırılarının olası yetkinliğini EN ÇOK artırır?",
+        "optionsTr": { "A": "Kaynak eksikliği", "B": "Yüksek kaynak ve bütçe", "C": "Sadece halka açık Wi-Fi kullanmak", "D": "Yetkinsiz saldırgan olmak" },
+        "patternHint": "Yüksek kaynak/bütçe = yüksek sophistication (zero-day, özel araç).",
+        "whyWrong": { "A": "Kaynak azlığı yetkinliği düşürür.", "C": "Wi-Fi yetkinlikle ilgisiz.", "D": "Yetkinsizlik düşük sophistication." }
+      }
+    }
+  ]
+}

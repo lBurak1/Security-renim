@@ -1,0 +1,540 @@
+{
+  "moduleId": "2.4",
+  "title": "Kötü Niyetli Aktivite Göstergeleri",
+  "domainId": 2,
+  "schemaVersion": "2.0",
+  "documentation": [
+    {
+      "heading": "Zararlı Yazılım Türleri (Malware) — Tam Liste",
+      "specTable": {
+        "title": "Malware Çeşitleri",
+        "columns": ["Tür", "Ayırt Edici Özellik"],
+        "rows": [
+          ["Virus", "Kullanıcı eylemiyle yayılır, dosyaya bulaşır"],
+          ["Worm", "KENDİ KENDİNE ağ üzerinden yayılır (insan gerekmez)"],
+          ["Trojan", "Meşru yazılım gibi görünür, arka planda zararlı"],
+          ["RAT", "Uzaktan tam kontrol sağlar (Trojan alt türü)"],
+          ["Ransomware", "Veriyi ŞİFRELER, fidye ister"],
+          ["Spyware", "Kullanıcıyı gizlice izler"],
+          ["Keylogger", "Tuş vuruşlarını kaydeder"],
+          ["Logic bomb", "Belirli KOŞUL/TARİHTE tetiklenir"],
+          ["Rootkit", "Kernel/sistem seviyesinde GİZLENİR, tespiti çok zor"],
+          ["Bootkit", "Boot sürecine bulaşır (rootkit alt türü)"],
+          ["Bloatware", "Gereksiz önceden yüklü yazılım (zorunlu zararlı değil)"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "En Sık Karıştırılanlar",
+          "items": [
+            "Virus = insan tetikler. Worm = kendi yayılır (self-replicating, no user).",
+            "Logic bomb = 'specific date / when X happens / terminated employee' tetikleyicisi.",
+            "Rootkit = 'hidden', 'kernel-level', 'undetectable', 'rebuild from scratch'.",
+            "RAT = uzaktan kontrol. Ransomware = şifreleme + fidye."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Parola Saldırıları (Password Attacks)",
+      "specTable": {
+        "title": "Parola Saldırısı Ayrımı",
+        "columns": ["Saldırı", "Mantık"],
+        "rows": [
+          ["Brute force", "TEK hesaba TÜM kombinasyonları dener (çok deneme)"],
+          ["Dictionary", "Yaygın kelime/parola listesi dener"],
+          ["Password spraying", "AZ parola → ÇOK hesap (kilitlenmeden kaçınır)"],
+          ["Credential stuffing", "Sızmış kullanıcı:parola ÇİFTLERİNİ dener"],
+          ["Rainbow table", "Önceden hesaplanmış hash tablosu (salt buna karşı)"]
+        ]
+      }
+    },
+    {
+      "heading": "Ağ ve Uygulama Saldırıları",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Saldırı Türleri",
+          "items": [
+            "DDoS: Dağıtık hizmet engelleme; ani trafik artışı, kaynak tükenmesi.",
+            "DNS attacks: DNS poisoning, domain hijacking.",
+            "On-path (MITM): Trafiğin araya girilerek dinlenmesi/değiştirilmesi.",
+            "Replay attack: Yakalanan oturum/paketin tekrar gönderilmesi.",
+            "Privilege escalation: Yetki yükseltme (yatay = aynı seviye başka hesap, dikey = daha yüksek yetki).",
+            "Directory traversal: ../ ile dosya sistemi gezme.",
+            "Injection attacks: SQLi, XSS, command injection."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Kötü Niyetli Aktivite Göstergeleri (Indicators of Compromise)",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Tespit İpuçları (IoC)",
+          "items": [
+            "Account lockout: Hesap kilitlenmeleri → brute force/spraying.",
+            "Concurrent session usage: Aynı anda farklı yerlerden oturum.",
+            "Impossible travel: İmkansız konum değişimi (1 saatte 2 ülke).",
+            "Resource consumption: Anormal CPU/bant genişliği.",
+            "Resource inaccessibility: Kaynağa erişilememesi (ransomware/DoS).",
+            "Out-of-cycle logging: Beklenmeyen zamanda loglar.",
+            "Missing logs: Logların silinmesi (saldırgan iz temizliyor).",
+            "Published/documented: Açığın yayınlanması."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Self-replicating / Spreads without user / Across network", "maps_to": "Worm", "explanation": "İnsan gerekmeden kendi yayılan." },
+    { "trigger": "Encrypts files / Demands payment / Ransom", "maps_to": "Ransomware", "explanation": "Şifreleyip fidye isteyen." },
+    { "trigger": "Triggers on a date / When employee terminated", "maps_to": "Logic Bomb", "explanation": "Koşula/tarihe bağlı tetiklenen." },
+    { "trigger": "Hidden at kernel level / Rebuild machine to remove", "maps_to": "Rootkit", "explanation": "Sistem seviyesinde gizlenen." },
+    { "trigger": "Full remote control of victim machine", "maps_to": "RAT", "explanation": "Uzaktan erişim truva atı." },
+    { "trigger": "Logs in from two countries within minutes", "maps_to": "Impossible Travel", "explanation": "İmkansız konum değişimi." },
+    { "trigger": "Few passwords against many accounts", "maps_to": "Password Spraying", "explanation": "Az parola-çok hesap." },
+    { "trigger": "Many passwords against one account", "maps_to": "Brute Force", "explanation": "Tek hesaba çok deneme." },
+    { "trigger": "Leaked user:pass pairs reused", "maps_to": "Credential Stuffing", "explanation": "Sızmış çiftleri deneme." },
+    { "trigger": "Captured packet sent again", "maps_to": "Replay Attack", "explanation": "Yakalanan trafiğin tekrarı." },
+    { "trigger": "Logs are missing / deleted", "maps_to": "Anti-forensics (IoC)", "explanation": "İz temizleme göstergesi." },
+    { "trigger": "Gaining higher access than granted", "maps_to": "Privilege Escalation", "explanation": "Yetki yükseltme." }
+  ],
+  "useCases": [
+    {
+      "id": "uc-2.4-1",
+      "titleEn": "Ransomware Outbreak: The WannaCry-Style Attack Pattern",
+      "scenarioEn": "At 09:15 AM, the SOC receives automated alerts: 47 Windows workstations on the same VLAN are generating 'SMB connection refused' errors to each other. Within 12 minutes, endpoint agents on 23 of those machines report that files with extensions .docx, .xlsx, and .pdf have been renamed to .WNCRY. A ransom note (README.txt) appears on each desktop demanding $300 in Bitcoin. Network flow data shows each infected host making outbound connections to TCP port 445 across the entire /16 subnet.",
+      "analysisTr": "Bu senaryo iki zararlı türünün kombinasyonunu gösteriyor:\n\n**WORM bileşeni:** SMB (TCP 445) üzerinden ağda kendi kendine yayılıyor — kullanıcı hiçbir şeye tıklamadı. 'Outbound connections to TCP 445 across the entire subnet' = worm yayılma davranışı.\n\n**RANSOMWARE bileşeni:** .WNCRY uzantılı yeniden adlandırılmış dosyalar + README.txt fidye notu + Bitcoin talebi = şifreleme + fidye mantığı.\n\n**Sınav tuzağı:** 'Which type?' sorusunda PRIMARY tehdit Ransomware'dir (şifreleme + fidye). Yayılma mekanizması Worm özelliği taşısa da, son etki (impact) fidyedir. Eğer soru 'how did it spread?' diye soruyorsa cevap Worm'dur.",
+      "takeawayTr": "Gerçek saldırılar hibrit olabilir. SMB tarama = Worm bileşeni; şifreleme + fidye = Ransomware bileşeni. Sorudaki anahtar kelimeye odaklan: 'şifreleme/fidye' → Ransomware, 'yayılma/kendiliğinden' → Worm."
+    },
+    {
+      "id": "uc-2.4-2",
+      "titleEn": "Insider Threat: The Departing Developer's Logic Bomb",
+      "scenarioEn": "During a routine code audit two months after a developer's termination, a security engineer discovers an undocumented scheduled task embedded in the production deployment script. The task, titled 'maintenance_cleanup.ps1', is configured to execute on the former developer's birthday (April 3rd). The payload: DROP TABLE customers; DELETE FROM orders WHERE 1=1;. The script had been dormant for 67 days, passing all automated security scans because no malicious behavior had yet triggered.",
+      "analysisTr": "Bu klasik bir Logic Bomb senaryosu:\n\n- **Tetikleyici koşul:** Belirli bir TARİH (Nisan 3) — Logic Bomb'un en ayırt edici özelliği.\n- **Gizlilik:** 67 gün boyunca herhangi bir zararlı davranış göstermedi → imza tabanlı AV taramalarından geçti.\n- **Aktör:** Ayrılan çalışan (insider threat) — Logic Bomb'lar genellikle içeriden yerleştirilir.\n- **Sınav refleksi:** 'Terminated employee + specific date/condition + planted earlier' = Logic Bomb kesinlikle.",
+      "takeawayTr": "Logic Bomb tespiti için code review ve scheduled task denetimi kritiktir. İmza tabanlı araçlar bu tür dormant kodu yakalamakta yetersiz kalır. Önlem: principle of least privilege, code review zorunluluğu."
+    },
+    {
+      "id": "uc-2.4-3",
+      "titleEn": "Password Spraying Campaign Against Microsoft 365",
+      "scenarioEn": "The Azure AD Identity Protection dashboard flags an unusual sign-in pattern: between 02:00 and 04:00 AM UTC, the password 'Company2024!' was attempted against 1,847 unique user accounts. The attempts came from 12 different IP addresses (all Tor exit nodes), with a 3-second delay between each attempt. Only 4 accounts accepted the credential — all four had previously reused this password from a different breached service.",
+      "analysisTr": "Bu PASSWORD SPRAYING senaryosunun göstergeleri:\n\n- 'Company2024!' tek parola → 1,847 hesap (az parola × çok hesap formülü)\n- 3 saniye bekleme = hesap kilitlenme eşiğinden (genellikle 5-10 hatalı giriş) kaçınmak için kasıtlı yavaşlama\n- 12 farklı IP (Tor) = kaynak IP dağıtımı, tespiti zorlaştırma\n- Gece 02-04 arası = düşük trafik saati, dikkat çekmeme\n\n**Credential Stuffing DEĞİL neden?** Credential Stuffing FARKLI kullanıcı:parola ÇİFTLERİ kullanır. Burada tek parola var, listeden geliyor değil.\n\n**İlginç detay:** Başarılı olan 4 hesap bu parolayı başka serviste de kullanmıştı → parola yeniden kullanımının tehlikesi.",
+      "takeawayTr": "'Single password + many accounts + slow rate to avoid lockout' = Password Spraying. MFA en kritik savunmadır çünkü doğru parola bile yetmez."
+    }
+  ],
+  "questions": [
+    {
+      "id": "2.4-q1",
+      "type": "standard",
+      "questionEn": "Malware spreads automatically across the network, infecting hundreds of machines within minutes without any user interaction. Which type BEST describes this behavior?",
+      "questionTr": "Zararlı yazılım, kullanıcı etkileşimi OLMADAN ağ üzerinden otomatik yayılıyor ve dakikalar içinde yüzlerce makineye bulaşıyor. Bu davranışı EN İYİ hangi tür tanımlar?\n\n→ Anahtar kelimeler: 'automatically', 'without user interaction', 'spreads across network'",
+      "options": { "A": "Virus", "B": "Worm", "C": "Trojan", "D": "Logic bomb" },
+      "correct": "B",
+      "solution": {
+        "translation": "Zararlı, kullanıcı etkileşimi olmadan ağda otomatik yayılarak dakikalar içinde yüzlerce makineye bulaşıyor. Hangi tür?",
+        "optionsTr": { "A": "Virüs", "B": "Solucan (Worm)", "C": "Truva atı", "D": "Mantık bombası" },
+        "patternHint": "'spreads automatically + without user interaction + across network' = Worm.",
+        "whyWrong": { "A": "Virüs kullanıcı eylemi gerektirir.", "C": "Trojan kendi yayılmaz.", "D": "Logic bomb koşula bağlıdır." },
+        "whyCorrectTr": "Worm'un TEK ve EN AYIRT EDİCİ özelliği kendi kendine yayılabilmesidir (self-replication). Virüs yayılmak için bir kullanıcının dosyayı çalıştırmasını bekler; Worm beklemez. TCP/IP, SMB, e-posta protokolleri üzerinden otomatik çoğalır. WannaCry (SMB/EternalBlue), Morris Worm (UNIX), Conficker tarihsel örneklerdir.",
+        "whyWrongTr": {
+          "A": {
+            "explanationTr": "Virüs, bir dosyaya veya programa bulaşır ve YALNIZCA kullanıcı o dosyayı çalıştırdığında/açtığında yayılır. 'User interaction required' temel farkıdır.",
+            "whenCorrectTr": "Soru 'bulaşmak için kullanıcının dosyayı açması/çalıştırması gerekiyor' diyorsa → Virus."
+          },
+          "C": {
+            "explanationTr": "Trojan meşru bir yazılım gibi görünür ve kullanıcı onu yükler; sonrasında arka planda zararlı işler yapar. Kendi kendine yayılmaz.",
+            "whenCorrectTr": "Soru 'legitimate software appearance + installs backdoor / remote access' diyorsa → Trojan."
+          },
+          "D": {
+            "explanationTr": "Logic Bomb, belirli bir koşul veya tarihte tetiklenir. Yayılma özelliği yoktur; genellikle bir kişi tarafından sisteme önceden yerleştirilir.",
+            "whenCorrectTr": "Soru 'triggered on specific date / terminated employee planted it / when condition X met' diyorsa → Logic Bomb."
+          }
+        },
+        "conceptLinkTr": "Malware Classification temel ayrımı: Yayılma mekanizması (otomatik mı, kullanıcı gerektiriyor mu?) + Tetiklenme koşulu nedir? Bu iki soru her zararlı sorusunda sorulmalı."
+      }
+    },
+    {
+      "id": "2.4-q2",
+      "type": "log-analysis",
+      "questionEn": "A SOC analyst reviews the following authentication log from Azure AD Identity Protection. Which attack type is MOST likely occurring?",
+      "questionTr": "Bir SOC analisti, Azure AD Identity Protection'dan aşağıdaki kimlik doğrulama logunu inceliyor. En olası saldırı türü hangisidir?\n\n→ Loglarda TEK bir parolanın ÇOK sayıda hesaba karşı denendiğine dikkat et.",
+      "logSnippet": {
+        "source": "SIEM / Azure AD Identity Protection",
+        "content": "[2024-03-15 02:00:01 UTC] SIGN-IN FAILED | user: aaron.smith@corp.com   | pwd: 'Winter2024!' | IP: 185.220.101.47 | geo: RU\n[2024-03-15 02:00:04 UTC] SIGN-IN FAILED | user: betty.jones@corp.com   | pwd: 'Winter2024!' | IP: 185.220.101.47 | geo: RU\n[2024-03-15 02:00:07 UTC] SIGN-IN FAILED | user: carlos.r@corp.com      | pwd: 'Winter2024!' | IP: 45.33.32.156  | geo: NL\n[2024-03-15 02:00:10 UTC] SIGN-IN FAILED | user: diana.chen@corp.com    | pwd: 'Winter2024!' | IP: 45.33.32.156  | geo: NL\n[... 1,843 similar entries over 92 minutes ...]\n[2024-03-15 03:32:14 UTC] SIGN-IN SUCCESS | user: frank.miller@corp.com  | pwd: 'Winter2024!' | IP: 192.42.116.16 | geo: DE\n\nSUMMARY:\n  Unique accounts targeted  : 1,847\n  Unique passwords tried    : 1  ('Winter2024!')\n  Failed attempts           : 1,843\n  Successful logins         : 4\n  Avg delay between attempts: 3.0 seconds\n  Source IPs                : 12 (all Tor exit nodes)",
+        "readingGuideTr": "Bu logu adım adım okuyalım:\n\n① 'pwd: Winter2024!' her satırda AYNI parola → tek parola kullanılıyor. Bu kritik ipucu.\n② 'user: ...' her satırda FARKLI kullanıcı → 1,847 benzersiz hesap hedefleniyor.\n③ 'Avg delay: 3.0 seconds' → Kasıtlı yavaşlama. Neden? Hesap kilitlenme eşiğinden (genellikle 5-10 hatalı giriş) kaçınmak için.\n④ '12 (all Tor exit nodes)' → Kaynak IP'ler dağıtılmış ve anonimleştirilmiş → tespiti zorlaştırıyor.\n⑤ '4 successful logins' → Bu 4 hesap başka bir servisde de aynı parolayı kullanıyordu.\n\nKarar sorusu: 'Tek parola × binlerce hesap = hangi saldırı?'"
+      },
+      "options": {
+        "A": "Brute force attack",
+        "B": "Password spraying",
+        "C": "Credential stuffing",
+        "D": "Dictionary attack"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Azure AD logları: 'Winter2024!' tek parola, 1,847 farklı hesaba 3 saniyelik aralıklarla deneniyor. Hangi saldırı?",
+        "optionsTr": { "A": "Kaba kuvvet saldırısı", "B": "Parola spreyleme", "C": "Kimlik bilgisi doldurma", "D": "Sözlük saldırısı" },
+        "patternHint": "TEK parola + ÇOK hesap + kilitlenmeden kaçınmak için yavaş ilerleme = Password Spraying.",
+        "whyWrong": { "A": "Brute force tek hesaba çok parola.", "C": "Stuffing sızmış kullanıcı:parola çiftleri kullanır.", "D": "Dictionary tek hesaba kelime listesi dener." },
+        "logAnalysisTr": "Logdaki karar zinciri:\n• 'Unique passwords tried: 1' → Sadece 1 parola (Brute Force ve Dictionary elenir — onlar çok parola dener).\n• 'Unique accounts: 1,847' → 1,847 farklı hesap (Credential Stuffing elenir — o belirli çiftler kullanır, tek parola değil).\n• 'Avg delay: 3.0 seconds + Tor exit nodes' → Kilitlenme eşiğinden kaçınma + anonimleştirme → Password Spraying'in karakteristik imzası.\n\nSonuç: 1 parola × 1,847 hesap = Password Spraying.",
+        "whyCorrectTr": "Password Spraying, hesap kilitlenme politikalarını aşmak için tasarlanmıştır. 'Winter2024!' gibi mevsimsel ve kurumsal parolalar şirket ortamlarında yaygın olduğundan tercih edilir. Brute Force'un tersine, tek bir hesaba odaklanmak yerine çok sayıda hesaba az parola dener.",
+        "whyWrongTr": {
+          "A": {
+            "explanationTr": "Brute Force, TEK bir hesaba mümkün olan TÜM parola kombinasyonlarını dener. Logda tek bir hesabın kilitlendiği görülürdü. Burada 1,847 farklı hesap hedefleniyor.",
+            "whenCorrectTr": "'Thousands of password attempts against ONE account / account gets locked / dictionary exhaustion on single account' → Brute Force."
+          },
+          "C": {
+            "explanationTr": "Credential Stuffing, başka bir ihlalden sızdırılan KULLANICI:PAROLA ÇİFTLERİNİ kullanır. Her hesap için farklı bir parola denenmesi gerekirdi. Burada hepsi için aynı parola var.",
+            "whenCorrectTr": "'Uses breached username:password pairs from dark web / combo lists / each account tried with its specific leaked password' → Credential Stuffing."
+          },
+          "D": {
+            "explanationTr": "Dictionary Attack, yaygın parolalar içeren bir kelime listesi (rockyou.txt gibi) kullanır. Tek hesaba karşı birden fazla parola dener.",
+            "whenCorrectTr": "'Common word list / dictionary file / multiple passwords tried against one account from a wordlist' → Dictionary Attack."
+          }
+        },
+        "conceptLinkTr": "Password Attack türleri karşılaştırması:\n- Brute Force: 1 hesap × ∞ parola kombinasyonu\n- Dictionary: 1 hesap × kelime listesi\n- Spraying: çok hesap × az parola (1-3 adet)\n- Credential Stuffing: sızdırılmış kullanıcı:parola çiftleri"
+      }
+    },
+    {
+      "id": "2.4-q3",
+      "type": "log-analysis",
+      "questionEn": "An incident responder examines the following SIEM alert during a breach investigation. What does this alert MOST likely indicate?",
+      "questionTr": "Bir olay müdahale uzmanı, ihlal soruşturması sırasında aşağıdaki SIEM uyarısını inceliyor. Bu uyarı büyük olasılıkla neye işaret ediyor?\n\n→ Kullanıcının iki farklı fiziksel konumdan neredeyse aynı anda oturum açtığına dikkat et.",
+      "logSnippet": {
+        "source": "SIEM — Microsoft Sentinel (Impossible Travel Rule)",
+        "content": "╔══════════════════════════════════════════════════════╗\n║  ALERT: Impossible Travel Detected   [PRIORITY: HIGH] ║\n╠══════════════════════════════════════════════════════╣\n║  User          : sarah.kim@company.com               ║\n║  Rule          : AAD_ImpossibleTravel_v2              ║\n╠══════════════════════════════════════════════════════╣\n║  LOGIN #1                                            ║\n║    Timestamp   : 2024-01-22 14:07:33 UTC             ║\n║    IP / Geo    : 203.0.113.45 / Chicago, US          ║\n║    Device      : CORP-LAPTOP-0142 (compliant)        ║\n║    Auth Method : Password + MFA Push ✓               ║\n╠══════════════════════════════════════════════════════╣\n║  LOGIN #2                                            ║\n║    Timestamp   : 2024-01-22 14:39:04 UTC             ║\n║    IP / Geo    : 45.33.32.156 / Moscow, Russia       ║\n║    Device      : UNKNOWN (unmanaged, non-compliant)  ║\n║    Auth Method : Password only — MFA BYPASSED ⚠️     ║\n╠══════════════════════════════════════════════════════╣\n║  Time delta    : 31 minutes 31 seconds               ║\n║  Distance      : ~9,100 km                           ║\n║  Required speed: ~17,300 km/h  (physically impossible)║\n║  Risk Score    : 99 / 100                            ║\n║  Action        : BLOCK + REQUIRE_REAUTHENTICATION    ║\n╚══════════════════════════════════════════════════════╝",
+        "readingGuideTr": "Bu logu adım adım okuyalım:\n\n① **LOGIN #1 — Chicago, 14:07:** Şirket laptopu, MFA ile giriş. Bu büyük ihtimalle gerçek kullanıcı.\n\n② **LOGIN #2 — Moskova, 14:39:** Sadece 31 dakika sonra. Bilinmeyen, yönetilmeyen cihaz, MFA ATLATILMIŞ.\n\n③ **'Distance: ~9,100 km / Time: 31 min'** → Bu mesafeyi 31 dakikada kat etmek için ~17,300 km/h hız gerekir. Fiziksel olarak imkansız → iki girişten biri sahte.\n\n④ **'MFA bypassed'** → Saldırgan parolayı ele geçirmiş ama MFA token'ı yok. Bu, kimlik avı veya parola sızdırması sonucu olabilir.\n\n⑤ **'Risk Score: 99/100'** → SIEM neredeyse kesin tehdit olarak değerlendiriyor.\n\n**Sonuç:** Bu bir Indicator of Compromise — 'Impossible Travel'. Hesap ele geçirilmiş."
+      },
+      "options": {
+        "A": "A user on a business trip logged in from a hotel network",
+        "B": "Impossible travel — the account is likely compromised",
+        "C": "Account lockout triggered by too many failed attempts",
+        "D": "A routine VPN connection from a remote office"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "SIEM uyarısı: sarah.kim, 31 dakika arayla Chicago (MFA'lı kurumsal laptop) ve Moskova'dan (MFA'sız bilinmeyen cihaz) giriş yaptı. 9,100 km / 31 dk = fiziksel olarak imkansız. Ne anlıyor?",
+        "optionsTr": {
+          "A": "İş seyahatinde olan kullanıcı otel ağından giriş yaptı",
+          "B": "İmkansız seyahat — hesap büyük olasılıkla ele geçirildi",
+          "C": "Çok fazla başarısız girişimden hesap kilitlendi",
+          "D": "Uzak ofisten rutin VPN bağlantısı"
+        },
+        "patternHint": "'Two logins from geographically impossible locations + short time + MFA bypassed + unknown device' = Impossible Travel IoC → account compromise.",
+        "whyWrong": { "A": "MFA bypass + bilinmeyen cihaz normal iş seyahatini dışlar.", "C": "Logda başarısız girişim değil, başarılı giriş var.", "D": "Meşru VPN şirket cihazından ve bilinen konumdan olur." },
+        "logAnalysisTr": "Üç uyarı işareti birlikte değerlendirildiğinde hesabın ele geçirildiği sonucu çıkar:\n① 31 dakikada 9,100 km → fiziksel olarak imkansız → iki oturumdan biri meşru değil.\n② 'MFA bypassed' → saldırganın MFA token'ı yok, sadece parola var.\n③ 'UNKNOWN, non-compliant device' → şirket envanterinde olmayan cihaz.\n\nBu üçü birden = kimlik avı veya parola sızıntısı sonrası hesap ele geçirilmesi.",
+        "whyCorrectTr": "Impossible Travel, en güçlü Indicator of Compromise'lardan biridir. Aynı hesaptan coğrafi olarak ulaşılması imkansız iki konumdan kısa sürede giriş = hesap ele geçirilmiş. MFA'nın da atlatılmış olması vakayı kritik yapar.",
+        "whyWrongTr": {
+          "A": {
+            "explanationTr": "Otel ağından giriş meşru olabilir, ancak aynı anda Chicago'dan aktif MFA'lı oturum varken 31 dakika sonra MFA'sız Moskova girişi 'normal iş seyahati' açıklamasını çürütür.",
+            "whenCorrectTr": "Kullanıcı gerçekten seyahatte ise ve sadece tek bir yabancı ülke girişi varsa, bu false positive olabilir. Ancak MFA bypass + bilinmeyen cihaz kombinasyonu bunu tehdit olarak sınıflandırır."
+          },
+          "C": {
+            "explanationTr": "Hesap kilitlenmesi, başarısız giriş denemeleri sonucu oluşur. Logda iki BAŞARILI giriş var (failed count yok). Kilitlenme = Brute Force veya Spraying IoC'u olurdu.",
+            "whenCorrectTr": "'Multiple FAILED login attempts → account locked → security alert' → Account Lockout IoC → Brute Force veya Spraying araştır."
+          },
+          "D": {
+            "explanationTr": "VPN bağlantısı çıkış IP'sini değiştirir, ancak Moskova kökenli bilinmeyen, yönetilmeyen cihaz kurumsal VPN profiliyle uyuşmaz. Meşru VPN genellikle şirket cihazından olur.",
+            "whenCorrectTr": "'User connected from home via corporate VPN / managed device / known IP range' → normal uzak erişim."
+          }
+        },
+        "conceptLinkTr": "IoC (Indicator of Compromise) kavramını test ediyor. Impossible Travel, SIEM korelasyon kurallarının en kritiklerinden biridir ve genellikle phishing sonrası hesap ele geçirilmesinin ilk belirtisidir."
+      }
+    },
+    {
+      "id": "2.4-q4",
+      "type": "standard",
+      "questionEn": "After an incident, the past week's security logs on a compromised system are completely erased. Which indicator of compromise does this represent?",
+      "questionTr": "Bir olayın ardından, ele geçirilmiş bir sistemdeki son haftanın güvenlik logları tamamen silinmiş. Bu hangi tür Indicator of Compromise'ı temsil ediyor?\n\n→ Saldırgan sistemi terk etmeden önce ne yapmış olabilir?",
+      "options": {
+        "A": "Resource consumption",
+        "B": "Impossible travel",
+        "C": "Missing logs",
+        "D": "Concurrent session usage"
+      },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir olaydan sonra bir sistemin son haftalık güvenlik logları tamamen silinmiş. Hangi IoC?",
+        "optionsTr": { "A": "Kaynak tüketimi", "B": "İmkansız seyahat", "C": "Eksik loglar", "D": "Eşzamanlı oturum" },
+        "patternHint": "'logs erased/deleted after incident' = Missing logs (anti-forensics indicator).",
+        "whyWrong": { "A": "CPU/bant genişliği anomalisi değil.", "B": "Konum anomalisi değil.", "D": "Aynı anda birden fazla oturum değil." },
+        "whyCorrectTr": "Missing logs, saldırganın sistemden ayrılmadan önce iz sildiğinin göstergesidir (anti-forensics). Olay müdahale uzmanları log eksikliğiyle karşılaştığında bu kendiliğinden olmadığını — birinin sildiğini — düşünür. Adli inceleme için bu IoC, saldırının hangi süre boyunca gerçekleştiğini tespit etmeyi zorlaştırır.",
+        "whyWrongTr": {
+          "A": {
+            "explanationTr": "Resource consumption, anormal CPU/ağ/bellek kullanımını ifade eder. Örn: kripto madenciliği, DDoS saldırısı veya ransomware şifreleme sırasında CPU %100'e çıkar.",
+            "whenCorrectTr": "'Unusual CPU spike / high bandwidth usage / system slow with no clear reason / mining software' → Resource consumption IoC."
+          },
+          "B": {
+            "explanationTr": "Impossible travel, aynı hesabın kısa sürede coğrafi olarak imkansız iki konumdan giriş yapması. Log silmeyle ilgisi yok.",
+            "whenCorrectTr": "'Same account logged in from two countries within minutes / physically impossible location change' → Impossible travel IoC."
+          },
+          "D": {
+            "explanationTr": "Concurrent session usage, aynı hesabın aynı anda birden fazla oturumunun aktif olması. Ele geçirilmiş hesap göstergesi olabilir ama log silmeyle bağlantısı yok.",
+            "whenCorrectTr": "'Same user logged in simultaneously from multiple locations / concurrent active sessions' → Concurrent session IoC."
+          }
+        },
+        "conceptLinkTr": "Anti-forensics: Saldırganlar delil bırakmamak için logları siler, zaman damgalarını değiştirir veya şifreler. 'Missing logs' = birisi izi silmeye çalıştı. SIEM merkezi log toplama bu riski azaltır çünkü loglar yerel sistemden bağımsız korunur."
+      }
+    },
+    {
+      "id": "2.4-q5",
+      "type": "log-analysis",
+      "questionEn": "A security operations center receives the following IDS and endpoint alerts simultaneously. Which COMBINATION of threats does this evidence BEST describe?",
+      "questionTr": "Bir güvenlik operasyon merkezi aynı anda aşağıdaki IDS ve endpoint uyarılarını alıyor. Bu kanıtlar hangi tehdit KOMBİNASYONUNU en doğru tanımlar?\n\n→ İki farklı davranışa dikkat et: SMB üzerinden ağ yayılımı VE dosya şifreleme + fidye notu.",
+      "logSnippet": {
+        "source": "IDS (Snort) + Endpoint Protection (CrowdStrike Falcon)",
+        "content": "=== SNORT IDS ALERT ===\n[2024-02-08 09:22:11] ALERT SID:2027865 MALWARE-CNC EternalBlue exploit attempt\n  SRC: 10.10.15.42:49234 → DST: 10.10.15.0/24:445\n  Rule: ET EXPLOIT EternalBlue MS17-010 SMB RCE\n  Priority: CRITICAL\n  Note: Source host scanning entire /24 subnet on TCP 445\n\n=== CROWDSTRIKE ENDPOINT ALERT ===\n[2024-02-08 09:22:47] [CRITICAL] Ransomware Behavior on HOST: WORKSTATION-047\n  Process: svchost.exe (PID 4821) — SUSPICIOUS\n  - Mass file rename: .docx → .encrypted  (847 files / 34 sec)\n  - Shadow copy deletion: vssadmin delete shadows /all /quiet\n  - Ransom note created: C:\\Users\\Public\\README_DECRYPT.txt\n  - C2 Beacon: 10.10.15.47 → 185.220.101.47:443 (Tor exit node)\n\n=== NETWORK FLOW SUMMARY ===\n  Host 10.10.15.42 → 247 unique IPs via SMB (port 445)\n  Spread rate: ~55 new hosts/minute",
+        "readingGuideTr": "Bu kompleks logu iki bölüme ayırarak okuyalım:\n\n**BÖLÜM 1 — Snort IDS (Ağ Katmanı):**\n- 'EternalBlue / MS17-010 SMB RCE' → Windows SMB protokolündeki kritik zafiyeti sömürüyor.\n- 'SRC: 10.10.15.42 → DST: 10.10.15.0/24:445' → Tek bir kaynak IP tüm alt ağı tarıyor.\n- '247 unique IPs / 55 hosts/minute' → Hızlı, otomatik ağ yayılımı = WORM davranışı.\n\n**BÖLÜM 2 — CrowdStrike Endpoint (Host Katmanı):**\n- '847 files → .encrypted in 34 sec' → Kitlesel dosya şifreleme.\n- 'vssadmin delete shadows' → Yedekleri silme (kurtarmayı engelleme).\n- 'README_DECRYPT.txt' → Fidye notu.\n- 'C2 Beacon → Tor exit node' → Saldırgan komuta-kontrol sunucusuyla iletişim.\n= RANSOMWARE davranışı.\n\n**Sonuç:** Yayılım mekanizması = Worm; Şifreleme + fidye = Ransomware. Bu WannaCry'ın gerçek davranış desenidir."
+      },
+      "options": {
+        "A": "A Trojan that downloads additional ransomware payloads",
+        "B": "A worm with ransomware functionality — worm spreads it, ransomware encrypts",
+        "C": "A rootkit concealing ransomware activity from the OS",
+        "D": "A logic bomb triggered by network conditions"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Loglar iki farklı davranış gösteriyor: EternalBlue ile SMB üzerinden hızlı ağ yayılımı (Worm) VE dosya şifreleme + fidye notu + shadow copy silme (Ransomware). Kombinasyon nedir?",
+        "optionsTr": {
+          "A": "Ek fidye yazılımı yükü indiren Truva atı",
+          "B": "Fidye yazılımı işlevine sahip solucan — solucan yayar, fidye yazılımı şifreler",
+          "C": "Fidye yazılımı etkinliğini OS'tan gizleyen Rootkit",
+          "D": "Ağ koşullarıyla tetiklenen Mantık Bombası"
+        },
+        "patternHint": "SMB/EternalBlue otomatik tarama = Worm bileşeni; mass file encryption + ransom note + shadow deletion = Ransomware bileşeni.",
+        "whyWrong": { "A": "Trojan kullanıcı müdahali gerektirir, otomatik ağ taraması yapmaz.", "C": "Logda aktivite açıkça görünüyor, gizlenme yok.", "D": "Logic bomb bekler/tetiklenir; burada anlık aktif yayılım var." },
+        "logAnalysisTr": "İki ayrı davranış kalıbını birleştiriyoruz:\n\n**Worm kanıtı (IDS logdan):** '247 unique IPs / SMB 445 taraması / 55 host/dk' → İnsan müdahalesi olmadan ağda çoğalma.\n\n**Ransomware kanıtı (Endpoint logdan):** '.encrypted uzantısı / README_DECRYPT.txt / vssadmin shadow silme / C2 beacon' → Şifreleme + iz kapatma + komuta merkezi iletişimi.\n\nBu tam olarak WannaCry ve NotPetya'nın davranış desenidir.",
+        "whyCorrectTr": "Gerçek saldırılar hibrit olabilir. Worm mekanizması ağ üzerinde hızla yayılır, her bulaştığı sistemde Ransomware payload'ı aktive eder. Birincil TAŞIMA = Worm; birincil ETKİ = Ransomware.",
+        "whyWrongTr": {
+          "A": {
+            "explanationTr": "Trojan meşru yazılım gibi görünür ve kullanıcı tarafından kurulur. Burada kullanıcı müdahalesi yok; EternalBlue ile otomatik exploitation var. Trojan'ın ağ tarama/SMB exploit özelliği yoktur.",
+            "whenCorrectTr": "'User installs seemingly legitimate software / downloads fake update / opens malicious attachment that opens a backdoor' → Trojan."
+          },
+          "C": {
+            "explanationTr": "Rootkit kendi varlığını gizler. Logda aktivite açıkça görülüyor — CrowdStrike hem process'i hem dosya operasyonlarını hem de C2 beacon'ı tespit etti. Gizlenme yoksa Rootkit değil.",
+            "whenCorrectTr": "'Malware hides its own processes from OS / AV cannot see it / kernel-level concealment / must rebuild machine' → Rootkit."
+          },
+          "D": {
+            "explanationTr": "Logic Bomb belirli bir koşula/tarihe bağlı bekler. Burada gerçek zamanlı, anlık ağ taraması ve aktif şifreleme var — bekleyiş ve koşul tetikleyici yok.",
+            "whenCorrectTr": "'Specific date or event trigger / planted by insider / dormant until condition met / no immediate activity' → Logic Bomb."
+          }
+        },
+        "conceptLinkTr": "Bu soru gerçek dünya malware analizini simüle ediyor. Log okuma + malware özelliklerini eşleştirme yeteneği Security+ PBQ kategorisinin temelidir."
+      }
+    },
+    {
+      "id": "2.4-q6",
+      "type": "scenario",
+      "questionEn": "A developer who was terminated six months ago had previously embedded code that runs on October 15th every year, deleting all financial records from the database. Which type of malware is this?",
+      "questionTr": "Altı ay önce işten çıkarılan bir geliştirici, daha önce her yıl 15 Ekim'de çalışan ve veritabanından tüm finansal kayıtları silen bir kod yerleştirdi.\n\nBu hangi zararlı türü?\n\n→ 'Terminated employee + specific date + planted earlier' kombinasyonu kritik ipucu.",
+      "scenario": {
+        "contextEn": "Key indicators: (1) Planted by a terminated employee months before termination. (2) Triggers on a specific recurring date: October 15th. (3) Payload: deletes all financial records. (4) Dormant until trigger date — no malicious behavior during dormancy.",
+        "contextTr": "Bu senaryodaki iki zorunlu Logic Bomb bileşeni:\n\n① **KOŞ/TETİKLEYİCİ:** 'Her yıl 15 Ekim' = belirli bir tarih. Logic Bomb'un en ayırt edici özelliği bu koşul/tetikleyicidir. Diğer zararlılar koşul beklemez.\n\n② **YÜKLEME VE BEKLE:** Aylar önce yerleştirildi, tarih gelene kadar hiçbir zararlı davranış göstermedi. İmza tabanlı antivirüs taramalarından geçti — çünkü tetikleyici olmadığı için kod çalışmadı.\n\n**Tipik Logic Bomb aktörü:** İşten çıkarılan, hoşnutsuz bir çalışan. 'Insider threat' + 'planted earlier' + 'date/condition trigger' = Logic Bomb."
+      },
+      "options": {
+        "A": "Worm",
+        "B": "Ransomware",
+        "C": "Logic bomb",
+        "D": "Rootkit"
+      },
+      "correct": "C",
+      "solution": {
+        "translation": "Altı ay önce işten çıkarılan bir geliştirici, her yıl 15 Ekim'de tetiklenecek bir kod yazdı. Hangi zararlı?",
+        "optionsTr": { "A": "Solucan", "B": "Fidye yazılımı", "C": "Mantık bombası", "D": "Rootkit" },
+        "patternHint": "'Specific date + terminated employee + planted earlier + waits dormant' = Logic Bomb.",
+        "whyWrong": { "A": "Worm ağda kendi kendine yayılır.", "B": "Şifreleme + fidye yok.", "D": "Rootkit gizlenme özelliğiyle tanımlanır, tetikleyici koşulla değil." },
+        "whyCorrectTr": "Logic Bomb'un iki zorunlu bileşeni: (1) TETİKLEYİCİ KOŞUL (belirli tarih, belirli olay, belirli kullanıcı girişi) ve (2) DORMANLIK (tetikleyici olmadan hiçbir eylem). Burada: koşul = 15 Ekim; payload = DB kaydı silme. İmza tabanlı AV dormant kodu yakalamakta yetersiz kalır.",
+        "whyWrongTr": {
+          "A": {
+            "explanationTr": "Worm ağda kendi kendine yayılır. Bu kodun yayılma özelliği yok; sadece belirli bir tarihte belirli bir sistemde tetikleniyor.",
+            "whenCorrectTr": "'Spreads to other machines / self-replicating without user action / network scanning' → Worm."
+          },
+          "B": {
+            "explanationTr": "Ransomware dosyaları şifreler ve fidye ister. Burada şifreleme yok, doğrudan silme var; ve fidye talebi yok.",
+            "whenCorrectTr": "'Files encrypted + ransom note + cryptocurrency demand + shadow copy deletion' → Ransomware."
+          },
+          "D": {
+            "explanationTr": "Rootkit, sistem dosyalarına ve çekirdek seviyesine gizlenerek tespit edilmemesini sağlar. Tetikleyici koşul içermez; kalıcı gizlenme ve persistence sağlar.",
+            "whenCorrectTr": "'Hidden from OS / kernel-level / AV cannot detect / must rebuild machine / survives reboot' → Rootkit."
+          }
+        },
+        "conceptLinkTr": "Logic Bomb → Insider threat senaryolarının klasik çıktısı. 'Terminated employee' + 'specific date/condition' + 'planted months ago' = Logic Bomb refleksi."
+      }
+    },
+    {
+      "id": "2.4-q7",
+      "type": "standard",
+      "questionEn": "A user reports their files are encrypted and a message demands Bitcoin payment to restore them. A ransom note also states that backup shadow copies have been deleted. Which malware type is this?",
+      "questionTr": "Bir kullanıcı dosyalarının şifrelendiğini ve geri yüklemek için Bitcoin isteyen bir mesaj olduğunu bildiriyor. Fidye notu ayrıca yedek shadow copy'lerin silindiğini belirtiyor.\n\nHangi zararlı türü?\n\n→ 'Encrypted + demands payment + shadow copies deleted' üç anahtar.",
+      "options": {
+        "A": "Spyware",
+        "B": "Ransomware",
+        "C": "Keylogger",
+        "D": "Worm"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Dosyalar şifrelenmiş + Bitcoin fidye talebi + shadow copy'ler silinmiş. Hangi zararlı?",
+        "optionsTr": { "A": "Casus yazılım", "B": "Fidye yazılımı", "C": "Tuş kaydedici", "D": "Solucan" },
+        "patternHint": "'encrypted + demands payment/Bitcoin + shadow copies deleted' = Ransomware.",
+        "whyWrong": { "A": "Spyware izler ve veri toplar, şifrelemez.", "C": "Keylogger tuş vuruşlarını kaydeder.", "D": "Worm yayılır, şifrelemez." },
+        "whyCorrectTr": "Ransomware'in üç karakteristik davranışı: (1) Dosya şifreleme — kullanıcı kendi dosyalarına erişemez. (2) Fidye talebi — genellikle Bitcoin, izlenemez ödeme. (3) Shadow copy/yedek silme — kurtarma yollarını kapatma. 'vssadmin delete shadows /all /quiet' komutu neredeyse tüm modern Ransomware'de görülür.",
+        "whyWrongTr": {
+          "A": {
+            "explanationTr": "Spyware, kullanıcıyı gizlice izler (tarama geçmişi, ekran görüntüsü, konum) ve veriyi üçüncü tarafa gönderir. Şifreleme veya fidye özelliği yoktur.",
+            "whenCorrectTr": "'Tracks user activity / browser history / captures screenshots / sends data to third party without user knowledge' → Spyware."
+          },
+          "C": {
+            "explanationTr": "Keylogger, tuş vuruşlarını kaydederek parolaları, kredi kartı bilgilerini çalar. Dosya şifrelemez, fidye istemez.",
+            "whenCorrectTr": "'Keystroke logging / passwords stolen / credentials captured / typed data exfiltrated' → Keylogger."
+          },
+          "D": {
+            "explanationTr": "Worm ağda kendi kendine yayılır. Dosya şifreleme ve fidye özelliği yoktur (Ransomware taşıyan bir Worm olmadıkça — ki bu hibrit senaryo başka soru türüdür).",
+            "whenCorrectTr": "'Automatically spreads to other hosts / self-replicating without user action / network scanning' → Worm."
+          }
+        },
+        "conceptLinkTr": "Ransomware fidye ödeme akışı: Şifreleme → Fidye notu → Kripto cüzdan adresi → Zaman baskısı. 'Shadow copy silme' kurtarma girişimini engellemenin standarttır. Önlem: offline backup + network segmentation + EDR."
+      }
+    },
+    {
+      "id": "2.4-q8",
+      "type": "scenario",
+      "questionEn": "A junior developer at a financial company discovers that their standard user account can access the following URL:\n\nhttps://banking-app.corp.com/reports?file=../../../etc/passwd\n\nThe server returns the contents of the Linux /etc/passwd file. The developer also finds:\n\nhttps://banking-app.corp.com/reports?user_id=1001  → returns their own account\nhttps://banking-app.corp.com/reports?user_id=1000  → returns the admin account profile\n\nWhich TWO distinct vulnerabilities are demonstrated?",
+      "questionTr": "Bir geliştirici, standart kullanıcı hesabıyla iki farklı zafiyeti keşfediyor: (1) URL'deki '../../../etc/passwd' ile sunucu dosyasını görüntüleyebiliyor, (2) user_id parametresini değiştirerek başka kullanıcıların verilerine erişebiliyor.\n\nHangi iki zafiyet?\n\n→ Her URL'nin tam olarak ne yaptığına odaklan.",
+      "scenario": {
+        "contextEn": "URL #1: '../../../' traverses directories outside the web root, accessing system files. URL #2: Changing user_id from 1001 to 1000 exposes another user's data with no authorization check.",
+        "contextTr": "İki farklı zafiyeti ayrı ayrı analiz edelim:\n\n**ZAFİYET 1 — '../../../etc/passwd':**\n'../' = bir üst dizine git. '../../..' = 3 seviye yukarı = web kökü dışına çık → sunucu kök dizinine ulaş. '/etc/passwd' = Linux kullanıcı listesi. Web uygulaması bu girdiyi sanitize etmiyor. Bu → **Directory Traversal (Path Traversal)** zafiyetidir.\n\n**ZAFİYET 2 — user_id=1000 ile 1001'in verisine erişim:**\nKullanıcı kendi ID'si (1001) yerine başka bir ID (1000 = admin) giriyor. Uygulama 'bu ID gerçekten bu kullanıcıya ait mi?' diye kontrol etmiyor. Bu → **IDOR (Insecure Direct Object Reference)** zafiyetidir. Yatay privilege escalation da denir."
+      },
+      "options": {
+        "A": "SQL injection and cross-site scripting (XSS)",
+        "B": "Directory traversal and insecure direct object reference (IDOR)",
+        "C": "Brute force and replay attack",
+        "D": "Privilege escalation via rootkit and credential stuffing"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Geliştirici (1) '../../../etc/passwd' ile dizin dışı dosya erişimi, (2) user_id değiştirerek başka kullanıcı verisine erişim yapıyor. Hangi iki zafiyet?",
+        "optionsTr": {
+          "A": "SQL enjeksiyonu ve siteler arası betik çalıştırma",
+          "B": "Dizin geçişi ve güvensiz doğrudan nesne referansı",
+          "C": "Kaba kuvvet ve tekrar oynatma saldırısı",
+          "D": "Rootkit ile yetki yükseltme ve kimlik bilgisi doldurma"
+        },
+        "patternHint": "'../' ile dosya sistemi gezme = Directory Traversal. ID manipülasyonu ile başka kullanıcı verisi = IDOR.",
+        "whyWrong": { "A": "Ne SQL sorgu manipülasyonu ne de script injection var.", "C": "Parola veya token saldırısı yok.", "D": "Gizlenme veya kimlik bilgisi saldırısı yok." },
+        "whyCorrectTr": "Directory Traversal: Giriş sanitize edilmediğinde '../' ile web kökü dışına çıkılabilir. Hedef: /etc/passwd, /etc/shadow, config dosyaları.\n\nIDOR: Uygulama nesne referanslarını (ID, dosya adı) yetkilendirme kontrolü olmadan doğrudan kullandığında, saldırgan ID'yi değiştirerek başka kullanıcıların verilerine erişebilir. Bu yatay privilege escalation'dır (aynı yetki seviyesi, farklı kullanıcı verisi).",
+        "whyWrongTr": {
+          "A": {
+            "explanationTr": "SQL injection, veritabanı sorgularını manipüle eder (örn: ' OR 1=1--). XSS, kurbanın tarayıcısında script çalıştırır. Bu senaryoda ne SQL sorgu girişimi ne de script injeksiyon var.",
+            "whenCorrectTr": "URL/form alanında SQL meta karakterleri: ' OR '1'='1 → SQLi. Giriş alanında: <script>alert(1)</script> → XSS."
+          },
+          "C": {
+            "explanationTr": "Brute force parola saldırısı; Replay yakalanan token'ı tekrar gönderme. Bu senaryoda kimlik doğrulama saldırısı değil, yetkilendirme zafiyeti var.",
+            "whenCorrectTr": "Çok sayıda giriş denemesi → Brute Force. Yakalanan auth token tekrar gönderildi → Replay."
+          },
+          "D": {
+            "explanationTr": "Rootkit kernel seviyesinde gizlenme; Credential Stuffing sızdırılmış çiftleri kullanma. Bu senaryoda ne gizlenme ne de kimlik bilgisi saldırısı var.",
+            "whenCorrectTr": "AV bypass + hidden processes → Rootkit. Leaked username:password pairs → Credential Stuffing."
+          }
+        },
+        "conceptLinkTr": "Directory Traversal önlemi: input validation, '../' filtreleme, chroot jail, allowlist dosya yolları. IDOR önlemi: her nesne erişiminde yetkilendirme kontrolü — 'Bu kullanıcı bu ID'ye erişme yetkisi var mı?' sorusunu sor."
+      }
+    },
+    {
+      "id": "2.4-q9",
+      "type": "standard",
+      "questionEn": "During a pentest, an attacker captures a valid Kerberos TGT (Ticket Granting Ticket) from network traffic via a MITM position. The attacker does NOT know the user's password but replays the captured ticket 6 hours later to authenticate as that user. Which attack is this?",
+      "questionTr": "Bir sızma testinde saldırgan, MITM pozisyonundan ağ trafiğinde geçerli bir Kerberos TGT yakalıyor. Parolayı bilmiyor ama yakalanan bileti 6 saat sonra tekrar göndererek kullanıcı olarak kimlik doğruluyor.\n\nHangi saldırı?\n\n→ 'Captures and resends later / does NOT know the password' = anahtar ifade.",
+      "options": {
+        "A": "Pass-the-hash attack",
+        "B": "Credential stuffing",
+        "C": "Replay attack",
+        "D": "Privilege escalation"
+      },
+      "correct": "C",
+      "solution": {
+        "translation": "Saldırgan geçerli Kerberos bileti yakalıyor, parolayı bilmiyor ama bileti 6 saat sonra tekrar göndererek kimlik doğruluyor. Hangi saldırı?",
+        "optionsTr": { "A": "Pass-the-hash saldırısı", "B": "Kimlik bilgisi doldurma", "C": "Tekrar oynatma saldırısı", "D": "Yetki yükseltme" },
+        "patternHint": "'Captured valid token/ticket/session + replayed later without knowing credentials' = Replay Attack.",
+        "whyWrong": { "A": "Pass-the-Hash NTLM hash'ini kullanır, Kerberos bileti değil.", "B": "Credential Stuffing sızdırılmış çiftler kullanır.", "D": "Privilege escalation yetki artırma, kimlik taklit etme değil." },
+        "whyCorrectTr": "Replay Attack'in özü: meşru bir kimlik doğrulama kanıtını (token, bilet, cookie, oturum paketi) ele geçirip sonradan tekrar göndermek. Saldırgan parolayı bilmek zorunda değildir — geçerli kanıtı tekrarlıyor. Kerberos buna karşı 5 dakikalık timestamp toleransı kullanır (KDC_ERR_SKEW hatası). Bu yüzden 'NTP senkronizasyonu' Kerberos ortamlarında kritiktir.",
+        "whyWrongTr": {
+          "A": {
+            "explanationTr": "Pass-the-Hash, şifrelenmemiş parola yerine parola NTLM hash'ini doğrudan kimlik doğrulama için kullanır. Kerberos TGT replay'den farklıdır — hash değeri kullanılıyor, bilet değil.",
+            "whenCorrectTr": "'Uses NTLM hash instead of plaintext password / lateral movement with captured hash / Windows authentication with hash value' → Pass-the-Hash."
+          },
+          "C": {
+            "explanationTr": "(Doğru cevap bu — açıklamak için gerekli değil.)",
+            "whenCorrectTr": "N/A"
+          },
+          "B": {
+            "explanationTr": "Credential Stuffing, sızdırılmış kullanıcı:parola çiftlerini kullanır. Burada parola bilinmiyor; sadece yakalanan geçerli bilet var.",
+            "whenCorrectTr": "'Tries breached username:password pairs across multiple services / combo lists from dark web' → Credential Stuffing."
+          },
+          "D": {
+            "explanationTr": "Privilege Escalation, düşük yetkili bir hesaptan yüksek yetkili erişim elde etmektir. Bu senaryoda saldırgan kullanıcının kimliğini taklit ediyor (yetki değiştirme değil).",
+            "whenCorrectTr": "'Standard user gains admin rights / exploits kernel vulnerability to get SYSTEM / sudo bypass' → Privilege Escalation."
+          }
+        },
+        "conceptLinkTr": "Replay Attack önlemleri: (1) Kerberos — 5 dk timestamp toleransı, NTP zorunluluğu. (2) TLS/HTTPS — sequence number + HMAC ile tekrar koruma. (3) JWT — kısa ömürlü token + jti claim ile tekrar önleme."
+      }
+    },
+    {
+      "id": "2.4-q10",
+      "type": "pbq",
+      "pbqData": {
+        "subType": "matching",
+        "instructionEn": "PERFORMANCE-BASED QUESTION: Match each observable behavior or log evidence (LEFT column) to the MOST accurate malware or attack classification (RIGHT column). Each classification is used EXACTLY ONCE.",
+        "instructionTr": "Her davranış veya log kanıtını doğru zararlı/saldırı sınıfıyla eşleştir. Her sınıf yalnızca bir kez kullanılır.",
+        "items": [
+          {
+            "id": "item1",
+            "textEn": "SIEM alert: User 'jdoe' successfully authenticated from London (08:15 UTC) and Seoul (08:52 UTC) on the same day. Time delta: 37 minutes. Distance: ~9,000 km.",
+            "textTr": "SIEM: jdoe 37 dakika arayla Londra ve Seul'den başarılı giriş yapmış. 9,000 km mesafe."
+          },
+          {
+            "id": "item2",
+            "textEn": "Auth log: Password 'P@ssw0rd1' attempted against 3,200 unique accounts over 4 hours. Average 2.2 attempts per account. Source: 8 rotating IPs.",
+            "textTr": "Tek parola 'P@ssw0rd1' → 3,200 farklı hesap → dönen kaynak IP'ler."
+          },
+          {
+            "id": "item3",
+            "textEn": "Endpoint alert: 1,240 files renamed with '.locked' extension in 28 seconds. File 'HOW_TO_DECRYPT.txt' written to every directory. vssadmin shadow copies deleted.",
+            "textTr": "Dosyalar .locked uzantısına değişti + 'HOW_TO_DECRYPT.txt' fidye notu + shadow copy silindi."
+          },
+          {
+            "id": "item4",
+            "textEn": "IDS alert: Host 10.1.1.44 is sending SYN packets to ports 22, 80, 443, 445, 3389 across 512 IP addresses in 90 seconds without waiting for responses.",
+            "textTr": "Tek host → 512 IP'ye 90 saniyede çoklu porta SYN paketleri, yanıt beklemeden."
+          },
+          {
+            "id": "item5",
+            "textEn": "Forensic image: A PowerShell script found at C:\\Temp\\update.ps1 executes 'Format-Volume C:' on January 1st at 00:01. Script creation date: November 3rd.",
+            "textTr": "Kasım'da oluşturulmuş script, 1 Ocak'ta C: sürücüsünü formatlar."
+          }
+        ],
+        "targets": [
+          { "id": "t1", "labelEn": "Impossible Travel (IoC)" },
+          { "id": "t2", "labelEn": "Password Spraying" },
+          { "id": "t3", "labelEn": "Ransomware" },
+          { "id": "t4", "labelEn": "Worm / Network Scanning" },
+          { "id": "t5", "labelEn": "Logic Bomb" }
+        ],
+        "correctMatches": {
+          "item1": "t1",
+          "item2": "t2",
+          "item3": "t3",
+          "item4": "t4",
+          "item5": "t5"
+        }
+      },
+      "solution": {
+        "patternHint": "Her item için anahtar: (1) farklı ülke + kısa süre = Impossible Travel | (2) tek parola + çok hesap = Spraying | (3) .locked + fidye notu + shadow silme = Ransomware | (4) tek host → çok IP SYN = Worm/Scan | (5) önceden yerleştirilmiş + tarih tetikleyici = Logic Bomb.",
+        "solvingLogicTr": "PBQ çözüm stratejisi — her item için tetikleyici anahtar kelimeyi bul:\n\n**ITEM 1 → Impossible Travel:**\nLondra (08:15) + Seul (08:52) = 37 dakikada 9,000 km. Fiziksel imkansız → iki oturumdan biri sahte → hesap ele geçirilmiş. 'Two locations + short time delta + physically impossible' = Impossible Travel IoC.\n\n**ITEM 2 → Password Spraying:**\n'P@ssw0rd1' = TEK parola. 3,200 FARKLI hesap. 8 dönen IP = kilitlenme eşiğinden kaçınma. 'One password × many accounts + rotating IPs' = Password Spraying.\n\n**ITEM 3 → Ransomware:**\n'.locked uzantısı' = dosyalar şifrelendi. 'HOW_TO_DECRYPT.txt' = fidye notu. 'vssadmin shadows deleted' = yedek imhası. Bu üçü birden = Ransomware'in karakteristik imzası.\n\n**ITEM 4 → Worm / Network Scanning:**\nTek host (10.1.1.44) → 512 farklı IP'ye 90 saniyede çoklu port taraması. Yanıt beklenmeden devam = otomatik ağ keşfi / Worm yayılma hazırlığı veya aktif Worm yayılımı.\n\n**ITEM 5 → Logic Bomb:**\nKasım'da oluşturulmuş. 1 Ocak'ta çalışıyor. 'Format-Volume C:' = destructive payload. 'Planted earlier (November) + specific date trigger (January 1st)' = Logic Bomb.",
+        "whyCorrectTr": "Her eşleşmeyi belirleyen karar kanıtı:\n- Impossible Travel: Coğrafi imkansızlık + kısa zaman farkı\n- Password Spraying: TEK parola + ÇOKLU hesap\n- Ransomware: Uzantı değişimi + fidye notu + shadow copy silme\n- Worm/Scan: Tek kaynak → çok hedef + otomatik hızlı tarama\n- Logic Bomb: Önceden yerleştirilmiş + tarih/koşul tetikleyici + dormanlik"
+      }
+    }
+  ]
+}

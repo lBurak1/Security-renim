@@ -1,0 +1,219 @@
+{
+  "moduleId": "2.3",
+  "title": "Zafiyet Türleri",
+  "domainId": 2,
+  "documentation": [
+    {
+      "heading": "Uygulama Zafiyetleri (Application)",
+      "specTable": {
+        "title": "Yazılım Zafiyetleri",
+        "columns": ["Zafiyet", "Açıklama"],
+        "rows": [
+          ["Buffer overflow", "Tampon taşması; bitişik belleğe yazma, kod çalıştırma"],
+          ["Race condition (TOCTOU)", "Kontrol-kullanım zamanı arası açık (Time-of-check/time-of-use)"],
+          ["Memory injection", "Çalışan sürece kod enjekte etme"],
+          ["Malicious update", "Zararlı/sahte yazılım güncellemesi"],
+          ["SQL Injection (SQLi)", "Veritabanı sorgusuna kötü kod enjeksiyonu"],
+          ["XSS (Cross-Site Scripting)", "Kurbanın tarayıcısında zararlı script"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "SQLi vs XSS",
+          "items": [
+            "SQLi → VERİTABANI hedefli (' OR 1=1 -- gibi girdiler, login bypass, veri sızdırma).",
+            "XSS → KULLANICININ TARAYICISI hedefli (<script> enjeksiyonu, çerez/oturum çalma).",
+            "Stored XSS (kalıcı, DB'de) vs Reflected XSS (anlık, URL/parametrede)."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "İşletim Sistemi ve Donanım",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "OS & Hardware",
+          "items": [
+            "OS-based: Yamasız kernel, ayrıcalık açıkları.",
+            "Firmware: Cihaz yazılımı açıkları; güncellenmeli.",
+            "End-of-life (EOL): Üretici desteği TAMAMEN bitmiş ürün.",
+            "Legacy: Eski ama hâlâ kullanılan, yama almayan sistem."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Sanallaştırma, Bulut ve Mobil",
+      "specTable": {
+        "title": "Virtualization / Cloud / Mobile",
+        "columns": ["Terim", "Açıklama"],
+        "rows": [
+          ["VM escape", "Sanal makineden hipervizöre/host'a kaçış"],
+          ["Resource reuse", "Bellek/kaynakların temizlenmeden yeniden tahsisi (veri sızıntısı)"],
+          ["Cloud misconfiguration", "Açık S3 bucket, yanlış izinler"],
+          ["Sideloading", "Resmi market dışından uygulama yükleme"],
+          ["Jailbreaking/Rooting", "Cihaz kısıtlamalarını kaldırma (güvenlik düşürür)"]
+        ]
+      }
+    },
+    {
+      "heading": "Tedarik Zinciri, Kripto ve Zero-Day",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Diğer Zafiyetler",
+          "items": [
+            "Supply chain: Service provider, hardware/software provider üzerinden gelen risk.",
+            "Cryptographic: Zayıf/kırık şifreleme (MD5, SHA-1, WEP, kısa anahtar).",
+            "Misconfiguration: Yanlış yapılandırma (en yaygın zafiyetlerden).",
+            "Zero-day: Üreticinin BİLMEDİĞİ ve YAMASI OLMAYAN açık."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "Zero-Day Refleksi",
+          "items": [
+            "'no patch available' + 'previously unknown' + 'unknown to vendor' = Zero-day.",
+            "Legacy/EOL = açık BİLİNİR ama yama yapılmaz/yapılamaz. Zero-day = açık HENÜZ BİLİNMEZ."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "No patch available / Previously unknown / Unknown to vendor", "maps_to": "Zero-day", "explanation": "Bilinmeyen, yaması olmayan açık." },
+    { "trigger": "' OR 1=1 / Database query / Login bypass", "maps_to": "SQL Injection", "explanation": "Veritabanı sorgusuna enjeksiyon." },
+    { "trigger": "<script> / Runs in victim's browser / Steal cookies", "maps_to": "Cross-Site Scripting (XSS)", "explanation": "Tarayıcıda zararlı script." },
+    { "trigger": "Escape the VM / Reach the host or hypervisor", "maps_to": "VM Escape", "explanation": "VM'den host'a kaçış." },
+    { "trigger": "Time-of-check / time-of-use / TOCTOU", "maps_to": "Race Condition", "explanation": "Kontrol-kullanım zamanı açığı." },
+    { "trigger": "No longer supported / Vendor ended support", "maps_to": "End-of-life / Legacy", "explanation": "Destek dışı sistem." },
+    { "trigger": "Install app outside official store", "maps_to": "Sideloading", "explanation": "Resmi market dışı yükleme." },
+    { "trigger": "Open S3 bucket / Wrong setting / Default config", "maps_to": "Misconfiguration", "explanation": "Yanlış yapılandırma." },
+    { "trigger": "Overflow a buffer to run code", "maps_to": "Buffer Overflow", "explanation": "Tampon taşması." },
+    { "trigger": "Memory not cleared before reassigning", "maps_to": "Resource Reuse", "explanation": "Temizlenmemiş kaynaktan sızıntı." }
+  ],
+  "questions": [
+    {
+      "id": "2.3-q1",
+      "questionEn": "A web app lets a user enter ' OR '1'='1 into the username field and bypass authentication. Which vulnerability?",
+      "options": { "A": "Cross-site scripting", "B": "SQL injection", "C": "Buffer overflow", "D": "Race condition" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir web uygulaması kullanıcının kullanıcı adı alanına ' OR '1'='1 yazıp doğrulamayı atlamasına izin veriyor. Hangi zafiyet?",
+        "optionsTr": { "A": "XSS", "B": "SQL injection", "C": "Buffer overflow", "D": "Race condition" },
+        "patternHint": "' OR 1=1 + login bypass = SQLi.",
+        "whyWrong": { "A": "XSS tarayıcıda script çalıştırır.", "C": "Buffer overflow bellek taşmasıdır.", "D": "Race condition zamanlamadır." }
+      }
+    },
+    {
+      "id": "2.3-q2",
+      "questionEn": "A group exploits a flaw in widely used software for which the vendor has no patch and was unaware. Which term?",
+      "options": { "A": "Misconfiguration", "B": "Legacy vulnerability", "C": "Zero-day", "D": "Race condition" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir grup, üreticinin yaması olmayan ve haberdar olmadığı, yaygın bir yazılımdaki açığı sömürüyor. Hangi terim?",
+        "optionsTr": { "A": "Yanlış yapılandırma", "B": "Legacy zafiyeti", "C": "Zero-day", "D": "Race condition" },
+        "patternHint": "'no patch' + 'unaware' = Zero-day.",
+        "whyWrong": { "A": "Yanlış yapılandırma kullanıcı hatasıdır.", "B": "Legacy bilinen açıktır.", "D": "Race condition zamanlamadır." }
+      }
+    },
+    {
+      "id": "2.3-q3",
+      "questionEn": "In a cloud environment, an attacker breaks out of a guest VM to access the hypervisor and other tenants. Which vulnerability?",
+      "options": { "A": "Resource reuse", "B": "VM escape", "C": "Sideloading", "D": "Buffer overflow" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir bulutta saldırgan, misafir bir VM'den çıkıp hipervizöre ve diğer kiracılara erişiyor. Hangi zafiyet?",
+        "optionsTr": { "A": "Kaynak yeniden kullanımı", "B": "VM escape", "C": "Sideloading", "D": "Buffer overflow" },
+        "patternHint": "'breaks out of VM' + 'hypervisor' = VM Escape.",
+        "whyWrong": { "A": "Resource reuse veri sızıntısıdır.", "C": "Sideloading mobil yüklemedir.", "D": "Buffer overflow bellek taşmasıdır." }
+      }
+    },
+    {
+      "id": "2.3-q4",
+      "questionEn": "A forum lets users post comments; an attacker posts <script>...</script> that runs in every visitor's browser. Which vulnerability?",
+      "options": { "A": "SQL injection", "B": "Stored XSS", "C": "Buffer overflow", "D": "VM escape" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir forum kullanıcıların yorum yazmasına izin veriyor; saldırgan her ziyaretçinin tarayıcısında çalışan <script>...</script> gönderiyor. Hangi zafiyet?",
+        "optionsTr": { "A": "SQL injection", "B": "Stored XSS", "C": "Buffer overflow", "D": "VM escape" },
+        "patternHint": "<script> + her ziyaretçinin tarayıcısında çalışma + kalıcı (post) = Stored XSS.",
+        "whyWrong": { "A": "SQLi veritabanı hedeflidir.", "C": "Bellek taşması değil.", "D": "Sanallaştırma kaçışı değil." }
+      }
+    },
+    {
+      "id": "2.3-q5",
+      "questionEn": "A company runs Windows Server 2008, which the vendor no longer supports or patches. Which vulnerability category is this?",
+      "options": { "A": "Zero-day", "B": "End-of-life / Legacy", "C": "Race condition", "D": "Cryptographic" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir şirket, üreticinin artık desteklemediği/yamadığı Windows Server 2008 çalıştırıyor. Hangi zafiyet kategorisi?",
+        "optionsTr": { "A": "Zero-day", "B": "End-of-life / Legacy", "C": "Race condition", "D": "Kriptografik" },
+        "patternHint": "'no longer supported/patched' = EOL/Legacy.",
+        "whyWrong": { "A": "Zero-day bilinmeyen açıktır.", "C": "Zamanlama açığı değil.", "D": "Şifreleme zayıflığı değil." }
+      }
+    },
+    {
+      "id": "2.3-q6",
+      "questionEn": "An e-commerce site is breached because an administrator left a cloud storage bucket publicly accessible. Which vulnerability?",
+      "options": { "A": "Misconfiguration", "B": "Zero-day", "C": "Buffer overflow", "D": "Race condition" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir e-ticaret sitesi, bir yöneticinin bulut depolama bucket'ını herkese açık bıraktığı için ihlal ediliyor. Hangi zafiyet?",
+        "optionsTr": { "A": "Yanlış yapılandırma", "B": "Zero-day", "C": "Buffer overflow", "D": "Race condition" },
+        "patternHint": "'left publicly accessible' = Misconfiguration.",
+        "whyWrong": { "B": "Bilinmeyen açık değil, ayar hatası.", "C": "Bellek taşması değil.", "D": "Zamanlama değil." }
+      }
+    },
+    {
+      "id": "2.3-q7",
+      "questionEn": "A user roots their corporate Android phone to install unauthorized apps, removing built-in security restrictions. Which vulnerability does this introduce?",
+      "options": { "A": "Jailbreaking/Rooting", "B": "VM escape", "C": "SQL injection", "D": "Buffer overflow" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir kullanıcı, yerleşik güvenlik kısıtlamalarını kaldırarak onaysız uygulama kurmak için kurumsal Android telefonunu root'luyor. Hangi zafiyeti getirir?",
+        "optionsTr": { "A": "Jailbreaking/Rooting", "B": "VM escape", "C": "SQL injection", "D": "Buffer overflow" },
+        "patternHint": "'root the phone + remove restrictions' = Rooting/Jailbreaking.",
+        "whyWrong": { "B": "Sanal makine kaçışı değil.", "C": "DB enjeksiyonu değil.", "D": "Bellek taşması değil." }
+      }
+    },
+    {
+      "id": "2.3-q8",
+      "questionEn": "Two processes check a file's permissions and then access it, but an attacker swaps the file in the brief gap between the check and the use. Which vulnerability?",
+      "options": { "A": "Race condition (TOCTOU)", "B": "XSS", "C": "Misconfiguration", "D": "Sideloading" },
+      "correct": "A",
+      "solution": {
+        "translation": "İki süreç bir dosyanın izinlerini kontrol edip sonra erişiyor, ama saldırgan kontrol ile kullanım arasındaki kısa boşlukta dosyayı değiştiriyor. Hangi zafiyet?",
+        "optionsTr": { "A": "Race condition (TOCTOU)", "B": "XSS", "C": "Yanlış yapılandırma", "D": "Sideloading" },
+        "patternHint": "'gap between check and use' = TOCTOU = Race condition.",
+        "whyWrong": { "B": "Tarayıcı scripti değil.", "C": "Ayar hatası değil.", "D": "Uygulama yükleme değil." }
+      }
+    },
+    {
+      "id": "2.3-q9",
+      "questionEn": "A system still uses WEP for Wi-Fi and MD5 for hashing. Which vulnerability category does this represent?",
+      "options": { "A": "Cryptographic", "B": "Race condition", "C": "VM escape", "D": "Supply chain" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir sistem hâlâ Wi-Fi için WEP ve hashing için MD5 kullanıyor. Hangi zafiyet kategorisi?",
+        "optionsTr": { "A": "Kriptografik", "B": "Race condition", "C": "VM escape", "D": "Tedarik zinciri" },
+        "patternHint": "WEP/MD5/SHA-1 = kırık/zayıf şifreleme = Cryptographic vulnerability.",
+        "whyWrong": { "B": "Zamanlama değil.", "C": "Sanallaştırma değil.", "D": "Tedarikçi değil." }
+      }
+    },
+    {
+      "id": "2.3-q10",
+      "questionEn": "A software vendor's update server is compromised and pushes a malicious update to all customers. Which vulnerability category BEST fits?",
+      "options": { "A": "Supply chain (malicious update)", "B": "Buffer overflow", "C": "Race condition", "D": "Sideloading" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir yazılım üreticisinin güncelleme sunucusu ele geçirilip tüm müşterilere zararlı bir güncelleme gönderiyor. En uygun zafiyet kategorisi?",
+        "optionsTr": { "A": "Tedarik zinciri (zararlı güncelleme)", "B": "Buffer overflow", "C": "Race condition", "D": "Sideloading" },
+        "patternHint": "Üreticinin güncelleme kanalı üzerinden = Supply chain / malicious update.",
+        "whyWrong": { "B": "Bellek taşması değil.", "C": "Zamanlama değil.", "D": "Resmi kanal var, sideloading değil." }
+      }
+    }
+  ]
+}

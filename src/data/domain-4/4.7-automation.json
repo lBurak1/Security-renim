@@ -1,0 +1,243 @@
+{
+  "moduleId": "4.7",
+  "title": "Otomasyon ve Orkestrasyon",
+  "domainId": 4,
+  "documentation": [
+    {
+      "heading": "Güvenlik Otomasyonu Kullanım Senaryoları",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Otomasyon Kullanım Alanları",
+          "items": [
+            "User provisioning/deprovisioning: Hesap oluşturma/silme otomasyonu (onboarding/offboarding).",
+            "Guard rails: Otomatik politika ihlali tespiti ve düzeltme.",
+            "Security alerts: SIEM uyarılarına otomatik yanıt (SOAR playbook'ları).",
+            "Ticket creation: Olay tespitinde otomatik bilet açma.",
+            "Escalation: Ciddi olayları otomatik ileri kademeye iletme.",
+            "Vulnerability scanning: Zamanlanmış otomatik tarama.",
+            "Application deployment: CI/CD pipeline'da güvenlik kontrolü (DevSecOps).",
+            "Intrusion detection: Anormal davranışı otomatik tespit ve engelleme."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Otomasyon Faydaları",
+      "specTable": {
+        "title": "Otomasyon Avantajları",
+        "columns": ["Fayda", "Açıklama"],
+        "rows": [
+          ["Efficiency / time saving", "İnsan müdahalesi gereken tekrarlayan görevleri otomatikleştirir"],
+          ["Consistency / standardization", "Her seferinde aynı şekilde çalışır — insan hatası azalır"],
+          ["Faster MTTR", "Ortalama onarım süresini kısaltır (otomatik yanıt)"],
+          ["Enforcement of baselines", "Yapılandırma temellerini otomatik uygular/kontrol eder"],
+          ["Employee satisfaction", "Tekrarlayan işler azalır; personel stratejik işlere odaklanır"]
+        ]
+      }
+    },
+    {
+      "heading": "Otomasyon Riskleri ve Zorlukları",
+      "specTable": {
+        "title": "Otomasyon Dezavantajları",
+        "columns": ["Risk", "Açıklama"],
+        "rows": [
+          ["Single point of failure", "Otomasyon sistemi çökerse tüm bağımlı süreçler durabilir"],
+          ["Technical debt", "Bakımı zor, belgesiz otomasyon kodu birikimi"],
+          ["Complexity", "Yanlış yapılandırılmış otomasyon zararı büyütebilir"],
+          ["Over-reliance", "İnsan becerilerinin körelme riski"],
+          ["Security of automation scripts", "Otomasyon script'lerinin kendisi saldırı hedefi olabilir"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Otomasyon Riski: SPOF",
+          "items": [
+            "Otomasyon = tek noktadan kontrol → o sistem çökünce tüm süreçler durur.",
+            "'What is a risk of automation?' sorusunda → Single point of failure veya technical debt.",
+            "Otomasyon yanlış tetiklenirse hasarı hızla ölçeklendirebilir (örn. yanlış IP bloklama)."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Orkestrasyon ve DevSecOps",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Orkestrasyon Kavramları",
+          "items": [
+            "Orchestration: Birden fazla otomatik sürecin koordineli çalıştırılması.",
+            "SOAR: Güvenlik orkestrasyon ve otomatik yanıt (playbook = otomasyon iş akışı).",
+            "CI/CD pipeline: Kod her commit'te otomatik güvenlik testi (SAST/DAST entegrasyonu).",
+            "IaC automation: Altyapı değişikliklerini kod review sürecinden geçirme.",
+            "Runbook: Adım adım manuel süreç dokümantasyonu.",
+            "Playbook: Olay yanıtı için otomatik çalışan otomasyon iş akışı."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Automated security workflow triggered by alert", "maps_to": "SOAR Playbook", "explanation": "Otomatik güvenlik yanıt iş akışı." },
+    { "trigger": "Automation system fails and all dependent processes stop", "maps_to": "Single Point of Failure (SPOF)", "explanation": "Otomasyon riski: tek hata noktası." },
+    { "trigger": "Accumulation of unmaintained automation scripts", "maps_to": "Technical Debt", "explanation": "Bakımsız otomasyon kodu birikimi." },
+    { "trigger": "Security integrated into CI/CD pipeline", "maps_to": "DevSecOps", "explanation": "Geliştirme sürecine güvenlik entegrasyonu." },
+    { "trigger": "Automated account creation on employee hire", "maps_to": "Automated Provisioning", "explanation": "Otomatik hesap oluşturma." },
+    { "trigger": "Step-by-step manual process documentation", "maps_to": "Runbook", "explanation": "Manuel süreç dokümantasyonu." },
+    { "trigger": "Coordinating multiple automated processes together", "maps_to": "Orchestration", "explanation": "Çoklu otomasyon koordinasyonu." }
+  ],
+  "questions": [
+    {
+      "id": "4.7-q1",
+      "questionEn": "When a new employee is hired, the HR system automatically creates their AD account, assigns email, and grants application access. Which security automation use case is this?",
+      "options": { "A": "Vulnerability scanning", "B": "User provisioning automation", "C": "Incident escalation", "D": "Guard rails" },
+      "correct": "B",
+      "solution": {
+        "translation": "Yeni bir çalışan işe alındığında, İK sistemi otomatik olarak AD hesabını oluşturuyor, e-posta atıyor ve uygulama erişimi veriyor. Bu hangi güvenlik otomasyonu kullanım senaryosu?",
+        "optionsTr": { "A": "Zafiyet taraması", "B": "Kullanıcı provisioning otomasyonu", "C": "Olay yükseltme", "D": "Guard rails" },
+        "patternHint": "Yeni çalışan + otomatik hesap/erişim = User provisioning automation.",
+        "whyWrong": { "A": "Zafiyet tarama güvenlik açığı bulma.", "C": "Escalation ciddi olayları iletme.", "D": "Guard rails politika ihlali kontrolü." }
+      }
+    },
+    {
+      "id": "4.7-q2",
+      "questionEn": "A SOAR platform automatically blocks an IP address and creates a trouble ticket whenever a SIEM alert indicates brute-force activity. This is an example of:",
+      "options": { "A": "Manual incident response", "B": "Automated security response via playbook", "C": "Passive monitoring", "D": "Penetration testing" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir SOAR platformu, bir SIEM uyarısı brute-force aktivitesini gösterdiğinde otomatik olarak bir IP adresini engelliyor ve sorun bileti oluşturuyor. Bu bir örneğidir:",
+        "optionsTr": { "A": "Manuel olay müdahalesi", "B": "Playbook ile otomatik güvenlik yanıtı", "C": "Pasif izleme", "D": "Sızma testi" },
+        "patternHint": "SOAR + otomatik eylem + playbook = Automated security response.",
+        "whyWrong": { "A": "Manuel değil, otomatik.", "C": "Pasif izleme alarm oluşturmaz.", "D": "Pentest ayrı bir süreçtir." }
+      }
+    },
+    {
+      "id": "4.7-q3",
+      "questionEn": "Which is a PRIMARY RISK of relying heavily on security automation?",
+      "options": {
+        "A": "Automation always increases human error",
+        "B": "Automation becomes a single point of failure if the system goes down",
+        "C": "Automation makes systems slower",
+        "D": "Automation eliminates all security vulnerabilities"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Güvenlik otomasyonuna yoğun güvenmenin BİRİNCİL RİSKİ hangisidir?",
+        "optionsTr": {
+          "A": "Otomasyon her zaman insan hatasını artırır",
+          "B": "Sistem çökerse otomasyon tek hata noktasına dönüşür",
+          "C": "Otomasyon sistemleri yavaşlatır",
+          "D": "Otomasyon tüm güvenlik açıklarını ortadan kaldırır"
+        },
+        "patternHint": "Otomasyon riski = Single point of failure (SPOF).",
+        "whyWrong": { "A": "Otomasyon insan hatasını azaltır.", "C": "Genellikle hızlandırır.", "D": "Kesinlikle tüm açıkları elimine etmez." }
+      }
+    },
+    {
+      "id": "4.7-q4",
+      "questionEn": "A company accumulates years of undocumented, difficult-to-maintain automation scripts. Which risk does this represent?",
+      "options": { "A": "Alert fatigue", "B": "Technical debt", "C": "Single point of failure", "D": "False positive" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir şirket yıllarca belgelenmemiş, bakımı zor otomasyon script'leri biriktiriyor. Bu hangi riski temsil eder?",
+        "optionsTr": { "A": "Uyarı yorgunluğu", "B": "Teknik borç", "C": "Tek hata noktası", "D": "Yanlış pozitif" },
+        "patternHint": "Bakımı zor, belgesiz otomasyon birikimi = Technical debt.",
+        "whyWrong": { "A": "Alert fatigue çok fazla uyarıdır.", "C": "SPOF sistem kesintisine yol açar.", "D": "False positive tarama hatasıdır." }
+      }
+    },
+    {
+      "id": "4.7-q5",
+      "questionEn": "A misconfigured automation script blocks ALL outbound traffic instead of only the malicious IP, causing a company-wide outage. Which risk of automation does this illustrate?",
+      "options": { "A": "Technical debt", "B": "Complexity — incorrect automation can scale damage rapidly", "C": "Over-reliance on humans", "D": "Alert fatigue" },
+      "correct": "B",
+      "solution": {
+        "translation": "Yanlış yapılandırılmış bir otomasyon script'i sadece kötü amaçlı IP yerine TÜM giden trafiği engelliyor ve şirket genelinde kesintiye yol açıyor. Bu otomasyonun hangi riskini gösteriyor?",
+        "optionsTr": { "A": "Teknik borç", "B": "Karmaşıklık — yanlış otomasyon hasarı hızla ölçeklendirebilir", "C": "İnsanlara aşırı bağımlılık", "D": "Uyarı yorgunluğu" },
+        "patternHint": "Yanlış otomasyon → hasarı büyüt = Complexity / scale damage.",
+        "whyWrong": { "A": "Technical debt bakım sorunu.", "C": "Otomasyon insandan bağımsız, bu ters.", "D": "Alert fatigue çok uyarı sorunu." }
+      }
+    },
+    {
+      "id": "4.7-q6",
+      "questionEn": "Security tests (SAST, DAST) are automatically run every time code is committed in a CI/CD pipeline. Which practice does this represent?",
+      "options": { "A": "Manual code review", "B": "DevSecOps (security integrated into CI/CD)", "C": "Penetration testing", "D": "SOAR playbook" },
+      "correct": "B",
+      "solution": {
+        "translation": "Güvenlik testleri (SAST, DAST), bir CI/CD pipeline'da her kod commit'inde otomatik çalışıyor. Bu hangi uygulamayı temsil eder?",
+        "optionsTr": { "A": "Manuel kod incelemesi", "B": "DevSecOps (CI/CD'ye güvenlik entegrasyonu)", "C": "Sızma testi", "D": "SOAR playbook" },
+        "patternHint": "CI/CD + otomatik güvenlik testi = DevSecOps.",
+        "whyWrong": { "A": "Otomatik, manuel değil.", "C": "Pentest ayrı bir süreçtir.", "D": "SOAR olay yanıtı otomasyonu." }
+      }
+    },
+    {
+      "id": "4.7-q7",
+      "questionEn": "What is the PRIMARY benefit of automating repetitive security tasks like log review, patch checks, and alert triage?",
+      "options": { "A": "Increases attack surface", "B": "Reduces efficiency", "C": "Improves consistency and frees staff for strategic work", "D": "Eliminates the need for firewalls" },
+      "correct": "C",
+      "solution": {
+        "translation": "Log inceleme, yama kontrolü ve uyarı triyajı gibi tekrarlayan güvenlik görevlerini otomatikleştirmenin BİRİNCİL faydası nedir?",
+        "optionsTr": { "A": "Saldırı yüzeyini artırır", "B": "Verimliliği azaltır", "C": "Tutarlılığı artırır ve personeli stratejik işler için serbest bırakır", "D": "Firewall ihtiyacını ortadan kaldırır" },
+        "patternHint": "Otomasyon faydası = tutarlılık + verimlilik + personel serbest bırakma.",
+        "whyWrong": { "A": "Saldırı yüzeyi artmaz.", "B": "Verimlilik artar, azalmaz.", "D": "Firewall ihtiyacı devam eder." }
+      }
+    },
+    {
+      "id": "4.7-q8",
+      "questionEn": "A runbook differs from a playbook in that a runbook is:",
+      "options": {
+        "A": "An automated workflow triggered by security events",
+        "B": "A step-by-step MANUAL process documentation for responders",
+        "C": "A SOAR configuration file",
+        "D": "A type of vulnerability scan"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Runbook, playbook'tan farklıdır çünkü runbook:",
+        "optionsTr": {
+          "A": "Güvenlik olayları tarafından tetiklenen otomatik iş akışı",
+          "B": "Müdahale eden kişiler için adım adım MANUEL süreç dokümantasyonu",
+          "C": "Bir SOAR yapılandırma dosyası",
+          "D": "Bir tür zafiyet taraması"
+        },
+        "patternHint": "Runbook = manuel adım adım dokümantasyon. Playbook = otomatik iş akışı.",
+        "whyWrong": { "A": "Otomatik iş akışı = playbook.", "C": "SOAR konfigürasyonu değil.", "D": "Zafiyet taraması ile ilgisiz." }
+      }
+    },
+    {
+      "id": "4.7-q9",
+      "questionEn": "An organization automates vulnerability scanning to run every night at 2am. Which benefit of automation does this BEST demonstrate?",
+      "options": { "A": "Technical debt reduction", "B": "Scheduled consistent enforcement without human intervention", "C": "Single point of failure elimination", "D": "Alert fatigue resolution" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kurum, zafiyet taramasını her gece 02:00'de otomatik çalışacak şekilde ayarlıyor. Bu otomasyonun hangi faydasını EN İYİ gösterir?",
+        "optionsTr": { "A": "Teknik borç azaltma", "B": "İnsan müdahalesi olmadan zamanlanmış tutarlı uygulama", "C": "Tek hata noktası eliminasyonu", "D": "Uyarı yorgunluğu çözümü" },
+        "patternHint": "Zamanlanmış + insan müdahalesi yok = Scheduled consistent automation.",
+        "whyWrong": { "A": "Technical debt yönetim sorunudur.", "C": "SPOF otomasyon riski.", "D": "Alert fatigue tuning ile çözülür." }
+      }
+    },
+    {
+      "id": "4.7-q10",
+      "questionEn": "Which of the following BEST describes security orchestration?",
+      "options": {
+        "A": "Running a single automated script",
+        "B": "Coordinating multiple automated security tools and processes to work together",
+        "C": "Manually reviewing all security alerts",
+        "D": "Encrypting data at rest"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Aşağıdakilerden hangisi güvenlik orkestrasyonunu EN İYİ tanımlar?",
+        "optionsTr": {
+          "A": "Tek bir otomatik script çalıştırma",
+          "B": "Birden fazla otomatik güvenlik aracını ve sürecini birlikte çalışacak şekilde koordine etme",
+          "C": "Tüm güvenlik uyarılarını manuel inceleme",
+          "D": "Durağan verileri şifreleme"
+        },
+        "patternHint": "Orkestrasyon = çoklu otomasyon araçlarının koordineli çalışması.",
+        "whyWrong": { "A": "Tek script otomasyon, orkestrasyon değil.", "C": "Manuel inceleme otomasyonun tersi.", "D": "Şifreleme veri koruma." }
+      }
+    }
+  ]
+}

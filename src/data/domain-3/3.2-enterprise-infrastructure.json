@@ -1,0 +1,233 @@
+{
+  "moduleId": "3.2",
+  "title": "Kurumsal Altyapı Güvenliği",
+  "domainId": 3,
+  "documentation": [
+    {
+      "heading": "Ağ Güvenlik Cihazları",
+      "specTable": {
+        "title": "Temel Cihazlar",
+        "columns": ["Cihaz", "İşlev"],
+        "rows": [
+          ["Firewall", "Trafiği kurallara göre izin/engelle"],
+          ["IDS", "Saldırıyı TESPİT eder, sadece alarm verir (pasif, out-of-band)"],
+          ["IPS", "Saldırıyı TESPİT EDER VE ENGELLER (aktif, inline)"],
+          ["Proxy", "İstemci adına istek yapar; filtreleme/anonimlik/önbellek"],
+          ["Load balancer", "Trafiği sunuculara dağıtır (availability)"],
+          ["Jump server", "Yönetim için güvenli sıçrama noktası"],
+          ["Sensor/Collector", "Trafik/veri toplama noktası"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "IDS vs IPS (En Kritik)",
+          "items": [
+            "IDS = Detection = sadece ALARM (pasif, trafiği durduramaz, out-of-band).",
+            "IPS = Prevention = ALARM + ENGELLEME (aktif, inline yerleşir).",
+            "'detect and block / stop / inline / drop' → IPS. 'detect and alert only' → IDS."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Firewall Türleri",
+      "specTable": {
+        "title": "Firewall Çeşitleri",
+        "columns": ["Tür", "Özellik"],
+        "rows": [
+          ["Packet filtering", "Basit; IP/port'a bakar, durum tutmaz (stateless)"],
+          ["Stateful", "Bağlantı durumunu takip eder"],
+          ["NGFW (Next-Gen)", "Uygulama farkındalığı, IPS, deep packet inspection"],
+          ["WAF", "Web uygulamalarını korur (SQLi/XSS), Layer 7"],
+          ["UTM", "Çoklu güvenliği tek cihazda toplar"],
+          ["Layer 4 vs Layer 7", "L4 port/IP, L7 uygulama içeriği bazlı"]
+        ]
+      }
+    },
+    {
+      "heading": "Güvenli İletişim ve Erişim",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "VPN ve Erişim Teknolojileri",
+          "items": [
+            "VPN: Şifreli tünel ile uzaktan güvenli erişim.",
+            "IPSec: VPN protokol takımı (AH + ESP). Tunnel mode (tüm paket) vs Transport mode (sadece payload).",
+            "TLS: Uygulama katmanı şifreleme (HTTPS).",
+            "SD-WAN: Yazılım tanımlı geniş alan ağı.",
+            "SASE: Secure Access Service Edge — ağ + güvenliği bulutta birleştirir.",
+            "Remote access VPN vs Site-to-site VPN."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Ağ Tasarımı ve Failure Modes",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Tasarım İlkeleri",
+          "items": [
+            "Screened subnet (DMZ): İnternete açık sunucular için tampon bölge.",
+            "Active/Active: Tüm cihazlar çalışır (yük paylaşımı). Active/Passive: Biri yedekte.",
+            "Port security: 802.1X, MAC filtreleme.",
+            "Air gap: Tamamen bağlantısız fiziksel izolasyon."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "Fail-open vs Fail-closed",
+          "items": [
+            "Fail-open: Cihaz arızalanınca trafik GEÇER → availability öncelikli.",
+            "Fail-closed (fail-secure): Cihaz arızalanınca trafik DURUR → güvenlik öncelikli."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Detect and block / Stop the attack inline / Drop packets", "maps_to": "IPS", "explanation": "Tespit + engelleme." },
+    { "trigger": "Detect and alert only / Passive / Cannot block", "maps_to": "IDS", "explanation": "Sadece tespit/alarm." },
+    { "trigger": "Protects web app from SQLi/XSS / Layer 7", "maps_to": "WAF", "explanation": "Web uygulama firewall'u." },
+    { "trigger": "Secure encrypted tunnel for remote access", "maps_to": "VPN (IPSec)", "explanation": "Uzaktan güvenli erişim." },
+    { "trigger": "If device fails, traffic still passes", "maps_to": "Fail-open", "explanation": "Arızada geçişe izin (availability)." },
+    { "trigger": "If device fails, traffic is blocked", "maps_to": "Fail-closed (fail-secure)", "explanation": "Arızada engelleme (güvenlik)." },
+    { "trigger": "Distributes traffic across servers", "maps_to": "Load Balancer", "explanation": "Trafik dağıtımı." },
+    { "trigger": "Secure admin entry/pivot host", "maps_to": "Jump Server", "explanation": "Güvenli yönetim noktası." },
+    { "trigger": "Completely disconnected / no network connection", "maps_to": "Air Gap", "explanation": "Tam fiziksel izolasyon." },
+    { "trigger": "Public-facing servers in a buffer zone", "maps_to": "Screened Subnet (DMZ)", "explanation": "İnternete açık tampon bölge." }
+  ],
+  "questions": [
+    {
+      "id": "3.2-q1",
+      "questionEn": "A team wants a device that detects malicious traffic in real time AND automatically drops the offending packets before they reach internal systems. Which device?",
+      "options": { "A": "IDS", "B": "IPS", "C": "Proxy server", "D": "Load balancer" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir ekip, kötü trafiği gerçek zamanlı tespit eden VE zararlı paketleri iç sistemlere ulaşmadan otomatik düşüren bir cihaz istiyor. Hangi cihaz?",
+        "optionsTr": { "A": "IDS", "B": "IPS", "C": "Proxy", "D": "Yük dengeleyici" },
+        "patternHint": "'detects' + 'automatically drops' = IPS.",
+        "whyWrong": { "A": "IDS pasiftir, düşüremez.", "C": "Proxy istek yapar.", "D": "Load balancer dağıtır." }
+      }
+    },
+    {
+      "id": "3.2-q2",
+      "questionEn": "An organization hosts public web servers reachable from the internet while keeping the internal network isolated. Which design?",
+      "options": { "A": "Air gap", "B": "Screened subnet (DMZ)", "C": "VLAN hopping", "D": "Jump server" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kurum, iç ağı izole tutarken internetten erişilebilir halka açık web sunucuları barındırıyor. Hangi tasarım?",
+        "optionsTr": { "A": "Air gap", "B": "Screened subnet (DMZ)", "C": "VLAN hopping", "D": "Jump server" },
+        "patternHint": "'public-facing + internal isolated' = DMZ.",
+        "whyWrong": { "A": "Air gap internet erişimiyle çelişir.", "C": "VLAN hopping saldırıdır.", "D": "Jump server yönetim içindir." }
+      }
+    },
+    {
+      "id": "3.2-q3",
+      "questionEn": "A firewall is configured so that if its hardware fails, all traffic is blocked to protect internal resources. Which configuration?",
+      "options": { "A": "Fail-open", "B": "Fail-closed", "C": "Active/active", "D": "Load balancing" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir firewall, donanımı arızalanırsa iç kaynakları korumak için tüm trafiği engelleyecek şekilde yapılandırılıyor. Hangi yapılandırma?",
+        "optionsTr": { "A": "Fail-open", "B": "Fail-closed", "C": "Active/active", "D": "Yük dengeleme" },
+        "patternHint": "'if fails, traffic blocked, to protect' = Fail-closed.",
+        "whyWrong": { "A": "Fail-open geçişe izin verir.", "C": "HA yapılandırmasıdır.", "D": "Trafik dağıtımıdır." }
+      }
+    },
+    {
+      "id": "3.2-q4",
+      "questionEn": "Which device PASSIVELY monitors a copy of network traffic and raises alerts but cannot stop an attack on its own?",
+      "options": { "A": "IPS", "B": "IDS", "C": "WAF", "D": "Firewall" },
+      "correct": "B",
+      "solution": {
+        "translation": "Hangi cihaz, ağ trafiğinin bir kopyasını PASİF olarak izler ve uyarı üretir ama tek başına bir saldırıyı durduramaz?",
+        "optionsTr": { "A": "IPS", "B": "IDS", "C": "WAF", "D": "Firewall" },
+        "patternHint": "'passively monitors + cannot stop' = IDS.",
+        "whyWrong": { "A": "IPS engeller.", "C": "WAF web saldırılarını engeller.", "D": "Firewall engeller." }
+      }
+    },
+    {
+      "id": "3.2-q5",
+      "questionEn": "A company needs to protect a public web application specifically against SQL injection and XSS. Which device is BEST?",
+      "options": { "A": "WAF", "B": "Load balancer", "C": "Packet-filtering firewall", "D": "Jump server" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir şirketin halka açık bir web uygulamasını özellikle SQL injection ve XSS'e karşı koruması gerekiyor. En iyi cihaz?",
+        "optionsTr": { "A": "WAF", "B": "Yük dengeleyici", "C": "Paket filtreleyen firewall", "D": "Jump server" },
+        "patternHint": "Web uygulaması + SQLi/XSS = WAF (Layer 7).",
+        "whyWrong": { "B": "Yük dağıtır, korumaz.", "C": "Packet filter Layer 7 göremez.", "D": "Jump server yönetim içindir." }
+      }
+    },
+    {
+      "id": "3.2-q6",
+      "questionEn": "Remote employees need secure encrypted access to internal resources over the internet. Which technology?",
+      "options": { "A": "VPN", "B": "Proxy", "C": "Load balancer", "D": "Honeypot" },
+      "correct": "A",
+      "solution": {
+        "translation": "Uzaktan çalışanların internet üzerinden iç kaynaklara güvenli şifreli erişime ihtiyacı var. Hangi teknoloji?",
+        "optionsTr": { "A": "VPN", "B": "Proxy", "C": "Yük dengeleyici", "D": "Honeypot" },
+        "patternHint": "'secure encrypted remote access' = VPN.",
+        "whyWrong": { "B": "Proxy istek aracısıdır.", "C": "Yük dağıtır.", "D": "Honeypot tuzaktır." }
+      }
+    },
+    {
+      "id": "3.2-q7",
+      "questionEn": "Administrators must connect to sensitive servers only through a single hardened, monitored host. What is this host called?",
+      "options": { "A": "Jump server", "B": "Honeypot", "C": "Load balancer", "D": "Proxy" },
+      "correct": "A",
+      "solution": {
+        "translation": "Yöneticiler hassas sunuculara yalnızca tek bir sertleştirilmiş, izlenen host üzerinden bağlanmalı. Bu host'a ne denir?",
+        "optionsTr": { "A": "Jump server", "B": "Honeypot", "C": "Yük dengeleyici", "D": "Proxy" },
+        "patternHint": "Yönetim için tek güvenli giriş noktası = Jump server.",
+        "whyWrong": { "B": "Honeypot tuzaktır.", "C": "Yük dağıtır.", "D": "Proxy istemci aracısıdır." }
+      }
+    },
+    {
+      "id": "3.2-q8",
+      "questionEn": "A classified system must have NO network connection to any other network for maximum security. Which design is this?",
+      "options": { "A": "DMZ", "B": "Air gap", "C": "VPN", "D": "Load balancing" },
+      "correct": "B",
+      "solution": {
+        "translation": "Gizli bir sistemin maksimum güvenlik için başka hiçbir ağa bağlantısı OLMAMALI. Hangi tasarım?",
+        "optionsTr": { "A": "DMZ", "B": "Air gap", "C": "VPN", "D": "Yük dengeleme" },
+        "patternHint": "'no network connection' = Air gap.",
+        "whyWrong": { "A": "DMZ bağlıdır.", "C": "VPN bağlantı kurar.", "D": "Yük dağıtımıdır." }
+      }
+    },
+    {
+      "id": "3.2-q9",
+      "questionEn": "Two firewalls are deployed so both actively process traffic and share the load simultaneously. Which configuration?",
+      "options": { "A": "Active/passive", "B": "Active/active", "C": "Fail-closed", "D": "Air gap" },
+      "correct": "B",
+      "solution": {
+        "translation": "İki firewall, ikisi de aktif trafik işleyip yükü aynı anda paylaşacak şekilde kuruluyor. Hangi yapılandırma?",
+        "optionsTr": { "A": "Active/passive", "B": "Active/active", "C": "Fail-closed", "D": "Air gap" },
+        "patternHint": "İkisi de aktif + yük paylaşımı = Active/active.",
+        "whyWrong": { "A": "Active/passive'de biri bekler.", "C": "Arıza davranışıdır.", "D": "İzolasyondur." }
+      }
+    },
+    {
+      "id": "3.2-q10",
+      "questionEn": "A security appliance is placed so that all traffic must physically pass THROUGH it, allowing it to block attacks in real time. What does 'inline' deployment enable?",
+      "options": {
+        "A": "Passive monitoring only",
+        "B": "The ability to actively block/drop malicious traffic (as an IPS does)",
+        "C": "Encryption of all data at rest",
+        "D": "Automatic backups"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir güvenlik cihazı, tüm trafiğin fiziksel olarak İÇİNDEN geçmesi gerekecek şekilde yerleştiriliyor ve saldırıları gerçek zamanlı engelliyor. 'Inline' yerleşim neyi mümkün kılar?",
+        "optionsTr": {
+          "A": "Sadece pasif izleme",
+          "B": "Zararlı trafiği aktif engelleme/düşürme (IPS gibi)",
+          "C": "Tüm durağan verinin şifrelenmesi",
+          "D": "Otomatik yedekleme"
+        },
+        "patternHint": "Inline = trafiğin içinden geçer = aktif engelleme (IPS).",
+        "whyWrong": { "A": "Pasif izleme out-of-band'dir (IDS).", "C": "Şifreleme ilgisiz.", "D": "Yedekleme ilgisiz." }
+      }
+    }
+  ]
+}

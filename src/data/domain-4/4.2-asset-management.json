@@ -1,0 +1,223 @@
+{
+  "moduleId": "4.2",
+  "title": "Varlık ve Envanter Yönetimi",
+  "domainId": 4,
+  "documentation": [
+    {
+      "heading": "Varlık Yönetimi Yaşam Döngüsü",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Asset Lifecycle Aşamaları",
+          "items": [
+            "Acquisition/Procurement: Güvenlik gereksinimleri satın alma sürecine dahil edilmeli.",
+            "Assignment/Accounting: Her varlığa sahip (owner) atanır; sorumluluk belirlenir.",
+            "Monitoring/Asset tracking: Envanter güncel tutulur; hangi cihaz nerede, kimin.",
+            "Disposal: Güvenli imha — veri sızdırmadan cihazdan kurtulma."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Envanter ve Keşif (Inventory & Enumeration)",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Envanter Yönetimi",
+          "items": [
+            "Asset inventory: Tüm donanım, yazılım, veri varlıklarının listesi.",
+            "Asset enumeration: Ağdaki varlıkları otomatik keşfetme (Nmap, CMDB).",
+            "CMDB (Configuration Management Database): Varlık ve yapılandırma ilişkilerini saklar.",
+            "Software inventory: Lisanslı yazılımlar, sürümler, yüklü uygulamalar.",
+            "Shadow IT riski: Envanterde olmayan yetkisiz cihaz/yazılım."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Varlık İmhası (Disposal & Sanitization)",
+      "specTable": {
+        "title": "İmha Yöntemleri",
+        "columns": ["Yöntem", "Açıklama", "Kullanım Durumu"],
+        "rows": [
+          ["Sanitization", "Veriyi güvenli şekilde temizleme (üst kavram)", "Her imha öncesi"],
+          ["Overwriting / Wiping", "Disk sektörlerini rastgele veriyle üstüne yazma", "Çalışan diskler — yeniden kullanılacak"],
+          ["Degaussing", "Manyetik alan ile manyetik medya veriyi silme", "HDD, manyetik bant (SSD'ye etki etmez)"],
+          ["Cryptographic erase", "Şifreleme anahtarını silerek veriyi erişilemez yapma", "Self-encrypting drives (SED)"],
+          ["Shredding / Physical destruction", "Fiziksel parçalama (kağıt/disk)", "Kesin imha — yeniden kullanım yok"],
+          ["Certificate of destruction", "İmhanın belgelenmesi, 3. taraf doğrulama", "Uyumluluk gerekliliği"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Degaussing vs Wiping vs Destruction",
+          "items": [
+            "Degaussing = manyetik alan → sadece manyetik medyada çalışır (SSD'ye etki etmez!).",
+            "Wiping/Overwriting = yazılımla üstüne yaz → disk çalışır durumda olmalı, YENİDEN KULLANILACAK.",
+            "Physical destruction = kesin imha, kurtarma imkansız → en güvenli, YENİDEN KULLANILAMAZ.",
+            "'Reuse the drive' sorusunda wiping/overwrite tercih et; 'never reuse / highest security' ise destruction."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Veri Saklama ve Yasal Tutma (Retention & Legal Hold)",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Saklama Politikaları",
+          "items": [
+            "Data retention policy: Hangi verinin ne kadar süre saklanacağını tanımlar.",
+            "Legal hold: Dava/soruşturma sürecinde verinin silinmemesi için dondurulması.",
+            "Retention schedule: Veri türüne göre saklama süresi çizelgesi.",
+            "End-of-life (EOL): Cihazın desteği sona erdiğinde imha planı eklenmeli.",
+            "Data destruction certificate: Yasal uyumluluk için imha belgesi şart."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Wipe with magnetic field / erase magnetic media", "maps_to": "Degaussing", "explanation": "Manyetik alan ile silme." },
+    { "trigger": "Overwrite disk sectors with random data / reuse drive", "maps_to": "Wiping / Overwriting", "explanation": "Üstüne yazarak silme, disk yeniden kullanılabilir." },
+    { "trigger": "Physically shred / destroy the drive / never recover", "maps_to": "Physical Destruction", "explanation": "Fiziksel imha, en güvenli." },
+    { "trigger": "Document proving data was properly destroyed", "maps_to": "Certificate of Destruction", "explanation": "İmha belgesi." },
+    { "trigger": "Freeze data due to lawsuit / investigation", "maps_to": "Legal Hold", "explanation": "Yasal dondurma." },
+    { "trigger": "All hardware and software in the organization", "maps_to": "Asset Inventory", "explanation": "Varlık envanteri." },
+    { "trigger": "Unauthorized device or software not in inventory", "maps_to": "Shadow IT", "explanation": "Gölge BT." },
+    { "trigger": "Delete encryption key to make data inaccessible / SED", "maps_to": "Cryptographic Erase", "explanation": "Şifreleme anahtarını silerek erişimi engelleme." }
+  ],
+  "questions": [
+    {
+      "id": "4.2-q1",
+      "questionEn": "An organization needs to securely dispose of hard drives that contain sensitive data and will be DONATED for reuse. Which sanitization method is MOST appropriate?",
+      "options": { "A": "Physical shredding", "B": "Degaussing", "C": "Wiping/Overwriting", "D": "Incineration" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir kurum, hassas veri içeren ve bağış için YENİDEN KULLANILACAK sabit diskleri güvenli şekilde imha etmeli. Hangi sanitization yöntemi EN uygun?",
+        "optionsTr": { "A": "Fiziksel parçalama", "B": "Degaussing", "C": "Wiping/Üstüne yazma", "D": "Yakma" },
+        "patternHint": "'reuse / donate + data removal' = Wiping. Destruction'dan sonra yeniden kullanım olmaz.",
+        "whyWrong": { "A": "İmhadan sonra yeniden kullanılamaz.", "B": "Degaussing diskin mekanik yapısını bozabilir, yeniden kullanım güvensiz.", "D": "Yakma kesin imhadır." }
+      }
+    },
+    {
+      "id": "4.2-q2",
+      "questionEn": "A company has old magnetic tape backups with classified data to destroy. Which method is MOST effective for magnetic media?",
+      "options": { "A": "Degaussing", "B": "Overwriting", "C": "Encryption", "D": "Formatting" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir şirket, gizli veri içeren eski manyetik bant yedeklerini imha etmeli. Hangi yöntem manyetik medya için EN etkilidir?",
+        "optionsTr": { "A": "Degaussing", "B": "Üstüne yazma", "C": "Şifreleme", "D": "Biçimlendirme" },
+        "patternHint": "Manyetik medya + imha = Degaussing.",
+        "whyWrong": { "B": "Bantlar doğrudan üstüne yazılmaya uygun değil.", "C": "Şifreleme veriyi silmez.", "D": "Basit format kurtarılabilir." }
+      }
+    },
+    {
+      "id": "4.2-q3",
+      "questionEn": "A legal team notifies IT that certain emails must be preserved because of an active lawsuit. Which action should IT take immediately?",
+      "options": { "A": "Delete the emails to avoid liability", "B": "Apply a legal hold to prevent deletion", "C": "Encrypt all emails", "D": "Archive to cold storage and delete originals" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir hukuk ekibi BT'ye aktif bir dava nedeniyle belirli e-postaların korunması gerektiğini bildiriyor. BT hemen ne yapmalı?",
+        "optionsTr": { "A": "Sorumluluktan kaçınmak için e-postaları sil", "B": "Silmeyi önlemek için legal hold uygula", "C": "Tüm e-postaları şifrele", "D": "Soğuk depolamaya arşivle ve orijinalleri sil" },
+        "patternHint": "Dava + veri koru = Legal hold.",
+        "whyWrong": { "A": "Dava sürecinde silmek suçtur (spoliation).", "C": "Şifreleme silmeyi engellemez.", "D": "Orijinallerin silinmesi delil imhası sayılır." }
+      }
+    },
+    {
+      "id": "4.2-q4",
+      "questionEn": "A security team discovers a laptop connected to the network that is NOT in the asset inventory. Which term BEST describes this?",
+      "options": { "A": "Zero-day device", "B": "Shadow IT", "C": "Honeypot", "D": "Air-gapped system" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir güvenlik ekibi, ağa bağlı varlık envanterinde OLMAYAN bir dizüstü bilgisayar keşfediyor. Bunu EN İYİ hangi terim tanımlar?",
+        "optionsTr": { "A": "Zero-day cihaz", "B": "Shadow IT", "C": "Honeypot", "D": "Air-gapped sistem" },
+        "patternHint": "Envanterde olmayan yetkisiz cihaz/yazılım = Shadow IT.",
+        "whyWrong": { "A": "Zero-day zafiyetle ilgilidir.", "C": "Honeypot kasıtlı tuzak.", "D": "Air gap izole sistemdir." }
+      }
+    },
+    {
+      "id": "4.2-q5",
+      "questionEn": "A self-encrypting drive (SED) needs to be decommissioned. Which disposal method makes data unrecoverable MOST quickly without physical destruction?",
+      "options": { "A": "Physical shredding", "B": "Cryptographic erase (delete the encryption key)", "C": "Seven-pass overwrite", "D": "Degaussing" },
+      "correct": "B",
+      "solution": {
+        "translation": "Kendi kendini şifreleyen bir sürücü (SED) hizmet dışı bırakılmalı. Fiziksel imha olmadan veriyi EN HIZLI kurtarılamaz yapan yöntem?",
+        "optionsTr": { "A": "Fiziksel parçalama", "B": "Kriptografik silme (şifreleme anahtarını sil)", "C": "7 geçişli üstüne yazma", "D": "Degaussing" },
+        "patternHint": "SED + hızlı erişim engeli = Cryptographic erase (anahtarı sil, veri anlamsız olur).",
+        "whyWrong": { "A": "Fiziksel imha 'without physical destruction' koşulunu karşılamaz.", "C": "7-pass çok zaman alır.", "D": "SSD/SED manyetik değil, degaussing çalışmaz." }
+      }
+    },
+    {
+      "id": "4.2-q6",
+      "questionEn": "Which document provides proof that a vendor properly destroyed hard drives containing confidential data?",
+      "options": { "A": "SLA", "B": "Certificate of destruction", "C": "NDA", "D": "Chain of custody" },
+      "correct": "B",
+      "solution": {
+        "translation": "Hangi belge, bir satıcının gizli veri içeren sabit diskleri uygun şekilde imha ettiğini kanıtlar?",
+        "optionsTr": { "A": "SLA", "B": "İmha sertifikası", "C": "NDA", "D": "Muhafaza zinciri" },
+        "patternHint": "İmha belgesi/kanıtı = Certificate of Destruction.",
+        "whyWrong": { "A": "SLA hizmet düzeyi anlaşmasıdır.", "C": "NDA gizlilik anlaşmasıdır.", "D": "Chain of custody delil takibidir." }
+      }
+    },
+    {
+      "id": "4.2-q7",
+      "questionEn": "An asset management policy requires every device to have an assigned owner accountable for it. Which asset lifecycle phase does this represent?",
+      "options": { "A": "Disposal", "B": "Acquisition", "C": "Assignment/Accounting", "D": "Enumeration" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir varlık yönetim politikası, her cihazın sorumlu bir sahibe atanmasını gerektiriyor. Bu hangi varlık yaşam döngüsü aşaması?",
+        "optionsTr": { "A": "İmha", "B": "Satın alma", "C": "Atama/Hesap verme", "D": "Sıralama/Keşif" },
+        "patternHint": "Sahip atama + sorumluluk = Assignment/Accounting.",
+        "whyWrong": { "A": "Disposal son aşamadır.", "B": "Acquisition satın almadır.", "D": "Enumeration ağda keşiftir." }
+      }
+    },
+    {
+      "id": "4.2-q8",
+      "questionEn": "A CMDB is used to track all IT assets and their configuration relationships. What does CMDB stand for?",
+      "options": {
+        "A": "Centralized Monitoring and Data Backup",
+        "B": "Configuration Management Database",
+        "C": "Cyber Malware Detection Base",
+        "D": "Content Management and Delivery Board"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Tüm BT varlıklarını ve yapılandırma ilişkilerini takip etmek için CMDB kullanılıyor. CMDB neyin kısaltmasıdır?",
+        "optionsTr": {
+          "A": "Merkezi İzleme ve Veri Yedekleme",
+          "B": "Yapılandırma Yönetimi Veritabanı",
+          "C": "Siber Kötü Yazılım Tespit Tabanı",
+          "D": "İçerik Yönetimi ve Dağıtım Kurulu"
+        },
+        "patternHint": "CMDB = Configuration Management Database.",
+        "whyWrong": { "A": "Açılımı yanlış.", "C": "Açılımı yanlış.", "D": "Açılımı yanlış." }
+      }
+    },
+    {
+      "id": "4.2-q9",
+      "questionEn": "During procurement, the security team reviews vendor security controls before purchasing new software. Which asset lifecycle phase is this?",
+      "options": { "A": "Disposal", "B": "Assignment", "C": "Acquisition/Procurement", "D": "Monitoring" },
+      "correct": "C",
+      "solution": {
+        "translation": "Satın alma sürecinde güvenlik ekibi, yeni yazılım almadan önce satıcı güvenlik kontrollerini inceliyor. Bu hangi varlık yaşam döngüsü aşaması?",
+        "optionsTr": { "A": "İmha", "B": "Atama", "C": "Tedarik/Satın alma", "D": "İzleme" },
+        "patternHint": "Satın almadan önce güvenlik incelemesi = Acquisition/Procurement.",
+        "whyWrong": { "A": "Disposal sondadır.", "B": "Assignment sahip atamadır.", "D": "Monitoring süregelen takiptir." }
+      }
+    },
+    {
+      "id": "4.2-q10",
+      "questionEn": "A company must destroy laptops containing top-secret data so the data can NEVER be recovered, regardless of cost. Which method is MOST appropriate?",
+      "options": { "A": "Wiping with 3-pass overwrite", "B": "Degaussing only", "C": "Physical destruction (shredding)", "D": "Factory reset" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir şirket, içerdiği gizli veri bir daha kurtarılamayacak şekilde dizüstü bilgisayarları imha etmeli (maliyet önemli değil). Hangi yöntem EN uygun?",
+        "optionsTr": { "A": "3 geçişli üstüne yazma", "B": "Sadece degaussing", "C": "Fiziksel imha (parçalama)", "D": "Fabrika ayarlarına sıfırlama" },
+        "patternHint": "'never recovered + regardless of cost + top-secret' = Physical destruction.",
+        "whyWrong": { "A": "Yazılım tabanlı, teorik olarak kurtarma mümkün.", "B": "Tek başına yeterli güvence sağlamayabilir.", "D": "Factory reset veriyi kurtarılabilir bırakır." }
+      }
+    }
+  ]
+}

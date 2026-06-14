@@ -1,0 +1,223 @@
+{
+  "moduleId": "5.1",
+  "title": "Güvenlik Yönetişimi (Governance)",
+  "domainId": 5,
+  "documentation": [
+    {
+      "heading": "Yönetişim Belge Hiyerarşisi",
+      "specTable": {
+        "title": "Belge Hiyerarşisi (En Üstten Alta)",
+        "columns": ["Belge", "Açıklama", "Bağlayıcılık"],
+        "rows": [
+          ["Policy (Politika)", "Üst düzey yön ve hedef bildirisi; 'ne yapmalıyız'", "Zorunlu — yönetim onaylı"],
+          ["Standard (Standart)", "Politikayı karşılayan spesifik teknik gereksinimler; 'nasıl yapılmalı'", "Zorunlu"],
+          ["Procedure (Prosedür)", "Adım adım talimatlar; 'tam olarak nasıl yapılır'", "Zorunlu"],
+          ["Guideline (Kılavuz)", "Önerilen en iyi uygulamalar; 'yapsan iyi olur'", "İsteğe bağlı / tavsiye"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Hiyerarşi Refleksi",
+          "items": [
+            "Policy > Standard > Procedure > Guideline.",
+            "Policy = yön (mandatory). Guideline = tavsiye (optional).",
+            "'Specific technical requirements' → Standard.",
+            "'Step-by-step how-to' → Procedure.",
+            "'Recommended, not required' → Guideline."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Önemli Politika Türleri",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Temel Güvenlik Politikaları",
+          "items": [
+            "AUP (Acceptable Use Policy): Kurumun BT kaynaklarının kabul edilebilir kullanımını tanımlar.",
+            "Information security policy: Genel güvenlik yönelimini belirler.",
+            "Password policy: Parola uzunluğu, karmaşıklık, değişim süresi.",
+            "BYOD policy: Kişisel cihaz kullanım kuralları.",
+            "Data retention policy: Verinin ne kadar tutulacağı.",
+            "Change management policy: Değişikliklerin nasıl onaylanacağı.",
+            "Incident response policy: Olayların nasıl ele alınacağı."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Yönetişim Yapıları",
+      "specTable": {
+        "title": "Governance Yapıları",
+        "columns": ["Yapı", "Açıklama"],
+        "rows": [
+          ["Boards", "Üst düzey yönetim kurulu — stratejik yön"],
+          ["Committees", "Belirli konularda karar alma grupları (örn. risk komitesi)"],
+          ["Government entities", "Yasal düzenleyici otoriteler"],
+          ["Centralized governance", "Tek merkezden politika ve kontrol"],
+          ["Decentralized governance", "İş birimleri kendi güvenlik kararlarını alır"]
+        ]
+      }
+    },
+    {
+      "heading": "Güvenlik Rolleri ve Sorumlulukları",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Temel Güvenlik Rolleri",
+          "items": [
+            "CISO (Chief Information Security Officer): Güvenlik programının üst düzey yöneticisi.",
+            "Security officer/manager: Günlük güvenlik operasyonları.",
+            "Data owner: Verinin nihai sahibi ve sınıflandırma sorumlusu.",
+            "Data custodian: Teknik veri koruma (yedek, erişim kontrolü).",
+            "Privacy officer/DPO: Kişisel veri koruma uyumu.",
+            "System owner: Sistemin güvenlik gereksinimlerinden sorumlu."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Acceptable use of corporate IT resources", "maps_to": "AUP (Acceptable Use Policy)", "explanation": "Kabul edilebilir kullanım politikası." },
+    { "trigger": "High-level mandatory direction / what we must do", "maps_to": "Policy", "explanation": "Üst düzey zorunlu yön bildirisi." },
+    { "trigger": "Specific technical requirements / how it must be done", "maps_to": "Standard", "explanation": "Teknik gereksinim belgesi." },
+    { "trigger": "Step-by-step instructions / exact how-to", "maps_to": "Procedure", "explanation": "Adım adım talimat." },
+    { "trigger": "Recommended best practice / optional / suggested", "maps_to": "Guideline", "explanation": "Tavsiye niteliğinde kılavuz." },
+    { "trigger": "Top security executive / security program leader", "maps_to": "CISO", "explanation": "Baş Bilgi Güvenliği Yetkilisi." },
+    { "trigger": "Responsible for personal data protection compliance", "maps_to": "DPO / Privacy Officer", "explanation": "Veri koruma yetkilisi." }
+  ],
+  "questions": [
+    {
+      "id": "5.1-q1",
+      "questionEn": "A document states 'All employees must use strong passwords and enable MFA on corporate systems.' Which type of governance document is this?",
+      "options": { "A": "Guideline", "B": "Procedure", "C": "Policy", "D": "Standard" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir belge 'Tüm çalışanlar güçlü parola kullanmalı ve kurumsal sistemlerde MFA etkinleştirmeli' diyor. Hangi yönetişim belgesi türü?",
+        "optionsTr": { "A": "Kılavuz", "B": "Prosedür", "C": "Politika", "D": "Standart" },
+        "patternHint": "Üst düzey 'ne yapmalı' zorunluluğu = Policy.",
+        "whyWrong": { "A": "Guideline önerilir, zorunlu değil.", "B": "Procedure adım adım.", "D": "Standard teknik spesifikasyon." }
+      }
+    },
+    {
+      "id": "5.1-q2",
+      "questionEn": "A document specifies: 'Passwords must be at least 12 characters, include uppercase, lowercase, numbers, and symbols, and change every 90 days.' Which document type?",
+      "options": { "A": "Policy", "B": "Standard", "C": "Guideline", "D": "Procedure" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir belge şunu belirtiyor: 'Parolalar en az 12 karakter olmalı, büyük/küçük harf, rakam ve sembol içermeli ve her 90 günde bir değiştirilmeli.' Hangi belge türü?",
+        "optionsTr": { "A": "Politika", "B": "Standart", "C": "Kılavuz", "D": "Prosedür" },
+        "patternHint": "Teknik spesifikasyon detayları (uzunluk, karmaşıklık, süre) = Standard.",
+        "whyWrong": { "A": "Policy üst düzey yönelim.", "C": "Guideline zorunlu değil.", "D": "Procedure adım adım yapma." }
+      }
+    },
+    {
+      "id": "5.1-q3",
+      "questionEn": "Which governance document defines acceptable and unacceptable uses of company IT resources such as email, internet, and software?",
+      "options": { "A": "DRP", "B": "AUP (Acceptable Use Policy)", "C": "SLA", "D": "NDA" },
+      "correct": "B",
+      "solution": {
+        "translation": "Hangi yönetişim belgesi, e-posta, internet ve yazılım gibi şirket BT kaynaklarının kabul edilebilir ve kabul edilemez kullanımlarını tanımlar?",
+        "optionsTr": { "A": "DRP", "B": "AUP (Kabul Edilebilir Kullanım Politikası)", "C": "SLA", "D": "NDA" },
+        "patternHint": "BT kaynaklarının kullanım kuralları = AUP.",
+        "whyWrong": { "A": "DRP felaket kurtarma planı.", "C": "SLA hizmet düzeyi anlaşması.", "D": "NDA gizlilik anlaşması." }
+      }
+    },
+    {
+      "id": "5.1-q4",
+      "questionEn": "A document provides recommended best practices for securing laptops but is NOT mandatory. Which type is this?",
+      "options": { "A": "Policy", "B": "Standard", "C": "Procedure", "D": "Guideline" },
+      "correct": "D",
+      "solution": {
+        "translation": "Bir belge, dizüstü bilgisayarların güvenliğini sağlamak için önerilen en iyi uygulamaları sunuyor ancak zorunlu DEĞİL. Bu hangi tür?",
+        "optionsTr": { "A": "Politika", "B": "Standart", "C": "Prosedür", "D": "Kılavuz" },
+        "patternHint": "'Recommended + not mandatory' = Guideline.",
+        "whyWrong": { "A": "Policy zorunlu.", "B": "Standard zorunlu teknik gereksinim.", "C": "Procedure zorunlu adımlar." }
+      }
+    },
+    {
+      "id": "5.1-q5",
+      "questionEn": "In the governance hierarchy, which document sits BELOW a standard and provides the detailed step-by-step instructions for performing a security task?",
+      "options": { "A": "Policy", "B": "Guideline", "C": "Procedure", "D": "Regulation" },
+      "correct": "C",
+      "solution": {
+        "translation": "Yönetişim hiyerarşisinde, bir standardın ALTINDA yer alan ve bir güvenlik görevini gerçekleştirmek için ayrıntılı adım adım talimatları sağlayan belge hangisidir?",
+        "optionsTr": { "A": "Politika", "B": "Kılavuz", "C": "Prosedür", "D": "Düzenleme" },
+        "patternHint": "Standardın altı + adım adım = Procedure.",
+        "whyWrong": { "A": "Policy en üsttedir.", "B": "Guideline isteğe bağlı, hiyerarşide farklı.", "D": "Regulation yasal zorunluluktur." }
+      }
+    },
+    {
+      "id": "5.1-q6",
+      "questionEn": "Which executive role is PRIMARILY responsible for overseeing an organization's entire information security program?",
+      "options": { "A": "CFO", "B": "CISO", "C": "DPO", "D": "System administrator" },
+      "correct": "B",
+      "solution": {
+        "translation": "Hangi üst düzey yönetici rolü, bir kuruluşun tüm bilgi güvenliği programını denetlemekten BİRİNCİL olarak sorumludur?",
+        "optionsTr": { "A": "CFO", "B": "CISO", "C": "DPO", "D": "Sistem yöneticisi" },
+        "patternHint": "Tüm güvenlik programı üst sorumlusu = CISO.",
+        "whyWrong": { "A": "CFO finansal yöneticidir.", "C": "DPO kişisel veri koruma.", "D": "Sysadmin operasyoneldır." }
+      }
+    },
+    {
+      "id": "5.1-q7",
+      "questionEn": "An organization has all security decisions made by headquarters with uniform policies for all branches. Which governance model?",
+      "options": { "A": "Decentralized governance", "B": "Federated model", "C": "Centralized governance", "D": "Risk-based governance" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir kuruluşta tüm güvenlik kararları, tüm şubeler için tek tip politikalarla genel merkez tarafından alınıyor. Hangi yönetişim modeli?",
+        "optionsTr": { "A": "Merkezi olmayan yönetişim", "B": "Federe model", "C": "Merkezi yönetişim", "D": "Risk tabanlı yönetişim" },
+        "patternHint": "Tek merkezden politika + her yer için aynı = Centralized governance.",
+        "whyWrong": { "A": "Decentralized iş birimleri kendi kararını alır.", "B": "Federated karma modeldir.", "D": "Risk-based önceliklendirme yaklaşımıdır." }
+      }
+    },
+    {
+      "id": "5.1-q8",
+      "questionEn": "In what order does the governance hierarchy rank these documents from MOST to LEAST authoritative?",
+      "options": {
+        "A": "Procedure → Standard → Policy → Guideline",
+        "B": "Policy → Standard → Procedure → Guideline",
+        "C": "Guideline → Policy → Standard → Procedure",
+        "D": "Standard → Policy → Guideline → Procedure"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Yönetişim hiyerarşisi bu belgeleri EN YÜKSEK'ten EN DÜŞÜK otoriteye nasıl sıralar?",
+        "optionsTr": {
+          "A": "Prosedür → Standart → Politika → Kılavuz",
+          "B": "Politika → Standart → Prosedür → Kılavuz",
+          "C": "Kılavuz → Politika → Standart → Prosedür",
+          "D": "Standart → Politika → Kılavuz → Prosedür"
+        },
+        "patternHint": "Policy > Standard > Procedure > Guideline — en önemli kural.",
+        "whyWrong": { "A": "Ters sıra.", "C": "Guideline en alttadır.", "D": "Standard en üstte olamaz." }
+      }
+    },
+    {
+      "id": "5.1-q9",
+      "questionEn": "A new employee must sign a document acknowledging they understand the rules for using corporate email, internet, and computing resources. Which document?",
+      "options": { "A": "DRP", "B": "NDA", "C": "SLA", "D": "AUP (Acceptable Use Policy)" },
+      "correct": "D",
+      "solution": {
+        "translation": "Yeni bir çalışan, kurumsal e-posta, internet ve bilgisayar kaynaklarını kullanma kurallarını anladığını kabul eden bir belge imzalamalı. Hangi belge?",
+        "optionsTr": { "A": "DRP", "B": "NDA", "C": "SLA", "D": "AUP (Kabul Edilebilir Kullanım Politikası)" },
+        "patternHint": "BT kaynak kullanım kuralları + imza = AUP.",
+        "whyWrong": { "A": "DRP felaket kurtarma planı.", "B": "NDA gizlilik.", "C": "SLA hizmet seviyesi." }
+      }
+    },
+    {
+      "id": "5.1-q10",
+      "questionEn": "Which person is PRIMARILY responsible for ensuring an organization complies with personal data protection laws such as GDPR?",
+      "options": { "A": "CISO", "B": "System administrator", "C": "DPO (Data Protection Officer)", "D": "Data custodian" },
+      "correct": "C",
+      "solution": {
+        "translation": "GDPR gibi kişisel veri koruma yasalarına kuruluşun uymasını sağlamaktan BİRİNCİL olarak kim sorumludur?",
+        "optionsTr": { "A": "CISO", "B": "Sistem yöneticisi", "C": "DPO (Veri Koruma Yetkilisi)", "D": "Veri koruyucu" },
+        "patternHint": "GDPR + kişisel veri uyumu = DPO.",
+        "whyWrong": { "A": "CISO genel güvenlik programı.", "B": "Sysadmin teknik operasyon.", "D": "Custodian teknik veri koruma." }
+      }
+    }
+  ]
+}

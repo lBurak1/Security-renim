@@ -1,0 +1,236 @@
+{
+  "moduleId": "5.6",
+  "title": "Güvenlik Farkındalığı Uygulamaları",
+  "domainId": 5,
+  "documentation": [
+    {
+      "heading": "Sosyal Mühendislik İlkeleri",
+      "specTable": {
+        "title": "Etkileme İlkeleri (Influence Principles)",
+        "columns": ["İlke", "Açıklama", "Örnek Saldırı"],
+        "rows": [
+          ["Authority (Otorite)", "Üst/resmi makam gibi davranma", "'Ben IT direktörüyüm, parolanı ver'"],
+          ["Urgency (Aciliyet)", "Hızlı hareket etmeye zorlama, düşünme fırsatı vermeme", "'Hesabın 5 dakika içinde silinecek!'"],
+          ["Scarcity (Kıtlık)", "Sınırlı fırsat varmış hissi", "'Son 1 lisans kaldı, hemen tıkla'"],
+          ["Intimidation (Korkutma)", "Tehdit veya korkuyla zorlama", "'Uyumazsan patronuna bildireceğim'"],
+          ["Consensus/Social proof", "Herkes yapıyor, sen de yap", "'Ekipteki herkes bu formu doldurdu'"],
+          ["Familiarity/Liking", "Güvenilir veya sevilen biri gibi görünme", "Arkadaş veya meslektaş taklidi"],
+          ["Trust (Güven)", "Meşru kaynak gibi görünme", "Banka veya IT desteği taklidi"]
+        ]
+      }
+    },
+    {
+      "heading": "Kimlik Avı Kampanyaları ve Eğitim",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Güvenlik Farkındalık Programı Unsurları",
+          "items": [
+            "Phishing simulation: Çalışanlara sahte kimlik avı e-postaları gönderme (ne kadar tıkladığını ölç).",
+            "Security awareness training: Sosyal mühendislik, parola güvenliği, veri işleme eğitimleri.",
+            "Gamification: Puanlama ve ödülle öğrenmeyi eğlenceli hale getirme.",
+            "Reporting mechanisms: Şüpheli e-posta/olayı kolayca rapor etme yolları (tek tıkla rapor et).",
+            "Role-based training: Farklı rollere göre özelleştirilmiş eğitim (finans vs IT vs operasyon).",
+            "Metrics: Tıklama oranı, raporlama oranı, eğitim tamamlama oranı."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Kimlik Avı Türleri (Phishing Family)",
+      "specTable": {
+        "title": "Phishing Çeşitleri",
+        "columns": ["Tür", "Hedef", "Açıklama"],
+        "rows": [
+          ["Phishing", "Geniş kitle", "Toplu sahte e-posta"],
+          ["Spear phishing", "Belirli kişi/grup", "Kişiselleştirilmiş hedefli e-posta"],
+          ["Whaling", "C-suite/üst yönetim", "CEO/CFO gibi üst düzey hedefler"],
+          ["Vishing", "Sesli çağrı", "Telefon üzerinden sosyal mühendislik"],
+          ["Smishing", "SMS", "Kısa mesaj üzerinden kimlik avı"],
+          ["Pharming", "DNS/host", "Kullanıcıyı sahte siteye yönlendirme"]
+        ]
+      }
+    },
+    {
+      "heading": "Güvenli Davranış ve Politikalar",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Farkındalık Konuları",
+          "items": [
+            "Password hygiene: Güçlü parola, paylaşmama, yeniden kullanmama, parola yöneticisi.",
+            "Removable media: USB gibi tanınmayan medyayı takma (USB drop attack).",
+            "Clean desk policy: Hassas bilgileri masada bırakmama.",
+            "Tailgating/piggybacking awareness: Fiziksel güvenlik bilinci.",
+            "Insider threat indicators: Anormal davranış, fazla veri indirme, ayrılma öncesi erişim.",
+            "Data handling: Hassas veriyi doğru sınıflandırma ve işleme.",
+            "Acceptable use: AUP gerekliliklerine uyma."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "Sosyal Mühendislik Taktikleri",
+          "items": [
+            "Urgency + Authority kombinasyonu = en etkili sosyal mühendislik tuzağı.",
+            "Phishing e-postasının en yaygın işareti: bilinmeyen gönderici + acil eylem + şüpheli link.",
+            "Vishing = voice phishing (telefon). Smishing = SMS phishing.",
+            "Pretexting: Sahte senaryo/kimlik oluşturarak bilgi toplama."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Create urgency to prevent thinking / 'act now'", "maps_to": "Urgency (Social Engineering)", "explanation": "Aciliyet hissi yaratma." },
+    { "trigger": "Pretend to be authority figure / boss / IT director", "maps_to": "Authority (Social Engineering)", "explanation": "Otorite taklidi." },
+    { "trigger": "Targeted phishing at specific person with personal details", "maps_to": "Spear Phishing", "explanation": "Hedefli kişiselleştirilmiş kimlik avı." },
+    { "trigger": "Phishing targeting CEO / CFO / executives", "maps_to": "Whaling", "explanation": "Üst yönetim hedefli kimlik avı." },
+    { "trigger": "Voice call social engineering / phone scam", "maps_to": "Vishing", "explanation": "Sesli çağrı kimlik avı." },
+    { "trigger": "SMS phishing / text message scam", "maps_to": "Smishing", "explanation": "SMS kimlik avı." },
+    { "trigger": "Fake phishing emails sent to employees to test them", "maps_to": "Phishing Simulation", "explanation": "Kimlik avı simülasyonu/eğitimi." },
+    { "trigger": "Create fake scenario to extract information", "maps_to": "Pretexting", "explanation": "Sahte senaryo kurma." },
+    { "trigger": "Drop USB drives hoping someone plugs them in", "maps_to": "USB Drop Attack", "explanation": "USB bırakma saldırısı." }
+  ],
+  "questions": [
+    {
+      "id": "5.6-q1",
+      "questionEn": "An email says 'Your account will be locked in 10 minutes! Click HERE immediately to verify.' Which social engineering principle does this exploit?",
+      "options": { "A": "Scarcity", "B": "Consensus", "C": "Urgency", "D": "Familiarity" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir e-posta 'Hesabınız 10 dakika içinde kilitlenecek! Doğrulamak için HEMEN buraya tıklayın' diyor. Bu hangi sosyal mühendislik ilkesini istismar ediyor?",
+        "optionsTr": { "A": "Kıtlık", "B": "Uzlaşı/Konsensüs", "C": "Aciliyet", "D": "Aşinalık" },
+        "patternHint": "'10 dakika içinde + hemen tıkla' = Urgency (aciliyet).",
+        "whyWrong": { "A": "Scarcity sınırlı fırsat.", "B": "Consensus herkes yapıyor.", "D": "Familiarity tanıdık biri gibi görünme." }
+      }
+    },
+    {
+      "id": "5.6-q2",
+      "questionEn": "An attacker calls an employee pretending to be the IT help desk and asks for their password to 'reset the account.' Which principle is exploited?",
+      "options": { "A": "Scarcity", "B": "Authority", "C": "Consensus", "D": "Intimidation" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir saldırgan, bir çalışanı arayarak BT yardım masası gibi davranıyor ve 'hesabı sıfırlamak' için parolasını istiyor. Hangi ilke istismar ediliyor?",
+        "optionsTr": { "A": "Kıtlık", "B": "Otorite", "C": "Uzlaşı", "D": "Korkutma" },
+        "patternHint": "IT help desk taklidi = Authority (otorite).",
+        "whyWrong": { "A": "Scarcity sınırlı fırsat.", "C": "Consensus sosyal kanıt.", "D": "Intimidation tehdit içerir." }
+      }
+    },
+    {
+      "id": "5.6-q3",
+      "questionEn": "A security team sends fake phishing emails to employees to see how many click malicious links. Which security program activity is this?",
+      "options": { "A": "Penetration testing", "B": "Phishing simulation / awareness training", "C": "Red team engagement", "D": "Vulnerability scanning" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir güvenlik ekibi, çalışanların kaçının kötü amaçlı bağlantılara tıkladığını görmek için sahte kimlik avı e-postaları gönderiyor. Bu hangi güvenlik programı faaliyeti?",
+        "optionsTr": { "A": "Sızma testi", "B": "Kimlik avı simülasyonu / farkındalık eğitimi", "C": "Red team görevi", "D": "Zafiyet taraması" },
+        "patternHint": "Sahte phishing e-postası + çalışan testi = Phishing simulation.",
+        "whyWrong": { "A": "Pentest sistem güvenliğini test eder.", "C": "Red team daha kapsamlı saldırı simülasyonu.", "D": "Vuln scan sistem açıklarını tarar." }
+      }
+    },
+    {
+      "id": "5.6-q4",
+      "questionEn": "An attacker sends highly personalized emails to specific employees in a company's finance department, referencing real project names. Which attack?",
+      "options": { "A": "Phishing (generic)", "B": "Whaling", "C": "Spear phishing", "D": "Smishing" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir saldırgan, gerçek proje adlarına atıfta bulunarak bir şirketin finans departmanındaki belirli çalışanlara son derece kişiselleştirilmiş e-postalar gönderiyor. Hangi saldırı?",
+        "optionsTr": { "A": "Phishing (genel)", "B": "Whaling", "C": "Spear phishing", "D": "Smishing" },
+        "patternHint": "Belirli kişi/grup + kişiselleştirilmiş = Spear phishing.",
+        "whyWrong": { "A": "Generic phishing toplu.", "B": "Whaling CEO/CFO gibi üst yönetim.", "D": "Smishing SMS üzerinden." }
+      }
+    },
+    {
+      "id": "5.6-q5",
+      "questionEn": "An attacker specifically targets the CEO with a highly crafted email appearing to come from a trusted partner, seeking wire transfer approval. Which attack?",
+      "options": { "A": "Smishing", "B": "Vishing", "C": "Spear phishing", "D": "Whaling" },
+      "correct": "D",
+      "solution": {
+        "translation": "Bir saldırgan, güvenilir bir ortaktan geliyormuş gibi görünen son derece hazırlanmış bir e-postayla CEO'yu özellikle hedef alıyor ve havale onayı istiyor. Hangi saldırı?",
+        "optionsTr": { "A": "Smishing", "B": "Vishing", "C": "Spear phishing", "D": "Whaling" },
+        "patternHint": "CEO/CFO gibi üst yönetim hedefi = Whaling.",
+        "whyWrong": { "A": "Smishing SMS.", "B": "Vishing telefon.", "C": "Spear phishing belirli birey/grup." }
+      }
+    },
+    {
+      "id": "5.6-q6",
+      "questionEn": "An employee receives an SMS saying 'Your bank account is compromised. Click this link to verify now.' Which attack?",
+      "options": { "A": "Vishing", "B": "Spear phishing", "C": "Smishing", "D": "Whaling" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir çalışan 'Banka hesabınız ele geçirildi. Hemen doğrulamak için bu bağlantıya tıklayın' diyen bir SMS alıyor. Hangi saldırı?",
+        "optionsTr": { "A": "Vishing", "B": "Spear phishing", "C": "Smishing", "D": "Whaling" },
+        "patternHint": "SMS üzerinden kimlik avı = Smishing.",
+        "whyWrong": { "A": "Vishing sesli çağrı.", "B": "Spear phishing e-posta.", "D": "Whaling üst yönetim hedefi." }
+      }
+    },
+    {
+      "id": "5.6-q7",
+      "questionEn": "Which metric BEST measures the effectiveness of a phishing simulation program over time?",
+      "options": {
+        "A": "Number of emails sent",
+        "B": "Reduction in employee click-through rate on simulated phishing emails",
+        "C": "Number of firewalls installed",
+        "D": "CVSS score average"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Hangi metrik, kimlik avı simülasyon programının etkinliğini zaman içinde EN İYİ ölçer?",
+        "optionsTr": {
+          "A": "Gönderilen e-posta sayısı",
+          "B": "Simüle edilmiş kimlik avı e-postalarında çalışan tıklama oranının azalması",
+          "C": "Kurulan firewall sayısı",
+          "D": "Ortalama CVSS skoru"
+        },
+        "patternHint": "Farkındalık etkinliği = tıklama oranının zaman içinde düşmesi.",
+        "whyWrong": { "A": "Gönderim sayısı etkinliği ölçmez.", "C": "Firewall sayısı alakasız.", "D": "CVSS zafiyet skoru." }
+      }
+    },
+    {
+      "id": "5.6-q8",
+      "questionEn": "An attacker creates an elaborate false story (pretextual scenario) claiming to be a new IT contractor needing access to the server room. Which technique?",
+      "options": { "A": "Phishing", "B": "Pretexting", "C": "Smishing", "D": "Whaling" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir saldırgan, sunucu odasına erişmesi gereken yeni bir BT müteahhidi olduğunu iddia eden ayrıntılı sahte bir senaryo oluşturuyor. Hangi teknik?",
+        "optionsTr": { "A": "Kimlik avı", "B": "Pretexting (önceden senaryo oluşturma)", "C": "Smishing", "D": "Whaling" },
+        "patternHint": "Sahte senaryo/kimlik oluşturma = Pretexting.",
+        "whyWrong": { "A": "Phishing e-posta tabanlı.", "C": "Smishing SMS tabanlı.", "D": "Whaling üst yönetim kimlik avı." }
+      }
+    },
+    {
+      "id": "5.6-q9",
+      "questionEn": "An attacker leaves several USB drives in a company parking lot labeled 'Salary Information 2024.' An employee picks one up and plugs it into their work laptop. Which attack?",
+      "options": { "A": "Shoulder surfing", "B": "Tailgating", "C": "USB drop attack", "D": "Watering hole" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir saldırgan, şirket otoparkına 'Maaş Bilgisi 2024' etiketli birkaç USB bellek bırakıyor. Bir çalışan birini alıp iş dizüstü bilgisayarına takıyor. Hangi saldırı?",
+        "optionsTr": { "A": "Omuz sörfü", "B": "Tailgating", "C": "USB bırakma saldırısı", "D": "Watering hole" },
+        "patternHint": "USB bırak + meraklı çalışan taksın = USB drop attack.",
+        "whyWrong": { "A": "Shoulder surfing ekrana bakma.", "B": "Tailgating fiziksel giriş.", "D": "Watering hole web sitesi zehirleme." }
+      }
+    },
+    {
+      "id": "5.6-q10",
+      "questionEn": "A security awareness program is MOST effective when it includes which combination of elements?",
+      "options": {
+        "A": "One annual PowerPoint presentation only",
+        "B": "Continuous training, phishing simulations, role-based content, and measurable metrics",
+        "C": "Only technical controls like firewalls and antivirus",
+        "D": "A single policy document distributed to all employees"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir güvenlik farkındalık programı, hangi unsur kombinasyonunu içerdiğinde EN ETKİLİ olur?",
+        "optionsTr": {
+          "A": "Sadece yıllık bir PowerPoint sunumu",
+          "B": "Sürekli eğitim, kimlik avı simülasyonları, rol bazlı içerik ve ölçülebilir metrikler",
+          "C": "Sadece firewall ve antivirüs gibi teknik kontroller",
+          "D": "Tüm çalışanlara dağıtılan tek bir politika belgesi"
+        },
+        "patternHint": "Etkili farkındalık = sürekli + simülasyon + rol bazlı + metrik.",
+        "whyWrong": { "A": "Yıllık tek sunum yetersiz.", "C": "Teknik kontroller insan faktörünü çözmez.", "D": "Tek belge yeterli değil." }
+      }
+    }
+  ]
+}

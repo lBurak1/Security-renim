@@ -1,0 +1,242 @@
+{
+  "moduleId": "5.2",
+  "title": "Risk Yönetimi Süreci",
+  "domainId": 5,
+  "documentation": [
+    {
+      "heading": "Risk Hesaplama Formülleri",
+      "specTable": {
+        "title": "Kantitatif Risk Hesaplama",
+        "columns": ["Kavram", "Açılım / Formül", "Açıklama"],
+        "rows": [
+          ["AV", "Asset Value", "Varlığın parasal değeri"],
+          ["EF", "Exposure Factor", "Tehdit gerçekleşince varlığın kaybedilen yüzdesi (0-1)"],
+          ["SLE", "Single Loss Expectancy = AV × EF", "Tek bir olayın beklenen kaybı"],
+          ["ARO", "Annualized Rate of Occurrence", "Tehdidin yıllık gerçekleşme sıklığı"],
+          ["ALE", "Annualized Loss Expectancy = SLE × ARO", "Yıllık beklenen toplam kayıp"],
+          ["Safeguard value", "ALE (before) − ALE (after) − Annual cost", "Kontrolün net finansal değeri"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Formül Refleksi",
+          "items": [
+            "SLE = AV × EF. Örn: $1,000,000 server, %40 hasar → SLE = $400,000.",
+            "ALE = SLE × ARO. Örn: SLE $400,000 × ARO 0.5 (her 2 yılda bir) → ALE = $200,000.",
+            "ALE = yıllık beklenen kayıp → bütçe kararları için kullanılır.",
+            "Kontrol maliyeti < ALE farkı ise kontrol ROI'si pozitif."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Nitel vs Nicel Risk Analizi",
+      "specTable": {
+        "title": "Risk Analiz Yöntemleri",
+        "columns": ["Yöntem", "Açıklama", "Çıktı"],
+        "rows": [
+          ["Qualitative (Nitel)", "Uzman görüşü, senaryo analizi — subjektif derecelendirme", "Yüksek/Orta/Düşük gibi kategoriler"],
+          ["Quantitative (Nicel)", "Matematiksel hesaplama (SLE/ALE) — objektif", "Parasal değer ($)"],
+          ["Semi-quantitative", "İkisinin karışımı; sayısal ağırlık + katagori", "Hibrit"]
+        ]
+      }
+    },
+    {
+      "heading": "Risk Yanıt Stratejileri",
+      "specTable": {
+        "title": "4 Risk Yanıt Seçeneği",
+        "columns": ["Strateji", "Açıklama", "Örnek"],
+        "rows": [
+          ["Accept (Kabul)", "Riski bilinçli olarak kabul et — maliyet > etki", "Düşük riskli eski sistem"],
+          ["Avoid (Kaçın)", "Risk yaratan faaliyeti durdur/yapma", "Tehlikeli coğrafyada operasyonu durdurma"],
+          ["Transfer (Transfer)", "Riski başkasına devret", "Sigorta, outsourcing"],
+          ["Mitigate (Azalt)", "Kontrollerle riski azalt", "Firewall kur, patch uygula, MFA etkinleştir"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Risk Transfer = Sigorta",
+          "items": [
+            "Risk transfer = sigorta veya üçüncü tarafa devir.",
+            "Transfer riski ORTADAN KALDIRMAZ; sorumluluğu paylaşır.",
+            "'Cyber insurance' = risk transfer.",
+            "Accept = bilinçli kabul (risk tolerance içinde)."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Risk Türleri ve Risk Kaydı",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Risk Kavramları",
+          "items": [
+            "Inherent risk: Hiçbir kontrol uygulanmadan önceki ham risk.",
+            "Residual risk: Kontroller uygulandıktan sonra KALAN risk.",
+            "Risk appetite: Kurumun kabul etmeye istekli olduğu risk miktarı.",
+            "Risk tolerance: Risk appetite'in maksimum varyasyonu.",
+            "Risk register: Tüm tanımlanan risklerin, olasılık/etki ve yanıtlarının kaydı.",
+            "Risk threshold: Belirli risk düzeyinde harekete geçme tetikçisi."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "AV × EF / single event expected loss", "maps_to": "SLE (Single Loss Expectancy)", "explanation": "Tek olay beklenen kaybı." },
+    { "trigger": "SLE × ARO / annual expected loss", "maps_to": "ALE (Annualized Loss Expectancy)", "explanation": "Yıllık beklenen kayıp." },
+    { "trigger": "How often a threat occurs per year", "maps_to": "ARO (Annualized Rate of Occurrence)", "explanation": "Yıllık tehdit oluşma sıklığı." },
+    { "trigger": "Percentage of asset lost in a single incident", "maps_to": "EF (Exposure Factor)", "explanation": "Etkilenme faktörü." },
+    { "trigger": "Risk remaining after controls are applied", "maps_to": "Residual Risk", "explanation": "Kontrol sonrası kalan risk." },
+    { "trigger": "Risk before any controls / raw risk", "maps_to": "Inherent Risk", "explanation": "Kontrol öncesi ham risk." },
+    { "trigger": "Transfer risk to insurance company", "maps_to": "Risk Transfer", "explanation": "Riski başkasına devretme." },
+    { "trigger": "Stop the activity causing the risk", "maps_to": "Risk Avoidance", "explanation": "Riskten kaçınma." },
+    { "trigger": "Consciously accept the risk / within tolerance", "maps_to": "Risk Acceptance", "explanation": "Riski bilinçli kabul." },
+    { "trigger": "Apply controls to reduce risk / firewall, patch", "maps_to": "Risk Mitigation", "explanation": "Riski kontrol ile azaltma." }
+  ],
+  "questions": [
+    {
+      "id": "5.2-q1",
+      "questionEn": "A server is worth $500,000. If ransomware strikes, 60% of the value is expected to be lost. What is the SLE?",
+      "options": { "A": "$100,000", "B": "$200,000", "C": "$300,000", "D": "$500,000" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir sunucu $500,000 değerinde. Fidye yazılımı çarpacak olursa değerin %60'ının kaybolması bekleniyor. SLE nedir?",
+        "optionsTr": { "A": "$100,000", "B": "$200,000", "C": "$300,000", "D": "$500,000" },
+        "patternHint": "SLE = AV × EF = $500,000 × 0.60 = $300,000.",
+        "whyWrong": { "A": "$500,000 × 0.20 değil.", "B": "$500,000 × 0.40 değil.", "D": "EF %100 olsaydı." }
+      }
+    },
+    {
+      "id": "5.2-q2",
+      "questionEn": "SLE is $300,000 and the threat is expected to occur once every two years. What is the ALE?",
+      "options": { "A": "$600,000", "B": "$300,000", "C": "$150,000", "D": "$50,000" },
+      "correct": "C",
+      "solution": {
+        "translation": "SLE $300,000 ve tehdidin her iki yılda bir gerçekleşmesi bekleniyor. ALE nedir?",
+        "optionsTr": { "A": "$600,000", "B": "$300,000", "C": "$150,000", "D": "$50,000" },
+        "patternHint": "ARO = 1/2 = 0.5. ALE = SLE × ARO = $300,000 × 0.5 = $150,000.",
+        "whyWrong": { "A": "ARO=2 olsaydı.", "B": "ARO=1 olsaydı.", "D": "Yanlış çarpan." }
+      }
+    },
+    {
+      "id": "5.2-q3",
+      "questionEn": "A company buys cyber liability insurance to cover losses from data breaches. Which risk response strategy is this?",
+      "options": { "A": "Risk avoidance", "B": "Risk acceptance", "C": "Risk transfer", "D": "Risk mitigation" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir şirket, veri ihlallerinden kaynaklanan kayıpları karşılamak için siber sorumluluk sigortası alıyor. Hangi risk yanıt stratejisi?",
+        "optionsTr": { "A": "Riskten kaçınma", "B": "Risk kabul", "C": "Risk transferi", "D": "Risk azaltma" },
+        "patternHint": "Sigorta = Risk transfer.",
+        "whyWrong": { "A": "Kaçınma faaliyeti durdurmak.", "B": "Kabul bilinçli kabullenmek.", "D": "Mitigation kontrolle azaltmak." }
+      }
+    },
+    {
+      "id": "5.2-q4",
+      "questionEn": "After implementing a WAF and patching vulnerabilities, some risk remains. What is this remaining risk called?",
+      "options": { "A": "Inherent risk", "B": "Residual risk", "C": "Total risk", "D": "Transferred risk" },
+      "correct": "B",
+      "solution": {
+        "translation": "WAF kurulumu ve zafiyetler yamalandıktan sonra bir miktar risk kalıyor. Bu kalan riske ne denir?",
+        "optionsTr": { "A": "İçkin risk", "B": "Artık risk", "C": "Toplam risk", "D": "Transfer edilmiş risk" },
+        "patternHint": "Kontroller sonrası kalan = Residual risk.",
+        "whyWrong": { "A": "Inherent risk kontrol öncesidir.", "C": "Total risk genel risk.", "D": "Transfer başka tarafa devir." }
+      }
+    },
+    {
+      "id": "5.2-q5",
+      "questionEn": "A company decides NOT to enter a new market because the cybersecurity risks are too high and hard to control. Which strategy?",
+      "options": { "A": "Risk acceptance", "B": "Risk transfer", "C": "Risk avoidance", "D": "Risk mitigation" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir şirket, siber güvenlik riskleri çok yüksek ve kontrol edilmesi zor olduğu için yeni bir pazara GİRMEMEYE karar veriyor. Hangi strateji?",
+        "optionsTr": { "A": "Risk kabul", "B": "Risk transferi", "C": "Riskten kaçınma", "D": "Risk azaltma" },
+        "patternHint": "Risk yaratan faaliyeti yapmama = Risk avoidance.",
+        "whyWrong": { "A": "Acceptance bilinçli kabul.", "B": "Transfer başka tarafa devir.", "D": "Mitigation kontrolle azaltma." }
+      }
+    },
+    {
+      "id": "5.2-q6",
+      "questionEn": "Which risk analysis method uses subjective ratings like High/Medium/Low rather than exact dollar values?",
+      "options": { "A": "Quantitative analysis", "B": "Qualitative analysis", "C": "ALE calculation", "D": "SLE formula" },
+      "correct": "B",
+      "solution": {
+        "translation": "Hangi risk analiz yöntemi, tam dolar değerleri yerine Yüksek/Orta/Düşük gibi öznel derecelendirmeler kullanır?",
+        "optionsTr": { "A": "Nicel analiz", "B": "Nitel analiz", "C": "ALE hesaplama", "D": "SLE formülü" },
+        "patternHint": "'High/Medium/Low subjective ratings' = Qualitative (Nitel).",
+        "whyWrong": { "A": "Quantitative parasal değer kullanır.", "C": "ALE sayısal hesaplama.", "D": "SLE parasal formül." }
+      }
+    },
+    {
+      "id": "5.2-q7",
+      "questionEn": "A risk register is maintained to track all organizational risks. What information does a risk register typically contain?",
+      "options": {
+        "A": "Only firewall rule sets",
+        "B": "All identified risks, their likelihood, impact, owner, and response strategy",
+        "C": "Employee personal records",
+        "D": "Network topology diagrams only"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Tüm kurumsal riskleri takip etmek için bir risk kaydı tutulur. Bir risk kaydı tipik olarak ne içerir?",
+        "optionsTr": {
+          "A": "Sadece firewall kural setleri",
+          "B": "Tüm tanımlanan riskler, olasılıkları, etkileri, sahipleri ve yanıt stratejileri",
+          "C": "Çalışan kişisel kayıtları",
+          "D": "Sadece ağ topoloji diyagramları"
+        },
+        "patternHint": "Risk register = tanımlı riskler + olasılık + etki + sahip + yanıt.",
+        "whyWrong": { "A": "Firewall kuralları risk kaydı değil.", "C": "Kişisel kayıtlar farklı sistem.", "D": "Topoloji haritalar ağ diyagramı." }
+      }
+    },
+    {
+      "id": "5.2-q8",
+      "questionEn": "Management decides to accept a low-severity vulnerability because the cost of fixing it exceeds the potential loss. Which risk strategy is applied?",
+      "options": { "A": "Risk avoidance", "B": "Risk mitigation", "C": "Risk transfer", "D": "Risk acceptance" },
+      "correct": "D",
+      "solution": {
+        "translation": "Yönetim, düzeltme maliyeti olası kayıptan fazla olduğu için düşük şiddetli bir zafiyeti kabul etmeye karar veriyor. Hangi risk stratejisi uygulanıyor?",
+        "optionsTr": { "A": "Riskten kaçınma", "B": "Risk azaltma", "C": "Risk transferi", "D": "Risk kabulü" },
+        "patternHint": "Düşeltme maliyeti > etki → bilinçli kabul = Risk acceptance.",
+        "whyWrong": { "A": "Avoidance faaliyeti durdurmak.", "B": "Mitigation kontrol uygulama.", "C": "Transfer sigorta/outsource." }
+      }
+    },
+    {
+      "id": "5.2-q9",
+      "questionEn": "An organization's risk appetite defines:",
+      "options": {
+        "A": "The exact dollar value of every risk",
+        "B": "How much risk the organization is willing to accept in pursuit of its goals",
+        "C": "The number of annual security incidents",
+        "D": "The maximum firewall rule count"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kuruluşun risk iştahı şunu tanımlar:",
+        "optionsTr": {
+          "A": "Her riskin kesin dolar değeri",
+          "B": "Kuruluşun hedeflerini gerçekleştirirken kabul etmeye istekli olduğu risk miktarı",
+          "C": "Yıllık güvenlik olayı sayısı",
+          "D": "Maksimum firewall kural sayısı"
+        },
+        "patternHint": "Risk appetite = kabul edilebilir risk miktarı/toleransı.",
+        "whyWrong": { "A": "Dolar değeri ALE hesabıdır.", "C": "Olay sayısı ayrı metrik.", "D": "Firewall kuralı risk iştahı değil." }
+      }
+    },
+    {
+      "id": "5.2-q10",
+      "questionEn": "A risk exists BEFORE any security controls are put in place. What is this called?",
+      "options": { "A": "Residual risk", "B": "Transferred risk", "C": "Inherent risk", "D": "Accepted risk" },
+      "correct": "C",
+      "solution": {
+        "translation": "Herhangi bir güvenlik kontrolü uygulanmadan ÖNCE var olan riske ne denir?",
+        "optionsTr": { "A": "Artık risk", "B": "Transfer edilmiş risk", "C": "İçkin/ham risk", "D": "Kabul edilmiş risk" },
+        "patternHint": "Kontrol öncesi ham risk = Inherent risk.",
+        "whyWrong": { "A": "Residual kontrol sonrası kalan.", "B": "Transferred başka tarafa devredilen.", "D": "Accepted bilinçli kabul edilen." }
+      }
+    }
+  ]
+}

@@ -1,0 +1,328 @@
+{
+  "moduleId": "1.1",
+  "title": "Güvenlik Kontrolleri",
+  "domainId": 1,
+  "documentation": [
+    {
+      "heading": "Güvenlik Kontrolü Nedir? (Temel Mantık)",
+      "body": "Güvenlik kontrolü (security control), bir riski **önlemek, tespit etmek, azaltmak veya karşılığını vermek** için uygulanan herhangi bir önlem, politika, prosedür veya teknolojidir. Amaç: bir varlığın gizlilik, bütünlük ve erişilebilirliğini (CIA) korumak.\n\nSY0-701 kontrolleri **İKİ AYRI eksende** sınıflandırır. Bu iki ekseni KARIŞTIRMAMAK sınavın anahtarıdır:\n\n- **Kategori (Category)** = kontrolün **nasıl/hangi araçla** uygulandığı (Technical, Managerial, Operational, Physical).\n- **Tip (Type)** = kontrolün **ne amaçla / hangi anda** çalıştığı (Preventive, Deterrent, Detective, Corrective, Compensating, Directive).\n\nBir kontrol **aynı anda bir kategoriye VE bir tipe** aittir. Örnek: bir güvenlik kamerası → Kategori: Physical, Tip: hem Deterrent hem Detective.",
+      "infoBoxes": [
+        {
+          "kind": "onemli-not",
+          "title": "En Kritik Ezber",
+          "items": [
+            "Kategori sorusu: 'NASIL uygulanıyor?' → Technical / Managerial / Operational / Physical.",
+            "Tip sorusu: 'NE İŞE yarıyor / NE ZAMAN devreye giriyor?' → Preventive / Deterrent / Detective / Corrective / Compensating / Directive.",
+            "Soru 'category' mi 'type' mı soruyor, ÖNCE onu belirle. Yanlış eksende cevap aramak en sık hatadır."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "KONTROL KATEGORİLERİ (4 Adet)",
+      "body": "Kontrolün **uygulanış biçimini** anlatır. 'Bu kontrol neyle hayata geçiyor?' sorusunun cevabıdır.",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "1) Technical (Teknik / Logical)",
+          "items": [
+            "Tanım: Donanım/yazılım/teknoloji ile uygulanan kontroller. 'Logical control' da denir.",
+            "Örnekler: Firewall, IPS/IDS, antivirüs/EDR, şifreleme, ACL (erişim listeleri), MFA, kimlik doğrulama sistemleri, otomatik oturum kapatma, yedekleme yazılımı.",
+            "Ayırt edici: Bir SİSTEM/YAZILIM bunu otomatik yapıyorsa Technical'dır."
+          ]
+        },
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "2) Managerial (Yönetimsel / Administrative)",
+          "items": [
+            "Tanım: Yönetimsel kararlar, politikalar, planlama ile ilgili 'KAĞIT ÜZERİNDE' kontroller.",
+            "Örnekler: Güvenlik politikaları, risk değerlendirmesi, güvenlik planlaması, işe alım taraması (background check) kararı, change management politikası, SDLC.",
+            "Ayırt edici: Bir KURAL/POLİTİKA/PLAN belgesi ise Managerial'dır."
+          ]
+        },
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "3) Operational (Operasyonel)",
+          "items": [
+            "Tanım: İNSANLAR tarafından yürütülen günlük güvenlik süreçleri.",
+            "Örnekler: Güvenlik farkındalık eğitimi, nöbetçi/bekçi (guard) devriyesi, yedeklemenin elle yapılması, kullanıcı erişim incelemeleri, olay müdahale ekibinin çalışması.",
+            "Ayırt edici: Bir İNSANIN düzenli olarak YAPTIĞI iş ise Operational'dır."
+          ]
+        },
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "4) Physical (Fiziksel)",
+          "items": [
+            "Tanım: Fiziksel dünyada erişimi/teması engelleyen kontroller.",
+            "Örnekler: Çit (fence), kilit, kapı, mantrap (access control vestibule), kamera (CCTV), bekçi, bollard (araç bariyeri), badge reader, biyometrik kapı, aydınlatma, kasalar.",
+            "Ayırt edici: Eline DOKUNABİLECEĞİN, fiziksel bir engel ise Physical'dır."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "Kategori Tuzakları",
+          "items": [
+            "Managerial vs Operational: Politika YAZMAK = Managerial. Politikayı uygulayan eğitimi VERMEK = Operational.",
+            "Güvenlik eğitimi → Operational (insan yürütür). Eğitim ZORUNLULUĞUNU koyan politika → Managerial.",
+            "Bekçi (guard) hem Physical hem Operational sayılabilir; CompTIA genelde 'fiziksel engel/varlık' bağlamında Physical, 'devriye/süreç' bağlamında Operational kabul eder. Soruya göre seç."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "KONTROL TİPLERİ (6 Adet)",
+      "body": "Kontrolün **işlevini ve zamanlamasını** anlatır. Olaya göre 'önce mi, sırasında mı, sonra mı' devreye girdiğini düşün.",
+      "specTable": {
+        "title": "6 Kontrol Tipi — Tam Tablo",
+        "columns": ["Tip (EN)", "Türkçe", "Zamanlama / Amaç", "Örnekler"],
+        "rows": [
+          ["Preventive", "Önleyici", "Olay OLMADAN engeller", "Firewall, kilit, ACL, IPS, MFA, mantrap, güvenli yapılandırma"],
+          ["Deterrent", "Caydırıcı", "Saldırganı PSİKOLOJİK olarak vazgeçirir", "Uyarı tabelası, görünür kamera, bekçi, 'köpek var' levhası, aydınlatma"],
+          ["Detective", "Tespit edici", "Olayı OLURKEN/SONRA fark eder", "IDS, SIEM, log, kamera KAYDI, alarm, FIM, denetim (audit)"],
+          ["Corrective", "Düzeltici", "Olaydan SONRA durumu onarır/geri getirir", "Yedekten geri yükleme, yama uygulama, antivirüs karantinası, IPS'in bağlantıyı kesmesi"],
+          ["Compensating", "Telafi edici", "Asıl kontrol YOKKEN/uygulanamazken alternatif", "Yamalanamayan sisteme segmentasyon, MFA yerine geçici ek doğrulama"],
+          ["Directive", "Yönlendirici", "Davranışı ZORUNLU KILAR/yönlendirir", "Politika, prosedür, AUP, işaret/talimat, 'şunu yapın' kuralı"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "ipucu",
+          "title": "Tipleri Ayırma Refleksi",
+          "items": [
+            "Deterrent vs Preventive: Deterrent saldırganı KORKUTUR (görünür kamera, tabela). Preventive fiziksel/teknik olarak ENGELLER (kilit, firewall). Tabela vazgeçirir ama girmeyi fiziksel engellemez.",
+            "Deterrent vs Detective: Görünür kamera = Deterrent (caydırır). Kameranın KAYDI = Detective (sonradan tespit). Aynı cihaz iki tip!",
+            "Corrective vs Compensating: Corrective olaydan SONRA ONARIR (yedekten dön). Compensating asıl kontrol YOKKEN alternatif koyar (yama yapamıyorum, izole ediyorum).",
+            "Directive = 'YAP' diyen kural/talimat. Genelde Managerial kategoriyle birlikte gelir."
+          ]
+        },
+        {
+          "kind": "onemli-not",
+          "title": "Bir Cihaz Birden Çok Tip Olabilir",
+          "items": [
+            "Güvenlik kamerası: Deterrent (görünür → caydırır) + Detective (kayıt → tespit).",
+            "IPS: Preventive (saldırıyı engeller) + Detective (tespit eder) + Corrective (bağlantıyı keser).",
+            "Bekçi: Deterrent + Detective + Preventive olabilir. Soru bağlamı belirler."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "KATEGORİ × TİP MATRİSİ (Örnek Eşleştirmeler)",
+      "body": "Aynı kontrolün iki eksende nasıl konumlandığını gösteren referans. Sınavda 'şu kontrol hangi kategori ve hangi tip?' diye sorulabilir.",
+      "specTable": {
+        "title": "Gerçek Kontroller — İki Eksende",
+        "columns": ["Kontrol", "Kategori", "Tip(ler)"],
+        "rows": [
+          ["Firewall", "Technical", "Preventive"],
+          ["Görünür CCTV kamera", "Physical", "Deterrent + Detective"],
+          ["Kapı kilidi", "Physical", "Preventive"],
+          ["Uyarı tabelası", "Physical", "Deterrent"],
+          ["Güvenlik politikası", "Managerial", "Directive"],
+          ["Risk değerlendirmesi", "Managerial", "Detective (riski ortaya çıkarır)"],
+          ["Güvenlik eğitimi", "Operational", "Preventive (genelde)"],
+          ["IDS / SIEM logları", "Technical", "Detective"],
+          ["Yedekten geri yükleme", "Technical", "Corrective"],
+          ["Yamalanamayan sisteme ağ izolasyonu", "Technical", "Compensating"],
+          ["Bekçi devriyesi", "Operational", "Deterrent + Detective"],
+          ["Bollard (araç bariyeri)", "Physical", "Preventive"]
+        ]
+      }
+    }
+  ],
+  "glossary": [
+    { "trigger": "Visible camera / Warning sign / Beware of dog / Lighting", "maps_to": "Deterrent", "explanation": "Saldırganı psikolojik olarak vazgeçiren, GÖRÜNÜR önlemler = Caydırıcı." },
+    { "trigger": "Logs / IDS / SIEM / Alarm / Audit / Camera recording", "maps_to": "Detective", "explanation": "Olayı tespit eden/raporlayan her şey = Tespit edici." },
+    { "trigger": "Cannot patch / Legacy system / Alternative measure / Workaround", "maps_to": "Compensating", "explanation": "Asıl kontrol uygulanamadığında devreye giren alternatif = Telafi edici." },
+    { "trigger": "Restore from backup / Patch after incident / Quarantine", "maps_to": "Corrective", "explanation": "Olaydan SONRA onarım/geri getirme = Düzeltici." },
+    { "trigger": "Firewall / Lock / ACL / MFA / IPS / Mantrap", "maps_to": "Preventive", "explanation": "Olay olmadan engelleyen = Önleyici." },
+    { "trigger": "Policy / Procedure / Standard / AUP / Instruction", "maps_to": "Directive (tip) + genelde Managerial (kategori)", "explanation": "Davranış zorunlu kılan kural = Directive tip, Managerial kategori." },
+    { "trigger": "Implemented with technology / software / hardware", "maps_to": "Technical (Logical) Category", "explanation": "Teknoloji ile uygulanan = Teknik kategori." },
+    { "trigger": "Policy / Risk assessment / Planning / Background check decision", "maps_to": "Managerial Category", "explanation": "Yönetimsel karar/politika = Managerial kategori." },
+    { "trigger": "Security awareness training / Guard rounds / People-driven process", "maps_to": "Operational Category", "explanation": "İnsanların yürüttüğü süreç = Operasyonel kategori." },
+    { "trigger": "Fence / Lock / Guard / Bollard / Badge reader / CCTV", "maps_to": "Physical Category", "explanation": "Fiziksel engel/varlık = Fiziksel kategori." },
+    { "trigger": "Stops the attack from happening", "maps_to": "Preventive", "explanation": "Engelleyici amaç." },
+    { "trigger": "Guides/forces behavior / mandates an action", "maps_to": "Directive", "explanation": "Davranışı yönlendiren/zorunlu kılan kontrol." }
+  ],
+  "questions": [
+    {
+      "id": "1.1-q1",
+      "questionEn": "A company cannot patch a legacy server that runs a critical application. To reduce risk, the security team isolates the server on a separate VLAN with strict firewall rules. Which of the following BEST describes this control TYPE?",
+      "options": { "A": "Preventive", "B": "Compensating", "C": "Detective", "D": "Deterrent" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir şirket, kritik bir uygulamayı çalıştıran eski (legacy) sunucuya yama yapamıyor. Riski azaltmak için ekip sunucuyu ayrı bir VLAN'a alıp sıkı firewall kuralları uyguluyor. Bunu EN İYİ açıklayan kontrol TİPİ hangisidir?",
+        "optionsTr": { "A": "Önleyici", "B": "Telafi edici", "C": "Tespit edici", "D": "Caydırıcı" },
+        "patternHint": "'cannot patch' + 'legacy' + 'alternatif önlem' = Compensating. Asıl çözümü (yama) yapamayıp yerine başka kontrol koymak telafi edicidir.",
+        "whyWrong": {
+          "A": "Firewall normalde önleyicidir ama buradaki bağlam 'asıl kontrol yapılamadığı için alternatif' olduğundan Compensating daha doğru.",
+          "C": "Tespit eden bir mekanizma yok; erişim kısıtlanıyor.",
+          "D": "Caydırıcılık psikolojiktir; burada teknik izolasyon var."
+        }
+      }
+    },
+    {
+      "id": "1.1-q2",
+      "questionEn": "Which of the following is an example of an OPERATIONAL security control?",
+      "options": { "A": "Encryption of data at rest", "B": "An information security policy", "C": "Security guard performing rounds", "D": "A network firewall" },
+      "correct": "C",
+      "solution": {
+        "translation": "Aşağıdakilerden hangisi OPERASYONEL bir güvenlik kontrolü örneğidir?",
+        "optionsTr": { "A": "Durağan verinin şifrelenmesi", "B": "Bir bilgi güvenliği politikası", "C": "Devriye gezen güvenlik görevlisi", "D": "Ağ firewall'u" },
+        "patternHint": "Operational = İNSANIN YÜRÜTTÜĞÜ süreç. 'Guard performing rounds' insan eylemidir.",
+        "whyWrong": {
+          "A": "Şifreleme teknoloji ile uygulanır = Technical.",
+          "B": "Politika yönetimsel karardır = Managerial.",
+          "D": "Firewall teknik kontroldür = Technical."
+        }
+      }
+    },
+    {
+      "id": "1.1-q3",
+      "questionEn": "A large warning sign reading '24/7 CCTV Surveillance' is posted at a facility entrance. Which control type does the SIGN itself MOST represent?",
+      "options": { "A": "Detective", "B": "Corrective", "C": "Deterrent", "D": "Preventive" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir tesisin girişine '7/24 CCTV Gözetim' yazan büyük bir uyarı tabelası asılmış. TABELANIN KENDİSİ en çok hangi kontrol tipini temsil eder?",
+        "optionsTr": { "A": "Tespit edici", "B": "Düzeltici", "C": "Caydırıcı", "D": "Önleyici" },
+        "patternHint": "Kameranın KAYDI = Detective, ama TABELA/uyarı = Deterrent. Soru 'the SIGN itself' diyor.",
+        "whyWrong": {
+          "A": "Detective olan kameranın kayıt fonksiyonudur, tabela değil.",
+          "B": "Düzeltici olaydan sonra onarır.",
+          "D": "Önleyici fiziksel engeldir; tabela psikolojik caydırıcıdır."
+        }
+      }
+    },
+    {
+      "id": "1.1-q4",
+      "questionEn": "An organization implements a written policy requiring all employees to complete annual security training. The POLICY document itself is BEST classified as which control category and type?",
+      "options": { "A": "Operational category, Detective type", "B": "Managerial category, Directive type", "C": "Technical category, Preventive type", "D": "Physical category, Deterrent type" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kurum, tüm çalışanların yıllık güvenlik eğitimini tamamlamasını zorunlu kılan yazılı bir politika uyguluyor. POLİTİKA belgesinin kendisi hangi kontrol kategorisi ve tipi olarak EN İYİ sınıflandırılır?",
+        "optionsTr": { "A": "Operasyonel kategori, Tespit tipi", "B": "Yönetimsel kategori, Yönlendirici tip", "C": "Teknik kategori, Önleyici tip", "D": "Fiziksel kategori, Caydırıcı tip" },
+        "patternHint": "Yazılı politika = Managerial kategori. Davranışı zorunlu kılması = Directive tip. (Eğitimin KENDİSİ Operational olurdu ama soru POLİTİKAYI soruyor.)",
+        "whyWrong": {
+          "A": "Eğitimi yürütmek Operational'dır ama belge Managerial'dır; ayrıca tip Directive.",
+          "C": "Politika teknoloji değildir.",
+          "D": "Politika fiziksel bir engel değildir."
+        }
+      }
+    },
+    {
+      "id": "1.1-q5",
+      "questionEn": "After a ransomware incident encrypts several servers, the IT team restores the affected systems from clean backups. Which control type is being applied?",
+      "options": { "A": "Preventive", "B": "Detective", "C": "Corrective", "D": "Compensating" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir fidye yazılımı olayı birkaç sunucuyu şifreledikten sonra BT ekibi etkilenen sistemleri temiz yedeklerden geri yüklüyor. Hangi kontrol tipi uygulanıyor?",
+        "optionsTr": { "A": "Önleyici", "B": "Tespit edici", "C": "Düzeltici", "D": "Telafi edici" },
+        "patternHint": "'Restore from backup' + olay SONRASI onarım = Corrective. Olaydan sonra durumu eski haline getiren kontroldür.",
+        "whyWrong": {
+          "A": "Önleyici olay olmadan engeller; burada olay olmuş.",
+          "B": "Tespit zaten gerçekleşti; bu adım onarım.",
+          "D": "Compensating asıl kontrol yokken alternatiftir; burada normal kurtarma var."
+        }
+      }
+    },
+    {
+      "id": "1.1-q6",
+      "questionEn": "Which control is PRIMARILY designed to discourage a potential attacker through psychological means rather than physically stopping them?",
+      "options": { "A": "Preventive", "B": "Deterrent", "C": "Corrective", "D": "Detective" },
+      "correct": "B",
+      "solution": {
+        "translation": "Hangi kontrol, bir saldırganı fiziksel olarak durdurmaktan ziyade ÖNCELİKLE psikolojik yollarla caydırmak için tasarlanmıştır?",
+        "optionsTr": { "A": "Önleyici", "B": "Caydırıcı", "C": "Düzeltici", "D": "Tespit edici" },
+        "patternHint": "'discourage ... psychological' = Deterrent. Caydırıcı engellemez, vazgeçirir.",
+        "whyWrong": {
+          "A": "Önleyici fiziksel/teknik olarak engeller, psikolojik değil.",
+          "C": "Düzeltici olay sonrası onarır.",
+          "D": "Tespit edici olayı fark eder, caydırmaz."
+        }
+      }
+    },
+    {
+      "id": "1.1-q7",
+      "questionEn": "An access control vestibule (mantrap) is installed at a data center entrance to prevent tailgating. Which control CATEGORY and TYPE BEST apply?",
+      "options": { "A": "Technical category, Detective type", "B": "Physical category, Preventive type", "C": "Managerial category, Directive type", "D": "Operational category, Deterrent type" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir veri merkezi girişine, peşe takılmayı (tailgating) önlemek için bir erişim kontrol geçişi (mantrap) kuruluyor. Hangi kontrol KATEGORİSİ ve TİPİ en iyi uyar?",
+        "optionsTr": { "A": "Teknik kategori, Tespit tipi", "B": "Fiziksel kategori, Önleyici tip", "C": "Yönetimsel kategori, Yönlendirici tip", "D": "Operasyonel kategori, Caydırıcı tip" },
+        "patternHint": "Mantrap fiziksel bir engeldir = Physical kategori. Girişi fiziksel olarak engeller = Preventive tip.",
+        "whyWrong": {
+          "A": "Mantrap teknoloji değil fiziksel yapıdır ve tespit değil engelleme yapar.",
+          "C": "Politika değil fiziksel yapıdır.",
+          "D": "Sadece caydırmaz, fiilen engeller (Preventive)."
+        }
+      }
+    },
+    {
+      "id": "1.1-q8",
+      "questionEn": "A SIEM solution continuously collects and analyzes logs to identify suspicious activity and raise alerts. Which control type does the SIEM PRIMARILY represent?",
+      "options": { "A": "Preventive", "B": "Deterrent", "C": "Detective", "D": "Corrective" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir SIEM çözümü, şüpheli aktiviteyi tanımlamak ve uyarı üretmek için sürekli log toplayıp analiz ediyor. SIEM ÖNCELİKLE hangi kontrol tipini temsil eder?",
+        "optionsTr": { "A": "Önleyici", "B": "Caydırıcı", "C": "Tespit edici", "D": "Düzeltici" },
+        "patternHint": "'collects logs', 'identify', 'raise alerts' = Detective. SIEM tespit eder ve haber verir, engellemez.",
+        "whyWrong": {
+          "A": "SIEM saldırıyı engellemez, tespit eder.",
+          "B": "SIEM saldırgana görünmez, caydırmaz.",
+          "D": "SIEM kendisi onarım yapmaz; tespit sonrası başka kontroller düzeltir."
+        }
+      }
+    },
+    {
+      "id": "1.1-q9",
+      "questionEn": "A bollard is placed in front of a building's glass entrance. Which control type does it represent, and why?",
+      "options": {
+        "A": "Detective, because it records vehicle approaches",
+        "B": "Preventive, because it physically blocks vehicles from ramming the entrance",
+        "C": "Corrective, because it repairs damage after an incident",
+        "D": "Directive, because it instructs drivers where to go"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir binanın cam girişinin önüne bir bollard (sağlam dikme/bariyer) yerleştiriliyor. Hangi kontrol tipini temsil eder ve neden?",
+        "optionsTr": {
+          "A": "Tespit edici, çünkü araç yaklaşmalarını kaydeder",
+          "B": "Önleyici, çünkü araçların girişe çarpmasını fiziksel olarak engeller",
+          "C": "Düzeltici, çünkü olaydan sonra hasarı onarır",
+          "D": "Yönlendirici, çünkü sürücülere nereye gideceklerini söyler"
+        },
+        "patternHint": "Bollard fiziksel olarak araç girişini ENGELLER = Preventive. Fiziksel engel = preventive refleksi.",
+        "whyWrong": {
+          "A": "Bollard kayıt yapmaz.",
+          "C": "Hasarı onarmaz, oluşmasını engeller.",
+          "D": "Talimat vermez, fiziksel bariyerdir."
+        }
+      }
+    },
+    {
+      "id": "1.1-q10",
+      "questionEn": "An auditor reviews user access logs each quarter to identify accounts with excessive permissions. This recurring human-performed review is BEST described as which category and type?",
+      "options": {
+        "A": "Operational category, Detective type",
+        "B": "Technical category, Preventive type",
+        "C": "Physical category, Deterrent type",
+        "D": "Managerial category, Corrective type"
+      },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir denetçi, aşırı izinli hesapları tespit etmek için her çeyrekte kullanıcı erişim loglarını inceliyor. İnsan tarafından yürütülen bu tekrarlı inceleme hangi kategori ve tip olarak EN İYİ tanımlanır?",
+        "optionsTr": {
+          "A": "Operasyonel kategori, Tespit tipi",
+          "B": "Teknik kategori, Önleyici tip",
+          "C": "Fiziksel kategori, Caydırıcı tip",
+          "D": "Yönetimsel kategori, Düzeltici tip"
+        },
+        "patternHint": "İnsanın yürüttüğü tekrarlı süreç = Operational kategori. Sorunu (aşırı izin) ORTAYA ÇIKARMASI = Detective tip.",
+        "whyWrong": {
+          "B": "İnceleme bir teknoloji değil insan sürecidir.",
+          "C": "Fiziksel bir engel yok.",
+          "D": "Bulguyu ortaya çıkarır (Detective) ama kendisi düzeltmez; ayrıca kategori Operational."
+        }
+      }
+    }
+  ]
+}

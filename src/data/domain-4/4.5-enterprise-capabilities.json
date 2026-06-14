@@ -1,0 +1,241 @@
+{
+  "moduleId": "4.5",
+  "title": "Kurumsal Güvenlik Yeteneklerini Geliştirme",
+  "domainId": 4,
+  "documentation": [
+    {
+      "heading": "Firewall Kuralları ve ACL",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Firewall/ACL Temel İlkeleri",
+          "items": [
+            "ACL (Access Control List): Ağ cihazlarında izin/engelleme kuralı listesi.",
+            "Implicit deny: Kural listesinin sonunda HER ŞEYİ ENGELLE kuralı — açıkça izin verilmeyene erişim yok.",
+            "Firewall rules are evaluated TOP to BOTTOM — ilk eşleşen kural kazanır.",
+            "Stateful firewall: Oturum durumunu takip eder; gönderilen pakete otomatik yanıta izin verir.",
+            "Screened subnet (DMZ): İnternete açık servisler için tampon bölge."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "Implicit Deny",
+          "items": [
+            "'Kural listesinde olmayan trafik ne olur?' → Implicit deny ile otomatik engellenir.",
+            "Explicit deny: Listenin içinde yazılmış ENGELLE kuralı.",
+            "Best practice: En az ayrıcalık + implicit deny kombinasyonu."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "E-posta Güvenliği (SPF / DKIM / DMARC)",
+      "specTable": {
+        "title": "E-posta Kimlik Doğrulama Protokolleri",
+        "columns": ["Protokol", "Açılım", "İşlev"],
+        "rows": [
+          ["SPF", "Sender Policy Framework", "DNS kaydı: hangi IP'lerin bu domain adına e-posta gönderebildiğini tanımlar"],
+          ["DKIM", "DomainKeys Identified Mail", "E-postanın dijital imzası — içerik değiştirme koruması"],
+          ["DMARC", "Domain-based Message Authentication, Reporting & Conformance", "SPF/DKIM başarısız olursa ne yapılacağını belirler (reject/quarantine/none) + raporlama"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "SPF / DKIM / DMARC Refleksi",
+          "items": [
+            "SPF = 'kim gönderebilir' (IP listesi DNS'te).",
+            "DKIM = 'içerik değişmedi' (dijital imza).",
+            "DMARC = 'SPF/DKIM başarısız olursa NE YAP' + rapor al.",
+            "'Phishing using your domain' → SPF + DKIM + DMARC üçlüsü."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Tespit Yöntemleri: İmza vs Anomali",
+      "specTable": {
+        "title": "Tespit Yaklaşımları",
+        "columns": ["Yöntem", "Nasıl Çalışır", "Avantaj / Dezavantaj"],
+        "rows": [
+          ["Signature-based (rule-based)", "Bilinen saldırı desenlerini (imzalarını) eşleştirir", "Hızlı, az false positive; zero-day'i göremez"],
+          ["Anomaly-based (behavioral)", "Normal davranıştan sapmaları tespit eder", "Zero-day'i yakalayabilir; false positive yüksek"],
+          ["Heuristic", "Sezgisel analiz; imza + davranış karışımı", "Daha esnek ama karmaşık"]
+        ]
+      }
+    },
+    {
+      "heading": "NAC ve FIM",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "NAC ve FIM",
+          "items": [
+            "NAC (Network Access Control): Ağa bağlanmak isteyen cihazın uyumluluğunu kontrol eder (patch durumu, AV, disk şifreleme).",
+            "Agent-based NAC: Cihazda yüklü ajan posture kontrolü yapar.",
+            "Agentless NAC: SNMP/DHCP/802.1X ile ağdan posture tespiti.",
+            "FIM (File Integrity Monitoring): Kritik dosyaların (OS, config) hash'ini izler — yetkisiz değişikliği tespit eder.",
+            "FIM kullanımı: OS sistem dosyaları, konfigürasyon dosyaları, uygulama ikilileri."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "DNS Filtreleme ve URL Analizi",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "İçerik Filtreleme",
+          "items": [
+            "DNS filtering: Kötü amaçlı/yasaklı domainlere DNS çözümlemesini engelle.",
+            "URL filtering: Web proxy üzerinden URL bazlı kısıtlama.",
+            "Content categorization: İçeriği kategorilere göre filtrele (sosyal medya, kumar vb.).",
+            "Reputation-based filtering: IP/domain reputation skoruna göre engelleme."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Block all traffic not explicitly permitted / default deny", "maps_to": "Implicit Deny", "explanation": "Açıkça izin verilmeyen her şeyi engelle." },
+    { "trigger": "DNS record listing authorized mail senders for a domain", "maps_to": "SPF", "explanation": "E-posta gönderici yetkisi DNS kaydı." },
+    { "trigger": "Digital signature on email / content integrity", "maps_to": "DKIM", "explanation": "E-posta dijital imzası." },
+    { "trigger": "What to do when SPF/DKIM fails / email policy enforcement", "maps_to": "DMARC", "explanation": "E-posta kimlik doğrulama politikası." },
+    { "trigger": "Detect known attack patterns / signatures", "maps_to": "Signature-based Detection", "explanation": "İmza tabanlı tespit." },
+    { "trigger": "Detect deviation from normal behavior / zero-day capable", "maps_to": "Anomaly-based Detection", "explanation": "Anomali tabanlı tespit." },
+    { "trigger": "Check device compliance before granting network access", "maps_to": "NAC (Network Access Control)", "explanation": "Ağ erişim kontrolü." },
+    { "trigger": "Monitor critical file hashes for unauthorized changes", "maps_to": "FIM (File Integrity Monitoring)", "explanation": "Dosya bütünlük izleme." }
+  ],
+  "questions": [
+    {
+      "id": "4.5-q1",
+      "questionEn": "A firewall ruleset has no rule matching a particular type of inbound traffic. What happens by default?",
+      "options": { "A": "The traffic is allowed through", "B": "The traffic is logged and forwarded", "C": "The traffic is blocked by implicit deny", "D": "The traffic triggers an alert only" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir firewall kural seti, belirli türdeki gelen trafikle eşleşen hiçbir kural içermiyor. Varsayılan olarak ne olur?",
+        "optionsTr": { "A": "Trafik geçirilir", "B": "Trafik loglanır ve iletilir", "C": "Trafik implicit deny ile engellenir", "D": "Trafik sadece uyarı tetikler" },
+        "patternHint": "Eşleşen kural yok = Implicit deny → engellenir.",
+        "whyWrong": { "A": "Eşleşme yoksa geçmez.", "B": "Sadece loglama ve iletme güvenlik dışı.", "D": "Implicit deny engeller, sadece uyarı değil." }
+      }
+    },
+    {
+      "id": "4.5-q2",
+      "questionEn": "Phishing emails appear to come from your company's domain. Which set of controls BEST prevents domain spoofing in email?",
+      "options": { "A": "TLS + IPSec", "B": "SPF + DKIM + DMARC", "C": "VPN + firewall rules", "D": "NAC + FIM" },
+      "correct": "B",
+      "solution": {
+        "translation": "Kimlik avı e-postaları şirketinizin domaininden geliyormuş gibi görünüyor. Hangi kontrol seti e-postada domain sahteciliğini EN İYİ önler?",
+        "optionsTr": { "A": "TLS + IPSec", "B": "SPF + DKIM + DMARC", "C": "VPN + firewall kuralları", "D": "NAC + FIM" },
+        "patternHint": "E-posta domain sahteciliği = SPF + DKIM + DMARC üçlüsü.",
+        "whyWrong": { "A": "TLS/IPSec iletim şifrelemesidir.", "C": "VPN uzaktan erişimdir.", "D": "NAC ağ erişimi, FIM dosya bütünlüğüdür." }
+      }
+    },
+    {
+      "id": "4.5-q3",
+      "questionEn": "An IDS uses a database of known attack patterns to identify threats. Which detection method is this?",
+      "options": { "A": "Anomaly-based", "B": "Heuristic", "C": "Signature-based", "D": "Behavioral" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir IDS, tehditleri tanımlamak için bilinen saldırı desenlerinin veritabanını kullanıyor. Hangi tespit yöntemi?",
+        "optionsTr": { "A": "Anomali tabanlı", "B": "Sezgisel", "C": "İmza tabanlı", "D": "Davranışsal" },
+        "patternHint": "'known patterns + database' = Signature-based.",
+        "whyWrong": { "A": "Anomali normal davranıştan sapma arar.", "B": "Heuristic karma yöntemdir.", "D": "Behavioral = anomaly tabanlı eşdeğer." }
+      }
+    },
+    {
+      "id": "4.5-q4",
+      "questionEn": "An organization wants to detect zero-day threats by identifying unusual patterns in user behavior rather than matching known signatures. Which approach?",
+      "options": { "A": "Signature-based detection", "B": "Anomaly-based detection", "C": "Implicit deny", "D": "DKIM signing" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kurum, bilinen imzaları eşleştirmek yerine kullanıcı davranışındaki olağandışı desenleri tespit ederek zero-day tehditlerini yakalamak istiyor. Hangi yaklaşım?",
+        "optionsTr": { "A": "İmza tabanlı tespit", "B": "Anomali tabanlı tespit", "C": "Implicit deny", "D": "DKIM imzalama" },
+        "patternHint": "Zero-day + davranışsal sapma = Anomaly-based.",
+        "whyWrong": { "A": "Signature-based zero-day'i tanımaz.", "C": "Implicit deny firewall kuralıdır.", "D": "DKIM e-posta doğrulamadır." }
+      }
+    },
+    {
+      "id": "4.5-q5",
+      "questionEn": "Before a laptop is allowed onto the corporate Wi-Fi, it must have an up-to-date AV and all patches applied. Which control enforces this?",
+      "options": { "A": "FIM", "B": "NAC (Network Access Control)", "C": "SIEM", "D": "DLP" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir dizüstü bilgisayarın kurumsal Wi-Fi'ye bağlanmasına izin verilmeden önce güncel AV ve tüm yamaların uygulanmış olması gerekiyor. Hangi kontrol bunu uygular?",
+        "optionsTr": { "A": "FIM", "B": "NAC (Ağ Erişim Kontrolü)", "C": "SIEM", "D": "DLP" },
+        "patternHint": "Ağa bağlanmadan önce cihaz uyumluluk kontrolü = NAC.",
+        "whyWrong": { "A": "FIM dosya değişikliği izler.", "C": "SIEM log toplar.", "D": "DLP veri sızıntısı önler." }
+      }
+    },
+    {
+      "id": "4.5-q6",
+      "questionEn": "A security tool detects that a critical system binary (/bin/sudo) has been modified since baseline. Which control identified this?",
+      "options": { "A": "NAC", "B": "SPF", "C": "FIM (File Integrity Monitoring)", "D": "NetFlow" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir güvenlik aracı, kritik bir sistem ikili dosyasının (/bin/sudo) temelden beri değiştirildiğini tespit ediyor. Hangi kontrol bunu tespit etti?",
+        "optionsTr": { "A": "NAC", "B": "SPF", "C": "FIM (Dosya Bütünlük İzleme)", "D": "NetFlow" },
+        "patternHint": "Kritik dosya değişikliği tespiti = FIM.",
+        "whyWrong": { "A": "NAC ağ erişim kontrolü.", "B": "SPF e-posta protokolü.", "D": "NetFlow ağ trafik analizi." }
+      }
+    },
+    {
+      "id": "4.5-q7",
+      "questionEn": "What does SPF specifically protect against?",
+      "options": {
+        "A": "Email content tampering",
+        "B": "Unauthorized IP addresses sending email on behalf of a domain",
+        "C": "What to do when DKIM fails",
+        "D": "Malware in email attachments"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "SPF özellikle neye karşı korur?",
+        "optionsTr": {
+          "A": "E-posta içeriği kurcalama",
+          "B": "Yetkisiz IP adreslerinin bir domain adına e-posta göndermesi",
+          "C": "DKIM başarısız olduğunda ne yapılacağı",
+          "D": "E-posta eklerindeki kötü amaçlı yazılım"
+        },
+        "patternHint": "SPF = hangi IP bu domain'den e-posta gönderebilir (DNS kaydı).",
+        "whyWrong": { "A": "İçerik bütünlüğü DKIM'dir.", "C": "DKIM başarısız olduğunda ne yapılacağı DMARC'dır.", "D": "Attachment tarama antivirüs/sandbox'tır." }
+      }
+    },
+    {
+      "id": "4.5-q8",
+      "questionEn": "A DNS filtering solution blocks employee access to known malware distribution sites. Which capability does this represent?",
+      "options": { "A": "DMARC enforcement", "B": "DNS filtering / reputation-based blocking", "C": "NAC posture check", "D": "FIM alerting" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir DNS filtreleme çözümü, çalışanların bilinen kötü amaçlı yazılım dağıtım sitelerine erişimini engelliyor. Bu hangi yeteneği temsil eder?",
+        "optionsTr": { "A": "DMARC uygulama", "B": "DNS filtreleme / itibar tabanlı engelleme", "C": "NAC posture kontrolü", "D": "FIM uyarısı" },
+        "patternHint": "Kötü domain'lere DNS çözümlemeyi engelleme = DNS filtering.",
+        "whyWrong": { "A": "DMARC e-posta politikası.", "C": "NAC cihaz uyumluluk kontrolü.", "D": "FIM dosya değişikliği izleme." }
+      }
+    },
+    {
+      "id": "4.5-q9",
+      "questionEn": "An email from hr@company.com passes SPF but DKIM signature verification fails. DMARC policy is set to 'reject'. What happens to the email?",
+      "options": { "A": "Delivered normally", "B": "Quarantined automatically", "C": "Rejected and not delivered", "D": "Forwarded to IT for review" },
+      "correct": "C",
+      "solution": {
+        "translation": "hr@company.com'dan gelen bir e-posta SPF'yi geçiyor ama DKIM imza doğrulaması başarısız oluyor. DMARC politikası 'reject' olarak ayarlı. E-postaya ne olur?",
+        "optionsTr": { "A": "Normal teslim edilir", "B": "Otomatik karantinaya alınır", "C": "Reddedilir ve teslim edilmez", "D": "İnceleme için BT'ye iletilir" },
+        "patternHint": "DMARC = 'reject' → SPF/DKIM başarısız olduğunda e-postayı reddet.",
+        "whyWrong": { "A": "DMARC reject politikası teslime izin vermez.", "B": "Quarantine DMARC politika seçeneğidir ama burada reject ayarlı.", "D": "Otomatik iletim DMARC'ın işlevi değil." }
+      }
+    },
+    {
+      "id": "4.5-q10",
+      "questionEn": "Firewall rules are evaluated top-to-bottom, and the first matching rule applies. An admin wants to ensure that NO traffic is allowed unless explicitly permitted. Which rule must exist at the END of the ruleset?",
+      "options": { "A": "Allow all from internal", "B": "Log all traffic", "C": "Explicit allow for HTTPS", "D": "Implicit deny (deny all)" },
+      "correct": "D",
+      "solution": {
+        "translation": "Firewall kuralları yukarıdan aşağıya değerlendirilir ve ilk eşleşen kural uygulanır. Bir yönetici, açıkça izin verilmedikçe HİÇBİR trafiğe izin verilmemesini istiyor. Kural setinin SONUNDA hangi kural olmalı?",
+        "optionsTr": { "A": "İç ağdan gelen her şeye izin ver", "B": "Tüm trafiği logla", "C": "HTTPS için açık izin", "D": "Implicit deny (her şeyi engelle)" },
+        "patternHint": "En sonda 'deny all' = Implicit deny — eşleşmeyen her şeyi engeller.",
+        "whyWrong": { "A": "İç ağdan her şeye izin vermek güvensiz.", "B": "Loglama engel değildir.", "C": "HTTPS izni spesifik bir kuraldır, sona koyulmaz." }
+      }
+    }
+  ]
+}

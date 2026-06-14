@@ -1,0 +1,215 @@
+{
+  "moduleId": "4.4",
+  "title": "İzleme ve Uyarı (Monitoring & Alerting)",
+  "domainId": 4,
+  "documentation": [
+    {
+      "heading": "SIEM ve SOAR",
+      "specTable": {
+        "title": "SIEM vs SOAR",
+        "columns": ["Araç", "Açılım", "İşlev"],
+        "rows": [
+          ["SIEM", "Security Information & Event Management", "Log topla, ilişkilendir, uyar, analiz et — INSAN müdahalesi"],
+          ["SOAR", "Security Orchestration, Automation & Response", "SIEM + OTOMATİK yanıt (playbook çalıştırır)"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "SIEM vs SOAR",
+          "items": [
+            "SIEM = toplayıp uyarır, insan karar verir.",
+            "SOAR = SIEM'e eklenmiş; uyarı gelince playbook otomatik çalışır (IP engelle, ticket aç vb.).",
+            "'Automated response / playbook / no human needed' → SOAR."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Ağ İzleme Protokolleri",
+      "specTable": {
+        "title": "İzleme Araçları ve Protokoller",
+        "columns": ["Araç/Protokol", "İşlev"],
+        "rows": [
+          ["SNMP", "Simple Network Management Protocol — cihaz sağlığı, trafik, hata izleme"],
+          ["NetFlow / sFlow / IPFIX", "Ağ trafik akışı analizi (kimin, neye, ne kadar gönderdiği)"],
+          ["Packet capture (PCAP)", "Tam paket yakalama/analizi (Wireshark)"],
+          ["Syslog", "Merkezi log gönderimi (UDP 514 / TCP 6514)"],
+          ["NTP", "Network Time Protocol — zaman senkronizasyonu; log tutarlılığı için kritik"]
+        ]
+      }
+    },
+    {
+      "heading": "EDR ve XDR",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Uç Nokta ve Genişletilmiş Tespit",
+          "items": [
+            "EDR (Endpoint Detection & Response): Uç noktalarda gerçek zamanlı davranış analizi, tehdit tespiti ve yanıt.",
+            "XDR (Extended Detection & Response): EDR + ağ + bulut; cross-domain görünürlük.",
+            "MDR (Managed Detection & Response): EDR/XDR'ı dışarıdan yöneten servis.",
+            "Antivirus vs EDR: AV imza tabanlı; EDR davranış tabanlı (zero-day'e karşı daha iyi)."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Uyarı Ayarı ve Log Yönetimi",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Alert Tuning ve Loglama",
+          "items": [
+            "Alert fatigue: Çok fazla uyarı → analistler uyarılara duyarsızlaşır.",
+            "Threshold tuning: Uyarı eşiklerini ayarlama (false positive'i azaltmak için).",
+            "Centralized logging: Tüm logları merkezi SIEM'e gönderme.",
+            "Log retention: Logları yeterli süre saklama (compliance için 1-7 yıl arası).",
+            "NTP önemi: Zaman senkronizasyonu olmadan loglar farklı zaman damgasıyla gelir → olay sıralaması bozulur."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "NTP ve Log Tutarlılığı",
+          "items": [
+            "NTP = Network Time Protocol — tüm cihazların aynı saati göstermesi için şart.",
+            "SIEM'deki olayları zamansal olarak sıralayabilmek için NTP kritik.",
+            "NTP olmadan: sunucu 10:00, firewall 10:05 diyebilir → olay zinciri kurulamaz."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Collect and correlate logs / centralized alerting", "maps_to": "SIEM", "explanation": "Log toplama ve uyarı sistemi." },
+    { "trigger": "Automated response to alerts / playbook execution", "maps_to": "SOAR", "explanation": "Otomatik güvenlik yanıtı." },
+    { "trigger": "Device health / traffic monitoring via OID", "maps_to": "SNMP", "explanation": "Ağ cihazı izleme protokolü." },
+    { "trigger": "Who sent what to whom / traffic flow analysis", "maps_to": "NetFlow / IPFIX", "explanation": "Ağ trafik akış analizi." },
+    { "trigger": "Full packet capture / Wireshark", "maps_to": "PCAP", "explanation": "Tam paket yakalama." },
+    { "trigger": "Real-time endpoint behavior detection and response", "maps_to": "EDR", "explanation": "Uç nokta tespit ve yanıt." },
+    { "trigger": "Sync clocks across all devices / log consistency", "maps_to": "NTP", "explanation": "Ağ zaman protokolü." },
+    { "trigger": "Too many alerts causing analysts to ignore them", "maps_to": "Alert Fatigue", "explanation": "Uyarı yorgunluğu." }
+  ],
+  "questions": [
+    {
+      "id": "4.4-q1",
+      "questionEn": "A security platform collects logs from all systems, correlates events, and sends alerts to analysts who then manually investigate. Which technology is this?",
+      "options": { "A": "SOAR", "B": "SIEM", "C": "EDR", "D": "SNMP" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir güvenlik platformu tüm sistemlerden log topluyor, olayları ilişkilendiriyor ve analistlere uyarı gönderiyor; analistler manuel olarak araştırıyor. Bu hangi teknoloji?",
+        "optionsTr": { "A": "SOAR", "B": "SIEM", "C": "EDR", "D": "SNMP" },
+        "patternHint": "'collect + correlate + alert + manual investigation' = SIEM.",
+        "whyWrong": { "A": "SOAR otomatik yanıt verir.", "C": "EDR uç noktaya özgüldür.", "D": "SNMP cihaz izleme protokolüdür." }
+      }
+    },
+    {
+      "id": "4.4-q2",
+      "questionEn": "When a SIEM alert fires for a ransomware indicator, a playbook automatically isolates the affected host and opens a ticket. Which technology enables this automated response?",
+      "options": { "A": "SIEM only", "B": "SOAR", "C": "IDS", "D": "SNMP trap" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir SIEM fidye yazılımı göstergesi için uyarı verdiğinde, bir playbook etkilenen host'u otomatik olarak izole ediyor ve bilet açıyor. Bu otomatik yanıtı hangi teknoloji sağlar?",
+        "optionsTr": { "A": "Sadece SIEM", "B": "SOAR", "C": "IDS", "D": "SNMP trap" },
+        "patternHint": "'automated response + playbook' = SOAR.",
+        "whyWrong": { "A": "SIEM sadece uyarır, otomatik müdahale etmez.", "C": "IDS pasif tespit yapar.", "D": "SNMP trap cihaz bildirimidir." }
+      }
+    },
+    {
+      "id": "4.4-q3",
+      "questionEn": "A network admin uses SNMP to poll routers and switches for CPU usage, bandwidth, and interface errors. What is SNMP primarily used for?",
+      "options": { "A": "Encrypting network traffic", "B": "Monitoring device health and performance metrics", "C": "Filtering web content", "D": "Synchronizing clocks" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir ağ yöneticisi CPU kullanımı, bant genişliği ve arayüz hatalarını sorgulamak için yönlendirici ve switch'lerde SNMP kullanıyor. SNMP birincil olarak ne için kullanılır?",
+        "optionsTr": { "A": "Ağ trafiğini şifreleme", "B": "Cihaz sağlığı ve performans metriklerini izleme", "C": "Web içeriği filtreleme", "D": "Saatleri senkronize etme" },
+        "patternHint": "SNMP = cihaz sağlığı/performans izleme.",
+        "whyWrong": { "A": "SNMP şifrelemez.", "C": "Web filtre proxy/DNS'tir.", "D": "Saat senkronu NTP'dir." }
+      }
+    },
+    {
+      "id": "4.4-q4",
+      "questionEn": "Investigators need to analyze who communicated with a suspicious IP address over the past month. Which data source shows traffic flows WITHOUT full packet contents?",
+      "options": { "A": "PCAP / packet capture", "B": "NetFlow / flow data", "C": "Syslog", "D": "SNMP traps" },
+      "correct": "B",
+      "solution": {
+        "translation": "Araştırmacılar geçen ay şüpheli bir IP adresiyle kimin iletişim kurduğunu analiz etmeli. Hangi veri kaynağı tam paket içeriği OLMADAN trafik akışlarını gösterir?",
+        "optionsTr": { "A": "PCAP / paket yakalama", "B": "NetFlow / akış verisi", "C": "Syslog", "D": "SNMP tuzakları" },
+        "patternHint": "Trafik akışı (kim, kime, ne kadar) = NetFlow. PCAP = tam paket içeriği.",
+        "whyWrong": { "A": "PCAP tam paketi içerir, depolama çok büyük.", "C": "Syslog sistem logudur.", "D": "SNMP trap cihaz uyarısıdır." }
+      }
+    },
+    {
+      "id": "4.4-q5",
+      "questionEn": "A SOC analyst notices that after enabling many new SIEM rules, analysts start ignoring alerts because there are too many. Which term describes this problem?",
+      "options": { "A": "False negative", "B": "Alert fatigue", "C": "Log rotation", "D": "SNMP polling" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir SOC analisti, birçok yeni SIEM kuralı etkinleştirildikten sonra analistlerin çok fazla uyarı olduğu için uyarıları görmezden gelmeye başladığını fark ediyor. Bu sorunu hangi terim tanımlar?",
+        "optionsTr": { "A": "False negative", "B": "Uyarı yorgunluğu", "C": "Log rotasyonu", "D": "SNMP sorgulama" },
+        "patternHint": "Çok fazla uyarı → analistler duyarsızlaşır = Alert fatigue.",
+        "whyWrong": { "A": "False negative zafiyeti kaçırmaktır.", "C": "Log rotation saklama yönetimidir.", "D": "SNMP polling cihaz sorgusudur." }
+      }
+    },
+    {
+      "id": "4.4-q6",
+      "questionEn": "After a breach, the incident response team tries to reconstruct the attack timeline but finds logs from different systems have inconsistent timestamps. Which missing control caused this?",
+      "options": { "A": "SIEM", "B": "NTP (Network Time Protocol)", "C": "EDR", "D": "NetFlow" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir ihlalden sonra olay müdahale ekibi saldırı zaman çizelgesini yeniden oluşturmaya çalışıyor ama farklı sistemlerin loglarında tutarsız zaman damgaları buluyor. Hangi eksik kontrol buna yol açtı?",
+        "optionsTr": { "A": "SIEM", "B": "NTP (Ağ Zaman Protokolü)", "C": "EDR", "D": "NetFlow" },
+        "patternHint": "Tutarsız zaman damgası = NTP eksikliği. NTP tüm cihazları senkronize eder.",
+        "whyWrong": { "A": "SIEM log toplar ama zamanı düzeltemez.", "C": "EDR uç noktadır.", "D": "NetFlow akış analizidir." }
+      }
+    },
+    {
+      "id": "4.4-q7",
+      "questionEn": "An endpoint security tool continuously monitors process behavior, memory activity, and file changes, and can automatically quarantine a malicious process. Which technology?",
+      "options": { "A": "Traditional antivirus", "B": "EDR (Endpoint Detection & Response)", "C": "SNMP", "D": "SOAR" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir uç nokta güvenlik aracı süreç davranışını, bellek etkinliğini ve dosya değişikliklerini sürekli izliyor ve kötü amaçlı bir süreci otomatik karantinaya alabiliyor. Hangi teknoloji?",
+        "optionsTr": { "A": "Geleneksel antivirüs", "B": "EDR (Uç Nokta Tespit ve Yanıt)", "C": "SNMP", "D": "SOAR" },
+        "patternHint": "'endpoint + behavior monitoring + automatic quarantine' = EDR.",
+        "whyWrong": { "A": "Geleneksel AV imza tabanlıdır, davranış analizi yapmaz.", "C": "SNMP cihaz izleme protokolüdür.", "D": "SOAR platform düzeyinde orkestrasyon yapar." }
+      }
+    },
+    {
+      "id": "4.4-q8",
+      "questionEn": "A security analyst uses Wireshark to capture and inspect every byte of network traffic between two hosts. Which data collection method is this?",
+      "options": { "A": "NetFlow analysis", "B": "SNMP polling", "C": "Full packet capture (PCAP)", "D": "Syslog collection" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir güvenlik analisti, iki host arasındaki ağ trafiğinin her baytını yakalamak ve incelemek için Wireshark kullanıyor. Bu hangi veri toplama yöntemi?",
+        "optionsTr": { "A": "NetFlow analizi", "B": "SNMP sorgulama", "C": "Tam paket yakalama (PCAP)", "D": "Syslog toplama" },
+        "patternHint": "Wireshark + her bayt = Full packet capture (PCAP).",
+        "whyWrong": { "A": "NetFlow akış meta verisidir, tam içerik değil.", "B": "SNMP cihaz metrikleri toplar.", "D": "Syslog sistem log mesajlarıdır." }
+      }
+    },
+    {
+      "id": "4.4-q9",
+      "questionEn": "To reduce false positives in a SIEM, a security engineer adjusts alert rules so they only fire above a certain threshold. Which activity is this?",
+      "options": { "A": "Alert fatigue", "B": "Log rotation", "C": "Threshold / alert tuning", "D": "Packet capture" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir SIEM'deki false positive'leri azaltmak için bir güvenlik mühendisi uyarı kurallarını yalnızca belirli bir eşiğin üzerinde tetiklenecek şekilde ayarlıyor. Bu hangi etkinlik?",
+        "optionsTr": { "A": "Uyarı yorgunluğu", "B": "Log rotasyonu", "C": "Eşik / uyarı ayarı", "D": "Paket yakalama" },
+        "patternHint": "Uyarı kurallarını eşik ayarı ile ince ayar = Threshold/alert tuning.",
+        "whyWrong": { "A": "Alert fatigue sorunun kendisidir, çözümü değil.", "B": "Log rotation saklama yönetimidir.", "D": "Paket yakalama izleme yöntemidir." }
+      }
+    },
+    {
+      "id": "4.4-q10",
+      "questionEn": "Which monitoring tool extends detection beyond endpoints to include network, cloud, and email sources, providing a unified security view?",
+      "options": { "A": "EDR", "B": "SNMP", "C": "XDR (Extended Detection & Response)", "D": "Syslog" },
+      "correct": "C",
+      "solution": {
+        "translation": "Hangi izleme aracı, tespiti uç noktaların ötesine genişleterek ağ, bulut ve e-posta kaynaklarını da kapsayarak birleşik bir güvenlik görünümü sağlar?",
+        "optionsTr": { "A": "EDR", "B": "SNMP", "C": "XDR (Genişletilmiş Tespit ve Yanıt)", "D": "Syslog" },
+        "patternHint": "Endpoint + network + cloud birlikte = XDR (EDR'ın genişletilmişi).",
+        "whyWrong": { "A": "EDR sadece uç noktadır.", "B": "SNMP cihaz izleme protokolü.", "D": "Syslog log gönderme protokolüdür." }
+      }
+    }
+  ]
+}

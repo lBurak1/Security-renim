@@ -1,0 +1,234 @@
+{
+  "moduleId": "4.9",
+  "title": "Araştırma için Veri Kaynakları",
+  "domainId": 4,
+  "documentation": [
+    {
+      "heading": "Log Türleri ve Kaynakları",
+      "specTable": {
+        "title": "Log Kaynakları",
+        "columns": ["Log Türü", "İçerik", "Kullanım"],
+        "rows": [
+          ["Firewall logs", "İzin/engellenen trafik, IP, port, zaman", "Ağ erişim analizi"],
+          ["Application logs", "Uygulama hataları, kullanıcı işlemleri", "Uygulama davranışı"],
+          ["OS/System logs", "Oturum açma, süreç başlatma, sistem hataları", "Host analizi"],
+          ["IDS/IPS logs", "Tetiklenen kural, saldırı imzası", "Tehdit tespiti"],
+          ["Authentication logs", "Başarılı/başarısız giriş, hesap kilidi", "IAM/brute-force tespiti"],
+          ["DHCP logs", "IP atamaları — MAC adresi, hostname", "Cihaz tanımlama"],
+          ["DNS logs", "Domain sorguları — hangi cihaz nereyi sorguladı", "C2 tespiti, data exfiltration"],
+          ["VoIP/Call manager logs", "Çağrı kayıtları", "İletişim analizi"]
+        ]
+      }
+    },
+    {
+      "heading": "Ağ Trafik Analizi",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Trafik Veri Kaynakları",
+          "items": [
+            "PCAP (Packet Capture): Tam paket içeriği — Wireshark ile analiz. En detaylı ama depolama yoğun.",
+            "NetFlow/IPFIX: Trafik akış özeti — kim, kime, ne kadar, hangi port. İçerik yok.",
+            "sFlow: NetFlow'un örneklem (sample) versiyonu.",
+            "Metadata: İçerik olmadan iletişim hakkında veri (zaman, boyut, IP, port).",
+            "Packet analysis: Header + payload inceleme (PCAP ile)."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Zaman Senkronizasyonu ve Merkezi Loglama",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "NTP ve Merkezi Log Yönetimi",
+          "items": [
+            "NTP (Network Time Protocol): Tüm cihazlar aynı saate senkronize olmalı.",
+            "Neden kritik: Zaman tutarsızlığı olay zaman çizelgesini bozar.",
+            "Syslog: UDP 514 (güvensiz) / TCP 6514 (TLS ile güvenli). Merkezi log gönderimi.",
+            "SIEM: Farklı kaynaklardan gelen logları toplar, ilişkilendirir, zaman damgasına göre sıralar.",
+            "Log retention: Uyumluluk için loglar yeterince saklanmalı (HIPAA/PCI DSS farklı gereksinimler)."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "NTP'nin Önemi",
+          "items": [
+            "Farklı sistemlerin loglarında farklı zaman damgaları varsa → NTP ayarlanmamış.",
+            "NTP olmadan: sunucu 10:00, firewall 10:03, router 9:57 diyebilir → olay sırası kurulamaz.",
+            "'Inconsistent timestamps across systems' = NTP sorunu."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Tehdit İstihbaratı Kaynakları",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Threat Intelligence Kaynakları",
+          "items": [
+            "OSINT (Open-Source Intelligence): Açık kaynaklardan tehdit bilgisi.",
+            "ISAC (Information Sharing and Analysis Center): Sektör bazlı tehdit paylaşım merkezleri.",
+            "Dark web monitoring: Dark web'deki veri ihlali/satış takibi.",
+            "IOC (Indicator of Compromise): Bilinen kötü IP, domain, hash, dosya adı.",
+            "STIX/TAXII: Tehdit istihbaratı paylaşım standardı ve protokolü.",
+            "Vulnerability feeds: CVE/NVD güncellemeleri."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Full packet content / Wireshark / every byte of traffic", "maps_to": "PCAP (Packet Capture)", "explanation": "Tam paket yakalama." },
+    { "trigger": "Traffic flow summary / who talked to whom / no content", "maps_to": "NetFlow / IPFIX", "explanation": "Trafik akış özeti." },
+    { "trigger": "Inconsistent timestamps across logs / log correlation issue", "maps_to": "NTP misconfiguration", "explanation": "Zaman senkronizasyonu sorunu." },
+    { "trigger": "Centralized log sending protocol / UDP 514", "maps_to": "Syslog", "explanation": "Merkezi log gönderimi." },
+    { "trigger": "IP assignment log / MAC address + hostname", "maps_to": "DHCP Logs", "explanation": "IP atama logları." },
+    { "trigger": "Which devices queried which domains / C2 detection", "maps_to": "DNS Logs", "explanation": "Domain sorgu logları." },
+    { "trigger": "Known bad IP, hash, domain / compromise indicator", "maps_to": "IOC (Indicator of Compromise)", "explanation": "Uzlaşma göstergesi." },
+    { "trigger": "Open-source threat intelligence", "maps_to": "OSINT", "explanation": "Açık kaynak istihbarat." }
+  ],
+  "questions": [
+    {
+      "id": "4.9-q1",
+      "questionEn": "An investigator needs to determine which internal hosts communicated with a known malicious IP address over the past week, but does NOT need the actual packet contents. Which data source is MOST efficient?",
+      "options": { "A": "Full PCAP files", "B": "NetFlow / flow records", "C": "Application logs", "D": "DHCP logs" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir araştırmacı, geçen hafta bilinen kötü amaçlı bir IP adresiyle hangi dahili host'ların iletişim kurduğunu belirlemeli, ancak gerçek paket içeriklerine ihtiyaç yok. En verimli veri kaynağı?",
+        "optionsTr": { "A": "Tam PCAP dosyaları", "B": "NetFlow / akış kayıtları", "C": "Uygulama logları", "D": "DHCP logları" },
+        "patternHint": "'Who talked to whom + no packet contents' = NetFlow. PCAP her baytı içerir, gereksiz.",
+        "whyWrong": { "A": "PCAP içerik içerir, depolama büyük.", "C": "App logları uygulama spesifiktir.", "D": "DHCP sadece IP ataması gösterir." }
+      }
+    },
+    {
+      "id": "4.9-q2",
+      "questionEn": "After a breach, log analysis is impossible because server logs show 10:00 AM but firewall logs show 10:05 AM for the same event. What caused this correlation problem?",
+      "options": { "A": "Misconfigured firewall rules", "B": "NTP not configured (time synchronization failure)", "C": "Missing SIEM integration", "D": "Log rotation policy" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir ihlalden sonra, sunucu logları aynı olay için 10:00'ı gösterirken firewall logları 10:05'i gösterdiği için log analizi yapılamıyor. Bu ilişkilendirme sorununa ne yol açtı?",
+        "optionsTr": { "A": "Yanlış yapılandırılmış firewall kuralları", "B": "NTP yapılandırılmamış (zaman senkronizasyonu hatası)", "C": "Eksik SIEM entegrasyonu", "D": "Log rotasyon politikası" },
+        "patternHint": "Tutarsız zaman damgası = NTP yapılandırılmamış.",
+        "whyWrong": { "A": "Firewall kuralları zaman damgasını etkilemez.", "C": "SIEM entegrasyonu eksikliği farklı sorun.", "D": "Log rotasyon saklama yönetimi." }
+      }
+    },
+    {
+      "id": "4.9-q3",
+      "questionEn": "A security analyst examines DNS query logs and finds a workstation making thousands of requests to an unknown domain, possibly indicating C2 communication. Which log type revealed this?",
+      "options": { "A": "Firewall logs", "B": "OS system logs", "C": "DNS logs", "D": "DHCP logs" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir güvenlik analisti DNS sorgu loglarını inceliyor ve bilinmeyen bir domain'e binlerce istek yapan bir iş istasyonu buluyor; bu C2 iletişimine işaret edebilir. Bu bilgiyi hangi log türü ortaya çıkardı?",
+        "optionsTr": { "A": "Firewall logları", "B": "İşletim sistemi sistem logları", "C": "DNS logları", "D": "DHCP logları" },
+        "patternHint": "Domain sorguları + C2 tespiti = DNS logs.",
+        "whyWrong": { "A": "Firewall IP/port trafiği görür.", "B": "OS log sistem olaylarıdır.", "D": "DHCP IP ataması gösterir." }
+      }
+    },
+    {
+      "id": "4.9-q4",
+      "questionEn": "An investigator needs to identify which device had IP address 192.168.1.50 on Tuesday at 2pm. Which log source provides this mapping?",
+      "options": { "A": "Firewall logs", "B": "IDS logs", "C": "DHCP logs", "D": "Application logs" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir araştırmacı, Salı 14:00'da hangi cihazın 192.168.1.50 IP adresine sahip olduğunu belirlemelidir. Hangi log kaynağı bu eşlemeyi sağlar?",
+        "optionsTr": { "A": "Firewall logları", "B": "IDS logları", "C": "DHCP logları", "D": "Uygulama logları" },
+        "patternHint": "IP ↔ MAC/hostname eşlemesi = DHCP logs.",
+        "whyWrong": { "A": "Firewall IP trafiğini loglar ama atamayı değil.", "B": "IDS saldırı tespiti.", "D": "App log uygulama spesifik." }
+      }
+    },
+    {
+      "id": "4.9-q5",
+      "questionEn": "A forensic analyst captures all network traffic between a suspected attacker and the server to examine exact payloads and HTTP requests. Which tool/technique?",
+      "options": { "A": "NetFlow", "B": "SNMP", "C": "Full packet capture (PCAP) with Wireshark", "D": "Syslog" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir adli bilişim analisti, tam payload'ları ve HTTP isteklerini incelemek için şüpheli saldırgan ile sunucu arasındaki tüm ağ trafiğini yakalıyor. Hangi araç/teknik?",
+        "optionsTr": { "A": "NetFlow", "B": "SNMP", "C": "Tam paket yakalama (PCAP) ile Wireshark", "D": "Syslog" },
+        "patternHint": "Tam payload + HTTP içeriği inceleme = PCAP/Wireshark.",
+        "whyWrong": { "A": "NetFlow içerik göstermez.", "B": "SNMP cihaz metriki.", "D": "Syslog sistem loglarıdır." }
+      }
+    },
+    {
+      "id": "4.9-q6",
+      "questionEn": "An organization shares cyber threat intelligence with others in the financial industry using a standardized format. Which standard is MOST commonly used for threat intel sharing?",
+      "options": { "A": "SNMP/MIB", "B": "STIX/TAXII", "C": "PCAP/NetFlow", "D": "Syslog/NTP" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kurum, standardize edilmiş bir format kullanarak finansal sektördeki diğerleriyle siber tehdit istihbaratı paylaşıyor. Tehdit istihbaratı paylaşımı için EN yaygın hangi standart kullanılır?",
+        "optionsTr": { "A": "SNMP/MIB", "B": "STIX/TAXII", "C": "PCAP/NetFlow", "D": "Syslog/NTP" },
+        "patternHint": "Tehdit istihbaratı paylaşım standardı = STIX (format) / TAXII (transport protokolü).",
+        "whyWrong": { "A": "SNMP cihaz izleme.", "C": "PCAP/NetFlow ağ trafiği.", "D": "Syslog log gönderimi, NTP zaman senkronu." }
+      }
+    },
+    {
+      "id": "4.9-q7",
+      "questionEn": "Authentication logs show 500 failed login attempts from the same IP in 60 seconds. Which type of attack does this indicate?",
+      "options": { "A": "SQL injection", "B": "Brute-force / password spraying", "C": "DNS poisoning", "D": "ARP spoofing" },
+      "correct": "B",
+      "solution": {
+        "translation": "Kimlik doğrulama logları, 60 saniye içinde aynı IP'den 500 başarısız oturum açma girişimi gösteriyor. Bu hangi tür saldırıya işaret eder?",
+        "optionsTr": { "A": "SQL injection", "B": "Brute-force / parola spreyleme", "C": "DNS zehirlenmesi", "D": "ARP sahteciliği" },
+        "patternHint": "Çok sayıda başarısız giriş girişimi = Brute-force.",
+        "whyWrong": { "A": "SQLi uygulama katmanında.", "C": "DNS poisoning isim çözümlemesini etkiler.", "D": "ARP spoof ağ katmanında." }
+      }
+    },
+    {
+      "id": "4.9-q8",
+      "questionEn": "Syslog traditionally uses UDP port 514. What is the security concern with this?",
+      "options": {
+        "A": "UDP 514 is too fast for logging",
+        "B": "UDP 514 is unencrypted and provides no delivery guarantee",
+        "C": "Syslog is blocked by all firewalls",
+        "D": "UDP 514 only works on Windows"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Syslog geleneksel olarak UDP 514 portunu kullanır. Güvenlik endişesi nedir?",
+        "optionsTr": {
+          "A": "UDP 514 loglama için çok hızlı",
+          "B": "UDP 514 şifrelenmemiş ve teslimat garantisi yok",
+          "C": "Syslog tüm firewall'lar tarafından engellenir",
+          "D": "UDP 514 sadece Windows'ta çalışır"
+        },
+        "patternHint": "UDP 514 = şifresiz + teslimat yok. Güvenli alternatif: TCP 6514 (TLS).",
+        "whyWrong": { "A": "Hız sorun değil.", "C": "Firewall engellemesi genel kural değil.", "D": "Platformdan bağımsız." }
+      }
+    },
+    {
+      "id": "4.9-q9",
+      "questionEn": "An IOC (Indicator of Compromise) is shared by a threat intelligence feed showing a specific file hash. What does matching this hash on an endpoint indicate?",
+      "options": {
+        "A": "The file is clean and approved",
+        "B": "The endpoint is running too many processes",
+        "C": "The endpoint likely has a known malicious file",
+        "D": "The endpoint needs a firmware update"
+      },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir tehdit istihbaratı akışı tarafından belirli bir dosya hash'i içeren bir IOC paylaşılıyor. Bu hash'in bir uç noktada eşleşmesi ne gösterir?",
+        "optionsTr": {
+          "A": "Dosya temiz ve onaylı",
+          "B": "Uç nokta çok fazla süreç çalıştırıyor",
+          "C": "Uç noktada büyük olasılıkla bilinen kötü amaçlı bir dosya var",
+          "D": "Uç noktanın firmware güncellemesi gerekiyor"
+        },
+        "patternHint": "IOC hash eşleşmesi = bilinen kötü amaçlı yazılım varlığı.",
+        "whyWrong": { "A": "IOC kötü göstergedir.", "B": "Süreç sayısı IOC ile ilgisiz.", "D": "Firmware IOC ile ilgisiz." }
+      }
+    },
+    {
+      "id": "4.9-q10",
+      "questionEn": "A company centralizes all logs from firewalls, servers, endpoints, and applications into one platform for correlation and alerting. Which platform?",
+      "options": { "A": "NTP server", "B": "DHCP server", "C": "SIEM", "D": "SNMP manager" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir şirket, ilişkilendirme ve uyarı için firewall, sunucu, uç nokta ve uygulamalardan gelen tüm logları tek bir platforma topluyor. Hangi platform?",
+        "optionsTr": { "A": "NTP sunucusu", "B": "DHCP sunucusu", "C": "SIEM", "D": "SNMP yöneticisi" },
+        "patternHint": "Merkezi log toplama + ilişkilendirme + uyarı = SIEM.",
+        "whyWrong": { "A": "NTP zaman senkronizasyonu.", "B": "DHCP IP ataması.", "D": "SNMP cihaz metrikleri." }
+      }
+    }
+  ]
+}

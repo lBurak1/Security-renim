@@ -1,0 +1,218 @@
+{
+  "moduleId": "2.5",
+  "title": "Önlem (Mitigation) Teknikleri",
+  "domainId": 2,
+  "documentation": [
+    {
+      "heading": "Kurumsal Önlem Teknikleri (Tam Liste)",
+      "body": "Saldırı yüzeyini daraltmak ve riski azaltmak için uygulanan teknikler. Sınavda 'BEST mitigation' sorulur; senaryodaki açığa EN DOĞRUDAN cevap veren tekniği seç.",
+      "specTable": {
+        "title": "Temel Mitigation Teknikleri",
+        "columns": ["Teknik", "Açıklama"],
+        "rows": [
+          ["Segmentation", "Ağı bölme; bir bölgenin ihlali diğerine yayılmaz"],
+          ["Access control (ACL)", "Erişim listeleriyle kısıtlama"],
+          ["Least privilege", "Asgari yetki; sadece gerekeni ver"],
+          ["Application allow list", "Sadece onaylı uygulamalara izin (en güçlü)"],
+          ["Isolation / Quarantine", "Tehdidi izole etme/karantina"],
+          ["Monitoring", "Sürekli izleme ve loglama"],
+          ["Patching", "Yama; bilinen açıkları kapatma"],
+          ["Encryption", "Veriyi şifreleme"],
+          ["Configuration enforcement", "Standart güvenli yapılandırmayı zorunlu kılma"],
+          ["Decommissioning", "Eski/kullanılmayan sistemleri güvenli kaldırma"]
+        ]
+      }
+    },
+    {
+      "heading": "Sertleştirme Teknikleri (Hardening)",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Hardening Adımları",
+          "items": [
+            "Encryption: Disk/veri şifreleme.",
+            "Endpoint protection: EDR/antivirüs kurulumu.",
+            "Host-based firewall: Cihaz üzerinde firewall.",
+            "HIPS (Host-based Intrusion Prevention System).",
+            "Disabling ports/protocols: Gereksiz port ve protokolleri kapatma.",
+            "Default password changes: Varsayılan parolaları değiştirme.",
+            "Removal of unnecessary software: Gereksiz yazılım (bloatware) kaldırma."
+          ]
+        },
+        {
+          "kind": "tuzak",
+          "title": "Allow List vs Deny List",
+          "items": [
+            "Allow list (whitelist): SADECE listedekilere izin → EN GÜVENLİ, en kısıtlayıcı.",
+            "Deny list (blacklist): Listedekiler hariç her şeye izin → daha esnek, daha az güvenli.",
+            "Bilinmeyen/zero-day zararlıya karşı EN İYİ koruma = Allow list."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Doğru Önlemi Seçme",
+      "infoBoxes": [
+        {
+          "kind": "ipucu",
+          "title": "Senaryo → Önlem Eşleştirme",
+          "items": [
+            "Yanal yayılma (lateral movement) endişesi → Segmentation.",
+            "Bilinmeyen yazılımın çalışması → Application allow list.",
+            "Aşırı izinli hesaplar → Least privilege.",
+            "Bilinen açık → Patching.",
+            "Bulaşmış cihaz → Isolation/Quarantine.",
+            "Gereksiz açık servisler → Hardening (disable ports/services)."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Only approved apps can run / Block all unknown", "maps_to": "Application Allow List", "explanation": "Sadece onaylıya izin; zero-day'e karşı en güçlü." },
+    { "trigger": "Give only the access needed / Minimum rights", "maps_to": "Least Privilege", "explanation": "Asgari yetki." },
+    { "trigger": "Divide the network / Contain the breach / Stop lateral movement", "maps_to": "Segmentation", "explanation": "Ağ bölme ile yayılmayı sınırlama." },
+    { "trigger": "Turn off unused ports/services", "maps_to": "Hardening (disable ports)", "explanation": "Gereksiz servisleri kapatma." },
+    { "trigger": "Securely remove old system", "maps_to": "Decommissioning", "explanation": "Eski sistemin güvenli kaldırılması." },
+    { "trigger": "Quarantine the infected host", "maps_to": "Isolation", "explanation": "Bulaşmış cihazı izole etme." },
+    { "trigger": "Apply update to fix known flaw", "maps_to": "Patching", "explanation": "Bilinen açığı yamayla kapatma." },
+    { "trigger": "Enforce standard secure config", "maps_to": "Configuration Enforcement", "explanation": "Güvenli yapılandırma zorlaması." }
+  ],
+  "questions": [
+    {
+      "id": "2.5-q1",
+      "questionEn": "An org wants ONLY explicitly approved software to run on workstations, blocking everything else including unknown malware. Which technique?",
+      "options": { "A": "Application deny list", "B": "Application allow list", "C": "Host-based firewall", "D": "Antivirus signatures" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kurum iş istasyonlarında YALNIZCA onaylı yazılımın çalışmasını, bilinmeyen zararlı dahil her şeyin engellenmesini istiyor. Hangi teknik?",
+        "optionsTr": { "A": "Engelleme listesi", "B": "İzin listesi", "C": "Host firewall", "D": "Antivirüs imzaları" },
+        "patternHint": "'only approved + block all else + unknown malware' = Allow list.",
+        "whyWrong": { "A": "Deny list bilinmeyeni kaçırır.", "C": "Firewall ağ trafiğidir.", "D": "İmzalar bilinmeyeni kaçırır." }
+      }
+    },
+    {
+      "id": "2.5-q2",
+      "questionEn": "After a breach in guest Wi-Fi spread to internal servers, a company wants to stop a future breach in one zone from reaching others. Which mitigation?",
+      "options": { "A": "Patching", "B": "Segmentation", "C": "Encryption", "D": "Monitoring" },
+      "correct": "B",
+      "solution": {
+        "translation": "Misafir Wi-Fi'deki ihlal iç sunuculara yayıldıktan sonra şirket, bir bölgedeki ihlalin diğerlerine ulaşmasını önlemek istiyor. Hangi önlem?",
+        "optionsTr": { "A": "Yama", "B": "Segmentasyon", "C": "Şifreleme", "D": "İzleme" },
+        "patternHint": "'one zone reaching others' = Segmentation.",
+        "whyWrong": { "A": "Yama yanal yayılmayı bölmez.", "C": "Şifreleme gizliliktir.", "D": "İzleme tespit eder, durdurmaz." }
+      }
+    },
+    {
+      "id": "2.5-q3",
+      "questionEn": "During hardening, a server has Telnet, FTP, and an unused web server enabled. Which action FIRST?",
+      "options": { "A": "Install antivirus", "B": "Disable unnecessary ports and services", "C": "Enable full disk encryption", "D": "Add to monitoring" },
+      "correct": "B",
+      "solution": {
+        "translation": "Sertleştirmede bir sunucuda Telnet, FTP ve kullanılmayan web servisi etkin. İLK hangi eylem?",
+        "optionsTr": { "A": "Antivirüs kur", "B": "Gereksiz port/servisleri kapat", "C": "Disk şifrele", "D": "İzlemeye ekle" },
+        "patternHint": "Gereksiz/güvensiz servisler = onları kapat (saldırı yüzeyini daralt).",
+        "whyWrong": { "A": "Asıl sorun açık servislerdir.", "C": "Şifreleme açık portu kapatmaz.", "D": "İzleme açığı kaldırmaz." }
+      }
+    },
+    {
+      "id": "2.5-q4",
+      "questionEn": "Users have far more permissions than their jobs require. Which principle should be applied?",
+      "options": { "A": "Least privilege", "B": "Segmentation", "C": "Encryption", "D": "Allow listing" },
+      "correct": "A",
+      "solution": {
+        "translation": "Kullanıcılar işlerinin gerektirdiğinden çok daha fazla izne sahip. Hangi ilke uygulanmalı?",
+        "optionsTr": { "A": "Asgari yetki", "B": "Segmentasyon", "C": "Şifreleme", "D": "İzin listeleme" },
+        "patternHint": "Aşırı izin = Least privilege.",
+        "whyWrong": { "B": "Ağ bölme farklı.", "C": "Veri koruması.", "D": "Yazılım kontrolü." }
+      }
+    },
+    {
+      "id": "2.5-q5",
+      "questionEn": "A critical vulnerability with an available vendor fix is found on production servers. What is the BEST mitigation?",
+      "options": { "A": "Patching", "B": "Buying insurance", "C": "Ignoring it", "D": "Adding a honeypot" },
+      "correct": "A",
+      "solution": {
+        "translation": "Üretim sunucularında, üretici düzeltmesi mevcut kritik bir açık bulunuyor. EN İYİ önlem?",
+        "optionsTr": { "A": "Yama", "B": "Sigorta almak", "C": "Yok saymak", "D": "Honeypot eklemek" },
+        "patternHint": "Bilinen açık + mevcut yama = Patching (asıl çözüm).",
+        "whyWrong": { "B": "Sigorta açığı kapatmaz.", "C": "Yok saymak risklidir.", "D": "Honeypot açığı kapatmaz." }
+      }
+    },
+    {
+      "id": "2.5-q6",
+      "questionEn": "An endpoint is confirmed infected with actively spreading malware. What is the BEST immediate mitigation?",
+      "options": { "A": "Isolation/quarantine the host", "B": "Run a vulnerability scan", "C": "Update documentation", "D": "Schedule a maintenance window" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir uç noktanın aktif yayılan zararlıyla enfekte olduğu doğrulandı. EN İYİ acil önlem?",
+        "optionsTr": { "A": "Host'u izole et/karantinaya al", "B": "Zafiyet taraması yap", "C": "Dokümantasyonu güncelle", "D": "Bakım penceresi planla" },
+        "patternHint": "Aktif yayılan bulaşma = hemen Isolation/Quarantine.",
+        "whyWrong": { "B": "Tarama yayılmayı durdurmaz.", "C": "Belgeleme acil değil.", "D": "Planlama yayılmayı durdurmaz." }
+      }
+    },
+    {
+      "id": "2.5-q7",
+      "questionEn": "Why is an application allow list MORE effective than a deny list against brand-new malware?",
+      "options": {
+        "A": "It is easier to maintain",
+        "B": "It blocks everything not explicitly approved, including unknown threats",
+        "C": "It uses less CPU",
+        "D": "It only blocks known signatures"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir uygulama izin listesi, yepyeni zararlıya karşı engelleme listesinden neden DAHA etkilidir?",
+        "optionsTr": {
+          "A": "Bakımı daha kolaydır",
+          "B": "Açıkça onaylanmayan her şeyi (bilinmeyen tehditler dahil) engeller",
+          "C": "Daha az CPU kullanır",
+          "D": "Sadece bilinen imzaları engeller"
+        },
+        "patternHint": "Allow list = onaylı dışı her şeyi engeller → bilinmeyeni de yakalar.",
+        "whyWrong": { "A": "Aslında bakımı daha zordur.", "C": "CPU avantajı değil.", "D": "İmza tabanlı engelleme deny list mantığıdır." }
+      }
+    },
+    {
+      "id": "2.5-q8",
+      "questionEn": "A company is retiring old servers that stored sensitive data. Which mitigation ensures they no longer pose a risk?",
+      "options": { "A": "Decommissioning (secure disposal)", "B": "Patching", "C": "Monitoring", "D": "Load balancing" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir şirket, hassas veri saklamış eski sunucuları emekliye ayırıyor. Hangi önlem artık risk oluşturmamalarını sağlar?",
+        "optionsTr": { "A": "Decommissioning (güvenli imha)", "B": "Yama", "C": "İzleme", "D": "Yük dengeleme" },
+        "patternHint": "Eski sistemi güvenle kaldırma = Decommissioning.",
+        "whyWrong": { "B": "Yama kullanımda olan sistem içindir.", "C": "İzleme kaldırma değil.", "D": "Yük dengeleme alakasız." }
+      }
+    },
+    {
+      "id": "2.5-q9",
+      "questionEn": "An organization deploys a standardized, enforced secure configuration to all new devices automatically. Which technique is this?",
+      "options": { "A": "Configuration enforcement", "B": "Tokenization", "C": "Replay protection", "D": "Sideloading" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir kurum, tüm yeni cihazlara otomatik olarak standartlaştırılmış, zorunlu güvenli bir yapılandırma uyguluyor. Hangi teknik?",
+        "optionsTr": { "A": "Yapılandırma zorlaması", "B": "Tokenization", "C": "Replay koruması", "D": "Sideloading" },
+        "patternHint": "Standart güvenli yapılandırma zorunluluğu = Configuration enforcement.",
+        "whyWrong": { "B": "Veri token'lamadır.", "C": "Trafik tekrar koruması.", "D": "Uygulama yükleme zafiyetidir." }
+      }
+    },
+    {
+      "id": "2.5-q10",
+      "questionEn": "A legacy medical device cannot be patched. Which mitigation BEST reduces its risk while keeping it operational?",
+      "options": {
+        "A": "Network segmentation/isolation",
+        "B": "Deleting all logs",
+        "C": "Giving it more permissions",
+        "D": "Using default credentials"
+      },
+      "correct": "A",
+      "solution": {
+        "translation": "Eski bir tıbbi cihaz yamalanamıyor. Çalışır tutarken riskini EN İYİ hangi önlem azaltır?",
+        "optionsTr": { "A": "Ağ segmentasyonu/izolasyonu", "B": "Tüm logları silmek", "C": "Daha fazla izin vermek", "D": "Varsayılan kimlik bilgileri kullanmak" },
+        "patternHint": "Yamalanamayan sistem → izole et/segmentle (compensating mantığı).",
+        "whyWrong": { "B": "Log silmek görünürlüğü yok eder.", "C": "İzin artırmak riski büyütür.", "D": "Varsayılan parola riski artırır." }
+      }
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "moduleId": "1.3",
+  "title": "Değişim Yönetimi",
+  "domainId": 1,
+  "documentation": [
+    {
+      "heading": "Değişim Yönetimi Nedir? (Neden Güvenlik Konusu?)",
+      "body": "Değişim yönetimi (change management), sistemlerdeki her değişikliğin **kontrollü, onaylı, test edilmiş ve geri alınabilir** şekilde yapılmasını sağlayan resmi süreçtir. Güvenlik açısından kritiktir çünkü plansız/onaysız değişiklikler: yeni güvenlik açıkları, kesintiler (downtime), yanlış yapılandırma ve denetim kaybı yaratır. SY0-701 bunu 'business processes' ve 'technical implications' olarak ikiye ayırır.",
+      "infoBoxes": [
+        {
+          "kind": "onemli-not",
+          "title": "Temel İlke",
+          "items": [
+            "Her değişiklik: önerilir → onaylanır → test edilir → uygulanır → belgelenir.",
+            "Onaysız değişiklik = 'unauthorized change' = güvenlik olayı sayılabilir.",
+            "Geri alma planı (backout) OLMADAN üretime değişiklik yapılmaz."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "İş Süreçleri (Business Processes)",
+      "specTable": {
+        "title": "Süreç Bileşenleri",
+        "columns": ["Bileşen", "Açıklama"],
+        "rows": [
+          ["Approval Process", "Değişiklik uygulanmadan önce yetkili onayı alınır"],
+          ["Ownership", "Değişikliğin bir sahibi/sorumlusu vardır"],
+          ["Stakeholders", "Etkilenen tüm paydaşlar belirlenir ve bilgilendirilir"],
+          ["Impact Analysis", "Değişikliğin olası etkileri/riskleri ÖNCEDEN değerlendirilir"],
+          ["Test Results", "Değişiklik üretime geçmeden test ortamında doğrulanır"],
+          ["Backout Plan", "Değişiklik başarısız olursa eski duruma DÖNÜŞ planı"],
+          ["Maintenance Window", "Değişikliğin yapılacağı PLANLI zaman aralığı"],
+          ["Standard Operating Procedure (SOP)", "Tekrarlanan işlemler için standart adım listesi"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "CAB (Change Advisory Board)",
+          "items": [
+            "Değişiklikleri değerlendiren ve onaylayan KURUL.",
+            "Riski, etkiyi, zamanlamayı değerlendirir.",
+            "Acil değişiklikler için Emergency CAB (ECAB) olabilir."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Teknik Etkiler (Technical Implications)",
+      "specTable": {
+        "title": "Dikkat Edilecek Teknik Konular",
+        "columns": ["Konu", "Açıklama"],
+        "rows": [
+          ["Allow lists / Deny lists", "Değişiklik sonrası izin/engelleme listeleri güncellenmeli"],
+          ["Restricted Activities", "Değişiklik sırasında bazı işlemler kısıtlanır"],
+          ["Downtime", "Planlı kesinti süresi; kullanıcılar bilgilendirilmeli"],
+          ["Service Restart", "Değişiklik sonrası servisin yeniden başlatılması gerekebilir"],
+          ["Application Restart", "Uygulamanın yeniden başlatılması gerekebilir"],
+          ["Legacy Applications", "Eski uygulamalar değişime uyum sağlayamayabilir"],
+          ["Dependencies", "Bir değişiklik bağımlı diğer sistemleri etkileyebilir"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Impact Analysis vs Backout Plan",
+          "items": [
+            "Impact Analysis = değişiklikten ÖNCE 'ne etkilenir?' analizi.",
+            "Backout Plan = değişiklik BAŞARISIZ olursa 'nasıl geri dönerim?' planı.",
+            "Dependencies = 'bu değişiklik başka neyi bozar?' (bağımlılıklar)."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Dokümantasyon ve Sürüm Kontrolü",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Documentation",
+          "items": [
+            "Updating diagrams: Ağ/sistem topoloji diyagramları değişiklik sonrası güncellenir.",
+            "Updating policies/procedures: İlgili politika ve prosedürler revize edilir.",
+            "Güncellenmeyen dokümantasyon = gelecekteki olaylarda yanlış bilgi riski."
+          ]
+        },
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Version Control",
+          "items": [
+            "Değişikliklerin SÜRÜMLENMESİ ve izlenmesi (örn. Git).",
+            "Kim, ne zaman, neyi değiştirdi kaydı tutulur.",
+            "Önceki sürüme geri dönüş (rollback) ve denetim için kritik."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "If the change fails / Roll back / Revert / Return to previous", "maps_to": "Backout Plan", "explanation": "Başarısızlıkta eski duruma dönüş planı." },
+    { "trigger": "Board / Committee that approves changes", "maps_to": "CAB (Change Advisory Board)", "explanation": "Değişiklikleri onaylayan kurul." },
+    { "trigger": "Scheduled time / After hours / Planned downtime window", "maps_to": "Maintenance Window", "explanation": "Planlı değişiklik zaman aralığı." },
+    { "trigger": "Track changes / Revert code / Git / History", "maps_to": "Version Control", "explanation": "Değişiklik geçmişini izleme ve geri alma." },
+    { "trigger": "Assess effects before the change / what will be affected", "maps_to": "Impact Analysis", "explanation": "Değişiklik öncesi etki değerlendirmesi." },
+    { "trigger": "This change might break other systems / knock-on effect", "maps_to": "Dependencies", "explanation": "Bağımlı sistemlerin etkilenmesi." },
+    { "trigger": "Update diagrams / revise procedures after change", "maps_to": "Documentation", "explanation": "Değişiklik sonrası belge güncelleme." },
+    { "trigger": "Old app cannot handle the change", "maps_to": "Legacy Applications", "explanation": "Eski uygulama uyum sorunu." },
+    { "trigger": "Who must approve before proceeding", "maps_to": "Approval Process", "explanation": "Değişiklik onay süreci." }
+  ],
+  "questions": [
+    {
+      "id": "1.3-q1",
+      "questionEn": "Before deploying a major firewall ruleset update to production, the team documents the exact steps to return to the previous configuration if it causes outages. Which element is this?",
+      "options": { "A": "Impact analysis", "B": "Backout plan", "C": "Maintenance window", "D": "Approval process" },
+      "correct": "B",
+      "solution": {
+        "translation": "Büyük bir firewall kural güncellemesini üretime almadan önce ekip, kesinti yaratırsa önceki yapılandırmaya dönmek için gereken adımları belgeliyor. Bu hangi öğedir?",
+        "optionsTr": { "A": "Etki analizi", "B": "Geri alma planı", "C": "Bakım penceresi", "D": "Onay süreci" },
+        "patternHint": "'return to previous configuration if it causes outages' = Backout Plan. 'if it fails/revert' refleksi.",
+        "whyWrong": { "A": "Etki analizi önceden etkileri değerlendirir.", "C": "Bakım penceresi zaman aralığıdır.", "D": "Onay süreci izin almaktır." }
+      }
+    },
+    {
+      "id": "1.3-q2",
+      "questionEn": "A change to an authentication server is scheduled for Sunday at 2:00 AM to minimize user impact. What is this time period called?",
+      "options": { "A": "Backout window", "B": "Maintenance window", "C": "Recovery time objective", "D": "Service-level agreement" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kimlik doğrulama sunucusu değişikliği, kullanıcı etkisini azaltmak için Pazar 02:00'a planlanıyor. Bu zaman dilimine ne denir?",
+        "optionsTr": { "A": "Geri alma penceresi", "B": "Bakım penceresi", "C": "RTO", "D": "SLA" },
+        "patternHint": "'scheduled ... 2:00 AM to minimize impact' = Maintenance Window. Saat/gün + minimize impact.",
+        "whyWrong": { "A": "'Backout window' standart terim değil.", "C": "RTO kurtarma süresidir.", "D": "SLA hizmet taahhüdüdür." }
+      }
+    },
+    {
+      "id": "1.3-q3",
+      "questionEn": "After implementing an approved change, an admin updates network topology diagrams and revises related procedures. Which practice is being followed?",
+      "options": { "A": "Version control", "B": "Documentation", "C": "Stakeholder analysis", "D": "Impact analysis" },
+      "correct": "B",
+      "solution": {
+        "translation": "Onaylı bir değişikliği uyguladıktan sonra yönetici, ağ diyagramlarını güncelliyor ve ilgili prosedürleri revize ediyor. Hangi uygulama izleniyor?",
+        "optionsTr": { "A": "Sürüm kontrolü", "B": "Dokümantasyon", "C": "Paydaş analizi", "D": "Etki analizi" },
+        "patternHint": "'updates diagrams + revises procedures' = Documentation. Diyagram/prosedür güncelleme.",
+        "whyWrong": { "A": "Version control kod/yapılandırma sürümüdür.", "C": "Paydaş analizi etkilenenleri belirler.", "D": "Etki analizi değişiklikten ÖNCE yapılır." }
+      }
+    },
+    {
+      "id": "1.3-q4",
+      "questionEn": "Which body is typically responsible for reviewing, evaluating, and approving proposed changes in an organization?",
+      "options": { "A": "SOC", "B": "Change Advisory Board (CAB)", "C": "Red team", "D": "Incident response team" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kurumda önerilen değişiklikleri inceleyip değerlendiren ve onaylayan kurul tipik olarak hangisidir?",
+        "optionsTr": { "A": "SOC", "B": "Değişiklik Danışma Kurulu (CAB)", "C": "Red team", "D": "Olay müdahale ekibi" },
+        "patternHint": "'review, evaluate, approve changes' = CAB. Değişiklik onay kurulu.",
+        "whyWrong": { "A": "SOC izleme/müdahale yapar.", "C": "Red team saldırı simülasyonu yapar.", "D": "IR ekibi olaylara yanıt verir." }
+      }
+    },
+    {
+      "id": "1.3-q5",
+      "questionEn": "Before approving a change, the team evaluates how it could affect connected systems and which services rely on the component being modified. This is BEST described as analyzing what?",
+      "options": { "A": "Dependencies", "B": "Maintenance window", "C": "Backout plan", "D": "Allow lists" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir değişikliği onaylamadan önce ekip, bağlı sistemleri nasıl etkileyebileceğini ve hangi servislerin değiştirilen bileşene dayandığını değerlendiriyor. Bu en iyi neyin analizidir?",
+        "optionsTr": { "A": "Bağımlılıklar", "B": "Bakım penceresi", "C": "Geri alma planı", "D": "İzin listeleri" },
+        "patternHint": "'which services rely on the component' = Dependencies. Bağımlı sistemler.",
+        "whyWrong": { "B": "Bakım penceresi zamandır.", "C": "Backout geri dönüş planıdır.", "D": "Allow list erişim listesidir." }
+      }
+    },
+    {
+      "id": "1.3-q6",
+      "questionEn": "After updating a service's configuration, the change does not take effect until the service is stopped and started again. Which technical implication is this?",
+      "options": { "A": "Legacy application", "B": "Service restart", "C": "Impact analysis", "D": "Ownership" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir servisin yapılandırması güncellendikten sonra, değişiklik servis durdurulup yeniden başlatılana kadar etkili olmuyor. Bu hangi teknik etkidir?",
+        "optionsTr": { "A": "Legacy uygulama", "B": "Servis yeniden başlatma", "C": "Etki analizi", "D": "Sahiplik" },
+        "patternHint": "'stopped and started again' = Service Restart. Yeniden başlatma gerekliliği.",
+        "whyWrong": { "A": "Legacy eski uygulamadır.", "C": "Etki analizi değerlendirmedir.", "D": "Ownership sorumluluktur." }
+      }
+    },
+    {
+      "id": "1.3-q7",
+      "questionEn": "A developer uses Git to track every modification to infrastructure configuration files, allowing the team to roll back to any prior version. Which concept is this?",
+      "options": { "A": "Version control", "B": "Backout plan", "C": "Maintenance window", "D": "Impact analysis" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir geliştirici, altyapı yapılandırma dosyalarındaki her değişikliği izlemek için Git kullanıyor ve ekibin herhangi bir önceki sürüme dönmesine olanak tanıyor. Bu hangi kavramdır?",
+        "optionsTr": { "A": "Sürüm kontrolü", "B": "Geri alma planı", "C": "Bakım penceresi", "D": "Etki analizi" },
+        "patternHint": "'Git + track every modification + roll back to any version' = Version Control. Git/sürüm geçmişi.",
+        "whyWrong": { "B": "Backout tek bir değişikliğin geri dönüş planıdır, sürüm sistemi değil.", "C": "Bakım penceresi zamandır.", "D": "Etki analizi değerlendirmedir." }
+      }
+    },
+    {
+      "id": "1.3-q8",
+      "questionEn": "An unauthorized configuration change made outside the formal process causes an outage. What does the absence of which control MOST directly indicate?",
+      "options": { "A": "Lack of an approval process", "B": "Lack of encryption", "C": "Lack of a honeypot", "D": "Lack of biometrics" },
+      "correct": "A",
+      "solution": {
+        "translation": "Resmi süreç dışında yapılan yetkisiz bir yapılandırma değişikliği bir kesintiye neden oluyor. Hangi kontrolün yokluğu en doğrudan buna işaret eder?",
+        "optionsTr": { "A": "Onay sürecinin eksikliği", "B": "Şifreleme eksikliği", "C": "Honeypot eksikliği", "D": "Biyometri eksikliği" },
+        "patternHint": "'unauthorized ... outside the formal process' = onay süreci eksikliği. Yetkisiz değişiklik = approval process yok.",
+        "whyWrong": { "B": "Şifreleme gizlilikle ilgili.", "C": "Honeypot tuzak sistemidir.", "D": "Biyometri kimlik doğrulamadır." }
+      }
+    },
+    {
+      "id": "1.3-q9",
+      "questionEn": "Before a change is rolled out, it is first applied in a test environment and its results are reviewed. Why is this step important for security?",
+      "options": {
+        "A": "It guarantees zero downtime",
+        "B": "It verifies the change works and does not introduce new vulnerabilities before production",
+        "C": "It replaces the need for a backout plan",
+        "D": "It eliminates the need for approval"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir değişiklik yayına alınmadan önce, ilk olarak bir test ortamında uygulanır ve sonuçları incelenir. Bu adım güvenlik için neden önemlidir?",
+        "optionsTr": {
+          "A": "Sıfır kesinti garanti eder",
+          "B": "Değişikliğin çalıştığını ve üretimden önce yeni açıklar getirmediğini doğrular",
+          "C": "Geri alma planı ihtiyacını ortadan kaldırır",
+          "D": "Onay ihtiyacını ortadan kaldırır"
+        },
+        "patternHint": "Test = üretimden önce doğrulama + yeni açık getirmediğinden emin olma. Mutlak ifadeli şıklar (guarantees/eliminates) genelde yanlış.",
+        "whyWrong": { "A": "'Garanti' mutlak ifade, tuzak.", "C": "Test backout'u gereksizleştirmez.", "D": "Test onayın yerine geçmez." }
+      }
+    },
+    {
+      "id": "1.3-q10",
+      "questionEn": "An organization documents a repeatable, step-by-step process that staff must follow each time they provision a new server securely. What is this document called?",
+      "options": { "A": "Standard operating procedure (SOP)", "B": "Backout plan", "C": "Risk register", "D": "Memorandum of understanding" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir kurum, personelin yeni bir sunucuyu güvenli şekilde her kurduğunda izlemesi gereken, tekrarlanabilir adım adım bir süreci belgeliyor. Bu belgeye ne denir?",
+        "optionsTr": { "A": "Standart işletim prosedürü (SOP)", "B": "Geri alma planı", "C": "Risk kayıt defteri", "D": "Mutabakat muhtırası" },
+        "patternHint": "'repeatable step-by-step process staff must follow' = SOP. Tekrarlanan standart adımlar.",
+        "whyWrong": { "B": "Backout geri dönüş planıdır.", "C": "Risk register risk listesidir.", "D": "MOU niyet beyanıdır." }
+      }
+    }
+  ]
+}

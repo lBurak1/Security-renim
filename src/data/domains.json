@@ -1,0 +1,72 @@
+{
+  "domains": [
+    {
+      "id": 1,
+      "title": "Genel Güvenlik Kavramları",
+      "titleEn": "General Security Concepts",
+      "weight": 12,
+      "modules": [
+        { "id": "1.1", "title": "Güvenlik Kontrolleri", "file": "domain-1/1.1-security-controls.json" },
+        { "id": "1.2", "title": "Temel Güvenlik Kavramları", "file": "domain-1/1.2-fundamental-concepts.json" },
+        { "id": "1.3", "title": "Değişim Yönetimi", "file": "domain-1/1.3-change-management.json" },
+        { "id": "1.4", "title": "Kriptografik Çözümler", "file": "domain-1/1.4-cryptography.json" }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Tehditler, Zafiyetler ve Önlemler",
+      "titleEn": "Threats, Vulnerabilities & Mitigations",
+      "weight": 22,
+      "modules": [
+        { "id": "2.1", "title": "Tehdit Aktörleri", "file": "domain-2/2.1-threat-actors.json" },
+        { "id": "2.2", "title": "Tehdit Vektörleri", "file": "domain-2/2.2-threat-vectors.json" },
+        { "id": "2.3", "title": "Zafiyet Türleri", "file": "domain-2/2.3-vulnerabilities.json" },
+        { "id": "2.4", "title": "Kötü Niyetli Aktivite", "file": "domain-2/2.4-malicious-activity.json" },
+        { "id": "2.5", "title": "Önlem Teknikleri", "file": "domain-2/2.5-mitigation.json" }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Güvenlik Mimarisi",
+      "titleEn": "Security Architecture",
+      "weight": 18,
+      "modules": [
+        { "id": "3.1", "title": "Mimari Modelleri", "file": "domain-3/3.1-architecture-models.json" },
+        { "id": "3.2", "title": "Kurumsal Altyapı", "file": "domain-3/3.2-enterprise-infrastructure.json" },
+        { "id": "3.3", "title": "Veri Koruma", "file": "domain-3/3.3-data-protection.json" },
+        { "id": "3.4", "title": "Dayanıklılık ve Kurtarma", "file": "domain-3/3.4-resilience-recovery.json" }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Güvenlik Operasyonları",
+      "titleEn": "Security Operations",
+      "weight": 28,
+      "modules": [
+        { "id": "4.1", "title": "Güvenlik Teknikleri", "file": "domain-4/4.1-security-techniques.json" },
+        { "id": "4.2", "title": "Varlık Yönetimi", "file": "domain-4/4.2-asset-management.json" },
+        { "id": "4.3", "title": "Zafiyet Yönetimi", "file": "domain-4/4.3-vulnerability-management.json" },
+        { "id": "4.4", "title": "İzleme ve Uyarı", "file": "domain-4/4.4-monitoring.json" },
+        { "id": "4.5", "title": "Kurumsal Yetenekler", "file": "domain-4/4.5-enterprise-capabilities.json" },
+        { "id": "4.6", "title": "Kimlik ve Erişim (IAM)", "file": "domain-4/4.6-iam.json" },
+        { "id": "4.7", "title": "Otomasyon ve Orkestrasyon", "file": "domain-4/4.7-automation.json" },
+        { "id": "4.8", "title": "Olay Müdahalesi", "file": "domain-4/4.8-incident-response.json" },
+        { "id": "4.9", "title": "Araştırma Veri Kaynakları", "file": "domain-4/4.9-investigation-data.json" }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Güvenlik Programı Yönetimi ve Gözetimi",
+      "titleEn": "Security Program Management & Oversight",
+      "weight": 20,
+      "modules": [
+        { "id": "5.1", "title": "Yönetişim", "file": "domain-5/5.1-governance.json" },
+        { "id": "5.2", "title": "Risk Yönetimi", "file": "domain-5/5.2-risk-management.json" },
+        { "id": "5.3", "title": "Üçüncü Taraf Risk", "file": "domain-5/5.3-third-party-risk.json" },
+        { "id": "5.4", "title": "Uyumluluk", "file": "domain-5/5.4-compliance.json" },
+        { "id": "5.5", "title": "Denetim ve Değerlendirme", "file": "domain-5/5.5-audits-assessments.json" },
+        { "id": "5.6", "title": "Güvenlik Farkındalığı", "file": "domain-5/5.6-security-awareness.json" }
+      ]
+    }
+  ]
+}

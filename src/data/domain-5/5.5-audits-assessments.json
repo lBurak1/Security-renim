@@ -1,0 +1,247 @@
+{
+  "moduleId": "5.5",
+  "title": "Denetim ve Değerlendirmeler",
+  "domainId": 5,
+  "documentation": [
+    {
+      "heading": "İç ve Dış Denetim",
+      "specTable": {
+        "title": "Denetim Türleri",
+        "columns": ["Tür", "Kim Yapar", "Bağımsızlık"],
+        "rows": [
+          ["Internal audit", "Kurumun kendi denetçileri", "Düşük — aynı kurum"],
+          ["External audit", "Bağımsız üçüncü taraf", "Yüksek — tarafsız"],
+          ["Regulatory audit", "Yasal otorite (hükümet)", "Zorunlu — yasal gereklilik"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Denetim Amaçları",
+          "items": [
+            "Compliance audit: Yasal/standart gereksinimlere uygunluk (HIPAA, PCI DSS).",
+            "Operational audit: Prosedürlerin verimlilik ve etkinliği.",
+            "Vulnerability assessment: Sistemlerdeki açıkların tespiti (saldırı değil, tarama).",
+            "Audit logs: Denetim sürecini destekleyen log kanıtları.",
+            "Attestation: Denetim sonucunu resmi olarak doğrulama."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Sızma Testi Türleri (Pentest)",
+      "specTable": {
+        "title": "Pentest Bilgi Düzeyleri",
+        "columns": ["Tür", "Tester Bilgisi", "Ne Simüle Eder"],
+        "rows": [
+          ["White box", "Tam bilgi (kaynak kod, şema, kimlik)", "Güvenilir iç kullanıcı / geliştirici"],
+          ["Gray box", "Kısmi bilgi (bazı iç detaylar)", "Kısmi erişimli iç saldırgan"],
+          ["Black box", "Sıfır bilgi", "Gerçek dış saldırgan"]
+        ]
+      }
+    },
+    {
+      "heading": "Pasif vs Aktif Keşif",
+      "specTable": {
+        "title": "Reconnaissance Yaklaşımları",
+        "columns": ["Tür", "Yöntem", "Hedef Bilgisi"],
+        "rows": [
+          ["Passive reconnaissance", "OSINT, DNS sorguları, web tarama — hedefe doğrudan temas YOK", "Düşük — algılanmaz"],
+          ["Active reconnaissance", "Port tarama (Nmap), servis sorgusu — hedefe doğrudan temas VAR", "Yüksek — loglanabilir"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Passive vs Active Recon",
+          "items": [
+            "Passive = hedefle doğrudan iletişim YOK (WHOIS, LinkedIn, Shodan, Google).",
+            "Active = hedefle doğrudan iletişim VAR (port scan, ping, banner grabbing).",
+            "'Without touching the target systems' = Passive."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Red / Blue / Purple Team",
+      "specTable": {
+        "title": "Ekip Türleri",
+        "columns": ["Ekip", "Rol", "Aktiviteler"],
+        "rows": [
+          ["Red team", "Saldırgan (offensive)", "Gerçekçi saldırı simülasyonu, penetrasyon"],
+          ["Blue team", "Savunmacı (defensive)", "Tespit, yanıt, izleme, koruma"],
+          ["Purple team", "Red + Blue iş birliği", "Saldırıları gözlemleyerek savunmayı güçlendirme"],
+          ["White team", "Yönetici/hakem", "Egzersizi planlar, kuralları belirler, gözlemler"]
+        ]
+      }
+    },
+    {
+      "heading": "Güvenlik Açığı Değerlendirmesi vs Sızma Testi",
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Vulnerability Assessment vs Pentest",
+          "items": [
+            "Vulnerability assessment = tarama + raporlama; SALDIRI YOK.",
+            "Penetration test = zafiyet bulma + GERÇEKTEN İSTİSMAR ETME.",
+            "'Just identify vulnerabilities, no exploitation' → Vulnerability assessment.",
+            "'Exploit to prove impact' → Penetration test."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Attacker team / offensive security / simulate real attacks", "maps_to": "Red Team", "explanation": "Saldırgan simülasyon ekibi." },
+    { "trigger": "Defender team / detect and respond / SOC", "maps_to": "Blue Team", "explanation": "Savunma ve tespit ekibi." },
+    { "trigger": "Red + Blue collaboration / improve defenses together", "maps_to": "Purple Team", "explanation": "Saldırgan+savunmacı iş birliği." },
+    { "trigger": "Full knowledge pentest / source code + credentials given", "maps_to": "White Box Test", "explanation": "Tam bilgiyle sızma testi." },
+    { "trigger": "Zero knowledge pentest / external attacker simulation", "maps_to": "Black Box Test", "explanation": "Sıfır bilgiyle dış saldırgan simülasyonu." },
+    { "trigger": "WHOIS, Google, LinkedIn, Shodan — no direct contact", "maps_to": "Passive Reconnaissance", "explanation": "Pasif keşif." },
+    { "trigger": "Nmap port scan, ping sweep — direct target contact", "maps_to": "Active Reconnaissance", "explanation": "Aktif keşif." },
+    { "trigger": "Scan for vulnerabilities without exploitation", "maps_to": "Vulnerability Assessment", "explanation": "Zafiyet değerlendirmesi." },
+    { "trigger": "Independent third-party security assessment", "maps_to": "External Audit", "explanation": "Dış bağımsız denetim." }
+  ],
+  "questions": [
+    {
+      "id": "5.5-q1",
+      "questionEn": "A penetration tester receives ZERO information about the target and must simulate a real external attacker with no insider knowledge. Which test type?",
+      "options": { "A": "White box", "B": "Gray box", "C": "Black box", "D": "Credentialed scan" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir sızma testi uzmanı, hedef hakkında SIFIR bilgi alıyor ve içeriden bilgisi olmayan gerçek bir dış saldırganı simüle etmesi gerekiyor. Hangi test türü?",
+        "optionsTr": { "A": "White box", "B": "Gray box", "C": "Black box", "D": "Kimlik bilgili tarama" },
+        "patternHint": "Sıfır bilgi + dış saldırgan simülasyonu = Black box.",
+        "whyWrong": { "A": "White box tam bilgi.", "B": "Gray box kısmi bilgi.", "D": "Credentialed scan zafiyet taraması türüdür." }
+      }
+    },
+    {
+      "id": "5.5-q2",
+      "questionEn": "A security team uses WHOIS, public DNS records, LinkedIn profiles, and Shodan without sending any packets to target systems. Which recon type?",
+      "options": { "A": "Active reconnaissance", "B": "Port scanning", "C": "Passive reconnaissance", "D": "Fuzzing" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir güvenlik ekibi, hedef sistemlere herhangi bir paket göndermeden WHOIS, genel DNS kayıtları, LinkedIn profilleri ve Shodan kullanıyor. Hangi keşif türü?",
+        "optionsTr": { "A": "Aktif keşif", "B": "Port tarama", "C": "Pasif keşif", "D": "Fuzzing" },
+        "patternHint": "'Without sending any packets + public sources' = Passive reconnaissance.",
+        "whyWrong": { "A": "Active doğrudan hedefle temas kurar.", "B": "Port scanning aktif keşif.", "D": "Fuzzing girdi tabanlı testtir." }
+      }
+    },
+    {
+      "id": "5.5-q3",
+      "questionEn": "A red team simulates a sophisticated attack using social engineering, phishing, and lateral movement over two weeks. Blue team defends in real-time. Purple team facilitates learning. Which exercise?",
+      "options": { "A": "Tabletop exercise", "B": "Vulnerability assessment", "C": "Full-scope red team vs blue team exercise", "D": "Credentialed scan" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir red team, iki hafta boyunca sosyal mühendislik, kimlik avı ve yanal hareket kullanarak gelişmiş saldırı simüle ediyor. Blue team gerçek zamanlı savunuyor. Purple team öğrenmeyi kolaylaştırıyor. Hangi egzersiz?",
+        "optionsTr": { "A": "Masa başı egzersiz", "B": "Zafiyet değerlendirmesi", "C": "Tam kapsamlı red team vs blue team egzersizi", "D": "Kimlik bilgili tarama" },
+        "patternHint": "Red (saldırı) + Blue (savunma) + Purple (iş birliği) = kapsamlı ekip egzersizi.",
+        "whyWrong": { "A": "Tabletop sadece tartışma.", "B": "Vuln assessment saldırı içermez.", "D": "Credentialed scan tarama türü." }
+      }
+    },
+    {
+      "id": "5.5-q4",
+      "questionEn": "A security assessment scans systems and reports a list of vulnerabilities with severity scores but does NOT attempt to exploit any of them. Which type?",
+      "options": { "A": "Penetration test", "B": "Vulnerability assessment", "C": "Red team exercise", "D": "Black box test" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir güvenlik değerlendirmesi sistemleri tarıyor ve şiddet skorlarıyla birlikte bir zafiyet listesi raporluyor ancak hiçbirini istismar etmeye çalışmıyor. Hangi tür?",
+        "optionsTr": { "A": "Sızma testi", "B": "Zafiyet değerlendirmesi", "C": "Red team egzersizi", "D": "Black box testi" },
+        "patternHint": "Tarama + rapor + istismar YOK = Vulnerability assessment.",
+        "whyWrong": { "A": "Pentest gerçekten istismar eder.", "C": "Red team tam saldırı simülasyonu.", "D": "Black box pentest terimidir." }
+      }
+    },
+    {
+      "id": "5.5-q5",
+      "questionEn": "An independent accounting firm audits a company's security controls for PCI DSS compliance. Which audit type?",
+      "options": { "A": "Internal audit", "B": "Self-assessment", "C": "External audit", "D": "Vulnerability scan" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bağımsız bir muhasebe firması, PCI DSS uyumu için bir şirketin güvenlik kontrollerini denetliyor. Hangi denetim türü?",
+        "optionsTr": { "A": "İç denetim", "B": "Öz değerlendirme", "C": "Dış denetim", "D": "Zafiyet taraması" },
+        "patternHint": "Bağımsız üçüncü taraf + uyumluluk = External audit.",
+        "whyWrong": { "A": "İç denetim aynı kurum tarafından yapılır.", "B": "Self-assessment kurumun kendi değerlendirmesi.", "D": "Vuln scan denetim değil." }
+      }
+    },
+    {
+      "id": "5.5-q6",
+      "questionEn": "A penetration tester uses Nmap to scan open ports and sends banner-grabbing requests to target services. Which reconnaissance type is this?",
+      "options": { "A": "Passive reconnaissance", "B": "Active reconnaissance", "C": "OSINT", "D": "Social engineering" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir sızma testi uzmanı, açık portları taramak ve hedef servislere banner grabbing istekleri göndermek için Nmap kullanıyor. Bu hangi keşif türü?",
+        "optionsTr": { "A": "Pasif keşif", "B": "Aktif keşif", "C": "OSINT", "D": "Sosyal mühendislik" },
+        "patternHint": "Nmap + hedef sisteme doğrudan paket gönderme = Active reconnaissance.",
+        "whyWrong": { "A": "Passive hedefle temas kurmaz.", "C": "OSINT açık kaynak araştırması (passive).", "D": "Social engineering insan manipülasyonu." }
+      }
+    },
+    {
+      "id": "5.5-q7",
+      "questionEn": "In a pentest engagement, the tester is given partial network diagrams and a standard user account but no admin credentials. Which box type?",
+      "options": { "A": "White box", "B": "Black box", "C": "Gray box", "D": "Red team" },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir sızma testi görevinde, testiciye kısmi ağ diyagramları ve standart bir kullanıcı hesabı veriliyor ama yönetici kimlik bilgileri yok. Hangi kutu türü?",
+        "optionsTr": { "A": "White box", "B": "Black box", "C": "Gray box", "D": "Red team" },
+        "patternHint": "Kısmi bilgi = Gray box.",
+        "whyWrong": { "A": "White box tam bilgi.", "B": "Black box hiç bilgi yok.", "D": "Red team renk değil bilgi düzeyidir." }
+      }
+    },
+    {
+      "id": "5.5-q8",
+      "questionEn": "The BLUE TEAM in a security exercise is primarily responsible for:",
+      "options": {
+        "A": "Simulating attacks on the organization",
+        "B": "Detecting, responding to, and defending against attacks",
+        "C": "Providing intelligence to the red team",
+        "D": "Writing new attack exploits"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir güvenlik egzersizinde BLUE TEAM öncelikli olarak şundan sorumludur:",
+        "optionsTr": {
+          "A": "Kuruma saldırı simüle etme",
+          "B": "Saldırıları tespit etme, yanıtlama ve savunma",
+          "C": "Red team'e istihbarat sağlama",
+          "D": "Yeni saldırı exploitleri yazma"
+        },
+        "patternHint": "Blue = savunmacı = tespit + yanıt + koruma.",
+        "whyWrong": { "A": "Saldırı simülasyonu Red team.", "C": "Intel sağlama Purple/White team rolü.", "D": "Exploit yazma Red team." }
+      }
+    },
+    {
+      "id": "5.5-q9",
+      "questionEn": "Which type of audit provides the HIGHEST level of independence and objectivity?",
+      "options": { "A": "Internal audit by the IT department", "B": "Self-assessment by the security team", "C": "External audit by an independent third party", "D": "Manager sign-off" },
+      "correct": "C",
+      "solution": {
+        "translation": "Hangi denetim türü EN YÜKSEK bağımsızlık ve tarafsızlık düzeyi sağlar?",
+        "optionsTr": { "A": "BT departmanı tarafından iç denetim", "B": "Güvenlik ekibinin öz değerlendirmesi", "C": "Bağımsız üçüncü tarafın dış denetimi", "D": "Yönetici onayı" },
+        "patternHint": "En yüksek bağımsızlık = External audit (bağımsız üçüncü taraf).",
+        "whyWrong": { "A": "İç denetim çıkar çatışması riski taşır.", "B": "Öz değerlendirme en az bağımsız.", "D": "Yönetici onayı denetim değildir." }
+      }
+    },
+    {
+      "id": "5.5-q10",
+      "questionEn": "A purple team exercise differs from a red vs. blue team exercise in that purple team:",
+      "options": {
+        "A": "Only performs offensive actions",
+        "B": "Only performs defensive actions",
+        "C": "Facilitates real-time knowledge sharing between red and blue to improve defenses immediately",
+        "D": "Replaces both red and blue teams entirely"
+      },
+      "correct": "C",
+      "solution": {
+        "translation": "Bir purple team egzersizi, kırmızı vs. mavi egzersizinden farklıdır çünkü purple team:",
+        "optionsTr": {
+          "A": "Yalnızca saldırı eylemleri gerçekleştirir",
+          "B": "Yalnızca savunma eylemleri gerçekleştirir",
+          "C": "Savunmayı hemen iyileştirmek için kırmızı ve mavi arasında gerçek zamanlı bilgi paylaşımını kolaylaştırır",
+          "D": "Hem kırmızı hem mavi ekibin yerini tamamen alır"
+        },
+        "patternHint": "Purple = Red + Blue birlikte çalışır = gerçek zamanlı öğrenme/savunma geliştirme.",
+        "whyWrong": { "A": "Sadece saldırı = Red.", "B": "Sadece savunma = Blue.", "D": "Her ikisinin yerini almaz." }
+      }
+    }
+  ]
+}

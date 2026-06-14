@@ -1,0 +1,220 @@
+{
+  "moduleId": "2.2",
+  "title": "Tehdit Vektörleri ve Saldırı Yüzeyleri",
+  "domainId": 2,
+  "documentation": [
+    {
+      "heading": "Vektör ve Saldırı Yüzeyi Kavramı",
+      "body": "Threat vector (tehdit vektörü) = saldırganın sisteme girmek için kullandığı YOL/yöntem. Attack surface (saldırı yüzeyi) = saldırıya açık tüm noktaların TOPLAMI. Saldırı yüzeyini daraltmak (gereksiz servis/port kapatma, az yazılım) riski azaltır.",
+      "infoBoxes": [
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Mesaj Tabanlı Vektörler",
+          "items": [
+            "Email: En yaygın vektör (phishing, zararlı ek).",
+            "SMS (Smishing): SMS ile phishing.",
+            "Instant Messaging (IM): Anlık mesajla.",
+            "Voice call (Vishing): Telefon/sesle."
+          ]
+        },
+        {
+          "kind": "teknik-spesifikasyon",
+          "title": "Diğer Vektörler",
+          "items": [
+            "Image-based: Zararlı resim dosyası.",
+            "File-based: Makro içeren belge (.docx, .xlsm), zararlı PDF.",
+            "Removable device: USB bellek (BadUSB, USB drop).",
+            "Vulnerable software: Yamasız/eski yazılım (client-based vs agentless).",
+            "Unsupported systems: Destek dışı, yama almayan.",
+            "Unsecure networks: Wireless (open Wi-Fi), wired, Bluetooth.",
+            "Open service ports: Açık/gereksiz portlar.",
+            "Default credentials: Varsayılan kullanıcı/şifre.",
+            "Supply chain: MSP, vendor, donanım/yazılım tedarikçisi."
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "Sosyal Mühendislik Teknikleri (Tam Liste)",
+      "specTable": {
+        "title": "Social Engineering",
+        "columns": ["Teknik", "Açıklama"],
+        "rows": [
+          ["Phishing", "Genel sahte e-posta ile bilgi avı"],
+          ["Spear phishing", "Belirli kişi/gruba ÖZEL hedefli"],
+          ["Whaling", "ÜST düzey yöneticiye (CEO/CFO) yönelik"],
+          ["Vishing", "Sesli (telefon) phishing"],
+          ["Smishing", "SMS ile phishing"],
+          ["Pretexting", "İnandırıcı senaryo/bahane uydurma"],
+          ["Business Email Compromise (BEC)", "Yönetici kimliğine bürünüp transfer talebi"],
+          ["Pharming", "DNS yönlendirmesiyle sahte siteye çekme"],
+          ["Watering hole", "Hedefin sık girdiği meşru siteyi zehirleme"],
+          ["Typosquatting", "Yazım hatalı alan adı (gogle.com)"],
+          ["Brand impersonation", "Tanınmış marka taklidi"],
+          ["Impersonation", "Başka kişi/kurum gibi davranma"],
+          ["Misinformation/Disinformation", "Yanlış/kasıtlı yanıltıcı bilgi yayma"]
+        ]
+      },
+      "infoBoxes": [
+        {
+          "kind": "tuzak",
+          "title": "Phishing Türlerini Ayırma",
+          "items": [
+            "GENEL kitle → Phishing.",
+            "BELİRLİ kişi/departman → Spear phishing.",
+            "ÜST yönetici (CEO/CFO) → Whaling.",
+            "TELEFON/ses → Vishing. SMS → Smishing.",
+            "Sahte transfer/CEO taklidi → BEC.",
+            "DNS yönlendirme → Pharming. Meşru site zehirleme → Watering hole."
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    { "trigger": "Phone call / Voice / Caller pretends", "maps_to": "Vishing", "explanation": "Telefonla phishing." },
+    { "trigger": "Text message / SMS link", "maps_to": "Smishing", "explanation": "SMS ile phishing." },
+    { "trigger": "Targets the CEO / executive / senior leader", "maps_to": "Whaling", "explanation": "Üst yöneticiyi hedefleyen." },
+    { "trigger": "Targets a specific person / department", "maps_to": "Spear Phishing", "explanation": "Belirli kişiye özel." },
+    { "trigger": "Fake invoice / Wire transfer / Pretends to be the boss", "maps_to": "Business Email Compromise (BEC)", "explanation": "Yönetici taklidiyle ödeme talebi." },
+    { "trigger": "DNS redirect to fake site", "maps_to": "Pharming", "explanation": "DNS ile sahte siteye yönlendirme." },
+    { "trigger": "Compromises a site the target frequently visits", "maps_to": "Watering Hole", "explanation": "Uğranan siteyi zehirleme." },
+    { "trigger": "Misspelled domain / gogle.com", "maps_to": "Typosquatting", "explanation": "Yazım hatalı alan adı." },
+    { "trigger": "USB stick left in parking lot", "maps_to": "Removable device (USB drop)", "explanation": "Bırakılmış USB vektörü." },
+    { "trigger": "Username admin / password admin", "maps_to": "Default Credentials", "explanation": "Varsayılan kimlik bilgileri." },
+    { "trigger": "Invented believable scenario to gain trust", "maps_to": "Pretexting", "explanation": "Bahane/senaryo uydurma." },
+    { "trigger": "Spreading false information to deceive", "maps_to": "Disinformation", "explanation": "Kasıtlı yanıltıcı bilgi." }
+  ],
+  "questions": [
+    {
+      "id": "2.2-q1",
+      "questionEn": "An attacker calls the help desk pretending to be the CFO and urgently requests a password reset before a board meeting. Which technique BEST describes this?",
+      "options": { "A": "Smishing", "B": "Vishing", "C": "Watering hole", "D": "Typosquatting" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir saldırgan help desk'i arayıp CFO gibi davranarak toplantı öncesi acil parola sıfırlama istiyor. En iyi teknik?",
+        "optionsTr": { "A": "Smishing", "B": "Vishing", "C": "Watering hole", "D": "Typosquatting" },
+        "patternHint": "'calls' = ses/telefon = Vishing.",
+        "whyWrong": { "A": "Smishing SMS'tir.", "C": "Watering hole site zehirler.", "D": "Typosquatting alan adıdır." }
+      }
+    },
+    {
+      "id": "2.2-q2",
+      "questionEn": "Several finance employees receive a personalized email referencing a real project, appearing to come from their manager, asking to review an attached invoice. Which attack?",
+      "options": { "A": "Phishing", "B": "Spear phishing", "C": "Whaling", "D": "Pharming" },
+      "correct": "B",
+      "solution": {
+        "translation": "Birkaç finans çalışanı, gerçek bir projeye atıf yapan, yöneticilerinden geliyormuş gibi görünen kişiselleştirilmiş bir e-posta alıyor. Hangi saldırı?",
+        "optionsTr": { "A": "Phishing", "B": "Spear phishing", "C": "Whaling", "D": "Pharming" },
+        "patternHint": "'personalized' + 'specific department' = Spear phishing. CEO olsaydı Whaling.",
+        "whyWrong": { "A": "Phishing geneldir.", "C": "Whaling üst yöneticiyi hedefler.", "D": "Pharming DNS yönlendirmesidir." }
+      }
+    },
+    {
+      "id": "2.2-q3",
+      "questionEn": "A tester scatters USB drives labeled 'Q4 Bonuses' in the parking lot hoping an employee plugs one in. Which threat vector?",
+      "options": { "A": "Supply chain", "B": "Removable device", "C": "Open service ports", "D": "Default credentials" },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir testçi otoparka 'Q4 Primleri' etiketli USB'ler bırakıyor. Hangi tehdit vektörü?",
+        "optionsTr": { "A": "Tedarik zinciri", "B": "Çıkarılabilir aygıt", "C": "Açık portlar", "D": "Varsayılan kimlik bilgileri" },
+        "patternHint": "'USB drives' = Removable device.",
+        "whyWrong": { "A": "Tedarik zinciri vendor üzerinden.", "C": "Port ağ tabanlıdır.", "D": "Varsayılan parola farklı." }
+      }
+    },
+    {
+      "id": "2.2-q4",
+      "questionEn": "Attackers compromise a popular industry news website that their targets visit daily, planting malware to infect those specific visitors. Which attack?",
+      "options": { "A": "Whaling", "B": "Watering hole", "C": "Smishing", "D": "Pharming" },
+      "correct": "B",
+      "solution": {
+        "translation": "Saldırganlar, hedeflerinin her gün ziyaret ettiği popüler bir sektör haber sitesini ele geçirip o ziyaretçilere zararlı bulaştırıyor. Hangi saldırı?",
+        "optionsTr": { "A": "Whaling", "B": "Watering hole", "C": "Smishing", "D": "Pharming" },
+        "patternHint": "'site the targets visit daily' + zehirleme = Watering hole.",
+        "whyWrong": { "A": "Whaling e-posta hedeflemesidir.", "C": "Smishing SMS'tir.", "D": "Pharming DNS yönlendirir, site zehirlemez." }
+      }
+    },
+    {
+      "id": "2.2-q5",
+      "questionEn": "A user types 'gooogle.com' and lands on a malicious lookalike site. Which technique exploited the typo?",
+      "options": { "A": "Typosquatting", "B": "Pharming", "C": "Vishing", "D": "Pretexting" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir kullanıcı 'gooogle.com' yazıp zararlı bir taklit siteye düşüyor. Yazım hatasını hangi teknik kullandı?",
+        "optionsTr": { "A": "Typosquatting", "B": "Pharming", "C": "Vishing", "D": "Pretexting" },
+        "patternHint": "Yanlış yazılmış alan adı = Typosquatting.",
+        "whyWrong": { "B": "Pharming DNS manipülasyonudur, kullanıcı doğru yazsa da yönlenir.", "C": "Vishing sestir.", "D": "Pretexting senaryo uydurmaktır." }
+      }
+    },
+    {
+      "id": "2.2-q6",
+      "questionEn": "An email impersonating the CEO instructs the finance team to urgently wire $50,000 to a new vendor account. Which attack is this?",
+      "options": { "A": "Business Email Compromise (BEC)", "B": "Watering hole", "C": "Smishing", "D": "Typosquatting" },
+      "correct": "A",
+      "solution": {
+        "translation": "CEO'yu taklit eden bir e-posta, finans ekibine acilen yeni bir tedarikçi hesabına 50.000$ göndermesini söylüyor. Hangi saldırı?",
+        "optionsTr": { "A": "BEC", "B": "Watering hole", "C": "Smishing", "D": "Typosquatting" },
+        "patternHint": "CEO taklidi + transfer talebi = BEC.",
+        "whyWrong": { "B": "Site zehirleme yok.", "C": "SMS değil e-posta.", "D": "Alan adı tuzağı değil." }
+      }
+    },
+    {
+      "id": "2.2-q7",
+      "questionEn": "A network scan reveals a server with Telnet (23), FTP (21), and an old web service exposed to the internet. Which threat vector category does this represent?",
+      "options": { "A": "Open service ports", "B": "Phishing", "C": "Removable media", "D": "Supply chain" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir ağ taraması, internete açık Telnet (23), FTP (21) ve eski bir web servisi olan bir sunucu ortaya çıkarıyor. Hangi tehdit vektörü kategorisi?",
+        "optionsTr": { "A": "Açık servis portları", "B": "Phishing", "C": "Çıkarılabilir medya", "D": "Tedarik zinciri" },
+        "patternHint": "İnternete açık gereksiz servisler/portlar = Open service ports.",
+        "whyWrong": { "B": "İnsan hedefli değil.", "C": "USB yok.", "D": "Tedarikçi yok." }
+      }
+    },
+    {
+      "id": "2.2-q8",
+      "questionEn": "A managed service provider (MSP) with remote access to many clients is breached, and the attacker uses that access to reach all of its customers. Which vector is this?",
+      "options": { "A": "Supply chain", "B": "Smishing", "C": "Default credentials", "D": "Watering hole" },
+      "correct": "A",
+      "solution": {
+        "translation": "Birçok müşteriye uzaktan erişimi olan bir MSP ele geçiriliyor ve saldırgan bu erişimle tüm müşterilerine ulaşıyor. Hangi vektör?",
+        "optionsTr": { "A": "Tedarik zinciri", "B": "Smishing", "C": "Varsayılan kimlik bilgileri", "D": "Watering hole" },
+        "patternHint": "MSP/vendor üzerinden müşterilere ulaşma = Supply chain.",
+        "whyWrong": { "B": "SMS değil.", "C": "Varsayılan parola sorunu belirtilmiyor.", "D": "Site zehirleme yok." }
+      }
+    },
+    {
+      "id": "2.2-q9",
+      "questionEn": "An attacker invents a convincing story, claiming to be an IT auditor needing access to verify compliance, to manipulate an employee. Which technique is this?",
+      "options": { "A": "Pretexting", "B": "Pharming", "C": "Tailgating", "D": "Credential stuffing" },
+      "correct": "A",
+      "solution": {
+        "translation": "Bir saldırgan, bir çalışanı manipüle etmek için uyumu doğrulamak isteyen bir BT denetçisi olduğunu iddia eden inandırıcı bir hikaye uyduruyor. Hangi teknik?",
+        "optionsTr": { "A": "Pretexting", "B": "Pharming", "C": "Tailgating", "D": "Credential stuffing" },
+        "patternHint": "'invents a convincing story/scenario' = Pretexting.",
+        "whyWrong": { "B": "Pharming DNS'tir.", "C": "Tailgating fiziksel geçiştir.", "D": "Credential stuffing parola saldırısıdır." }
+      }
+    },
+    {
+      "id": "2.2-q10",
+      "questionEn": "What is the BEST way to reduce an organization's overall attack surface?",
+      "options": {
+        "A": "Install more software on every endpoint",
+        "B": "Disable unnecessary services, close unused ports, and remove unneeded software",
+        "C": "Open all firewall ports for flexibility",
+        "D": "Use default credentials for convenience"
+      },
+      "correct": "B",
+      "solution": {
+        "translation": "Bir kurumun genel saldırı yüzeyini azaltmanın EN İYİ yolu nedir?",
+        "optionsTr": {
+          "A": "Her uç noktaya daha fazla yazılım kurmak",
+          "B": "Gereksiz servisleri kapatmak, kullanılmayan portları kapatmak ve gereksiz yazılımı kaldırmak",
+          "C": "Esneklik için tüm firewall portlarını açmak",
+          "D": "Kolaylık için varsayılan kimlik bilgileri kullanmak"
+        },
+        "patternHint": "Saldırı yüzeyini daraltma = gereksiz servis/port/yazılımı kaldırma.",
+        "whyWrong": { "A": "Daha fazla yazılım yüzeyi büyütür.", "C": "Açık port yüzeyi büyütür.", "D": "Varsayılan parola risk artırır." }
+      }
+    }
+  ]
+}
