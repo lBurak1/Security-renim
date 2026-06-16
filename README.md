@@ -39,7 +39,7 @@ Tüm ilerleme (çözülen sorular, doğruluk oranı, işaretlenen sorular, eklen
 
 ```bash
 # Projeyi İndir
-git clone https://github.com/KULLANICI_ADI/Security-renim.git
+git clone https://github.com/lBurak1/Security-renim.git
 cd Security-renim
 
 # Bağımlılıkları Yükle
