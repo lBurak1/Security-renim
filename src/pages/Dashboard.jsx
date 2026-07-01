@@ -53,37 +53,11 @@ export default function Dashboard() {
   const totalG = getAllGlossary().length
 
   const status = getAccuracyStatus(stats.accuracy, stats.total)
-  const correctNeeded = Math.ceil(90 * PASS_THRESHOLD / 100)
-
   return (
     <div className="space-y-5 max-w-5xl">
       <div>
         <h1 className="text-2xl font-bold text-white">Genel Bakış</h1>
         <p className="text-slate-400 text-sm">SY0-701 hazırlık ilerlemen</p>
-      </div>
-
-      {/* Exam structure banner */}
-      <div className="card p-4">
-        <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
-          <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Sınav Yapısı — SY0-701</span>
-          <Link to="/exam-info" className="text-xs text-brand hover:text-blue-400 transition">Detaylı bilgi →</Link>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {[
-            { label: 'Soru', value: '≤ 90' },
-            { label: 'Süre', value: '90 dk' },
-            { label: 'Geçme puanı', value: '750 / 900' },
-            { label: 'Doğru gerekmez', value: `~${correctNeeded} / 90` },
-          ].map((s) => (
-            <div key={s.label} className="bg-panel2 rounded-lg px-3 py-2.5 text-center">
-              <div className="text-base md:text-lg font-bold text-white">{s.value}</div>
-              <div className="text-xs text-slate-500 mt-0.5">{s.label}</div>
-            </div>
-          ))}
-        </div>
-        <p className="text-xs text-slate-500 mt-3">
-          Yanlış cevap puan düşürmez — her soruyu cevapla. Puan 100–900 arası ölçeklenir, geçme eşiği 750 (%83).
-        </p>
       </div>
 
       {/* Performance interpretation */}

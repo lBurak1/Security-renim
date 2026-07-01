@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useProgress } from '../../store/useProgress.js'
 
 const LS_KEY = 'secplus-exam-date'
@@ -35,9 +36,10 @@ export default function TopBar({ onMenuClick }) {
           <span className="w-5 h-0.5 bg-slate-300 block" />
           <span className="w-5 h-0.5 bg-slate-300 block" />
         </button>
-        <p className="text-xs md:text-sm text-slate-400 hidden sm:block">
-          CompTIA Security+ · Türkçe / İngilizce
-        </p>
+        <div className="hidden sm:flex items-center gap-2">
+          <p className="text-xs md:text-sm text-slate-400">CompTIA Security+ · Türkçe / İngilizce</p>
+          <Link to="/exam-info" className="text-xs text-slate-500 hover:text-slate-300 border border-line rounded px-2 py-0.5 transition">Sınav Yapısı</Link>
+        </div>
         <p className="text-xs text-slate-400 sm:hidden">Security+ SY0-701</p>
       </div>
 
