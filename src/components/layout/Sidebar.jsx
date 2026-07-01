@@ -97,6 +97,7 @@ export default function Sidebar({ open: mobileOpen, onClose }) {
           { to: '/flashcards', label: 'Akilli Kartlar' },
           { to: '/review', label: 'Tekrar (Yanlis/Isaretli)' },
           { to: '/exam', label: 'Deneme Sinavi' },
+          { to: '/exam-info', label: 'Sinav Yapisi' },
         ].map((l) => (
           <NavLink
             key={l.to}

@@ -10,6 +10,7 @@ import AcronymsPage from './pages/AcronymsPage.jsx'
 import ReviewPage from './pages/ReviewPage.jsx'
 import FlashcardsPage from './pages/FlashcardsPage.jsx'
 import VocabularyPage from './pages/VocabularyPage.jsx'
+import ExamInfoPage from './pages/ExamInfoPage.jsx'
 
 export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="/review" element={<ReviewPage />} />
             <Route path="/exam" element={<ExamSimPage />} />
             <Route path="/vocabulary" element={<VocabularyPage />} />
+            <Route path="/exam-info" element={<ExamInfoPage />} />
           </Routes>
         </main>
       </div>
