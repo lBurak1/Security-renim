@@ -60,6 +60,10 @@ export default function ExamInfoPage() {
           { label: 'Süre', value: '90 dk', sub: '~1 dk/soru' },
           { label: 'Geçme Puanı', value: '750', sub: '900 üzerinden' },
           { label: 'Geçme Oranı', value: '%83', sub: 'yaklaşık eşik' },
+          { label: 'Min. Doğru Soru', value: '~75', sub: '90 sorudan' },
+          { label: 'Max. Yanlış', value: '~15', sub: 'yapabilirsin' },
+          { label: 'PBQ Sayısı', value: '3–5', sub: 'sınav başında' },
+          { label: 'Soru Tipleri', value: '4', sub: 'format' },
         ].map((s) => (
           <div key={s.label} className="card p-4 text-center">
             <div className="text-2xl md:text-3xl font-bold text-white">{s.value}</div>
